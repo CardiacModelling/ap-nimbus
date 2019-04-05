@@ -1,0 +1,35 @@
+<form [formGroup]="inputForm"
+      class="form-horizontal"
+      (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <p></p>
+    <div class="row">
+      <div class="col-sm-1">Select compound ...</div>
+      <div class="col-sm-2">
+        <mat-form-field>
+          <mat-select class="form-control"
+                      formControlName="fcCompoundId">
+            <mat-option *ngFor="let compound of compounds"
+                        [value]="compound.id">
+              {{compound.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('fcCompoundId', 'required')">Please select a compound identifier !</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-1">
+        <button [disabled]='inputForm.invalid' class="btn btn-success"
+                                               type="submit">Retrieve data</button>
+      </div>
+      <div class="col-sm-8"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+<pre style="background-color: #ffe; border: double #ddd 3px;">
+{{compoundData}}
+</pre>
+      </div>
+    </div>
+  </div>
+</form>

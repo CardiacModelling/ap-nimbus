@@ -1,0 +1,18 @@
+{
+  "compounds": [
+    { "id" : "cmpd1",
+      "name" : "cmpd1" },
+    { "id" : "cmpd2",
+      "name" : "cmpd2" },
+    { "id" : "cmpd3",
+      "name" : "cmpd3" },
+    { "id" : "cmpd4",
+      "name" : "cmpd4" },
+    { "id" : "cmpd5",
+      "name" : "cmpd5" },
+    { "id" : "cmpd6",
+      "name" : "cmpd6" },
+    { "id" : "cmpd7",
+      "name" : "cmpd7" }
+  ]
+}
