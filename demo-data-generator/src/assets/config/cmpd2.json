@@ -1,0 +1,41 @@
+{
+  "identifier" : "cmpd2",
+  "data" :
+    {
+      "experimental" : [],
+      "assay" :
+        [
+          {
+            "groupName" : "QSAR",
+            "groupLevel" : 0,
+            "inputValues" : 
+              [
+                {
+                  "sourceAssayName":"QSAR",
+                  "strategyOrders":"",
+                  "hills":"1.0000000000",
+                  "ionChannelName":"hERG",
+                  "pIC50s":"5.2000000000",
+                  "originals":"true"
+                },
+                {
+                  "sourceAssayName":"QSAR",
+                  "strategyOrders":"",
+                  "hills":"1.0000000000",
+                  "ionChannelName":"NaV1_5",
+                  "pIC50s":"4.6000000000",
+                  "originals":"true"
+                },
+                {
+                  "sourceAssayName":"QSAR",
+                  "strategyOrders":"",
+                  "hills":"1.0000000000",
+                  "ionChannelName":"CaV1_2",
+                  "pIC50s":"3.0000000000",
+                  "originals":"true"
+                }
+              ]
+          }
+        ]
+    }
+}
