@@ -1,7 +1,20 @@
-<label class="image-upload-container btn btn-bwm">
-  <span>Select Image</span>
-  <input #imageInput
+<label class="btn btn-bwm">
+  <span>Select input data file : </span>
+  <input #jsonInput
          type="file"
-         accept="image/*"
-         (change)="processFile(imageInput)">
+         accept="application/json"
+         (change)="processJSON(jsonInput)">
 </label>
+
+<div *ngIf="selectedFile">
+  <div *ngIf="selectedFile.status === 'ok'">
+    <app-simulation-defaults></app-simulation-defaults>
+  </div>
+  <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> JSON Upload Failed!</div>
+</div>
+
+<div>
+<pre>
+{{content}}
+</pre>
+</div>

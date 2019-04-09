@@ -1,9 +1,16 @@
+import { DefaultApPredictConfigImpl } from '../app/service/default-ap-predict-config';
+import { DefaultInputParserImpl } from '../app/service/default-input-parser';
+import { DefaultInputProcessorImpl } from '../app/service/default-input-processor';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apPredictConfigImpl: DefaultApPredictConfigImpl,
+  inputParserImpl: DefaultInputParserImpl,
+  inputProcessorImpl: DefaultInputProcessorImpl
 };
 
 /*

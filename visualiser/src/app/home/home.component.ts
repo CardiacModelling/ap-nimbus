@@ -1,10 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { ImageService } from './service/image.service';
+import { InputParserService } from '../service/input-parser.service';
+import { InputProcessorService } from '../service/input-processor.service';
 
+/**
+ * https://medium.freecodecamp.org/how-to-make-image-upload-easy-with-angular-1ed14cb2773b
+ */
 class ImageSnippet {
-    constructor(public src: string, public file: File) {}
-  }
+  pending: boolean = false;
+  status: string = 'init';
+
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-home',
@@ -14,23 +21,47 @@ class ImageSnippet {
 
 export class HomeComponent implements OnInit {
 
+  content: string;
   selectedFile: ImageSnippet;
 
-  constructor(private imageService: ImageService){}
+  constructor(@Inject('InputParserService')
+                     private inputParserService: InputParserService,
+              @Inject('InputProcessorService')
+                     private inputProcessorService: InputProcessorService) {}
 
   ngOnInit(): void {}
 
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
+  private onSuccess() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'ok';
+  }
+
+  private onError() {
+    this.selectedFile.pending = false;
+    this.selectedFile.status = 'fail';
+    this.selectedFile.src = '';
+  }
+
+  processJSON(jsonInput: any) {
+    const file: File = jsonInput.files[0];
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
-
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.imageService.uploadImage(this.selectedFile.file).subscribe((res) => {},(err) => {});
+      this.selectedFile.pending = true;
+
+      var inputDataJSON = this.inputParserService.parseInput(this.selectedFile.src);
+
+      if (inputDataJSON == null) {
+        this.onError();
+        this.content = 'Could not parse the uploaded file - JSON format required.'
+      } else {
+        this.onSuccess();
+        this.content = JSON.stringify(this.inputProcessorService.processInput(inputDataJSON), null, 2);
+      }
     });
 
-    reader.readAsDataURL(file);
+    reader.readAsText(file);
   }
 }

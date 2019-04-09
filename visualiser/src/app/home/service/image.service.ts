@@ -3,6 +3,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+/**
+ * https://medium.freecodecamp.org/how-to-make-image-upload-easy-with-angular-1ed14cb2773b
+ */
+
 @Injectable({
   providedIn: 'root'
 })

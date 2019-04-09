@@ -13,10 +13,13 @@ import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ContactComponent } from './contact/contact.component';
+import { DefaultInputParserImpl } from './service/default-input-parser';
+import { DefaultInputProcessorImpl } from './service/default-input-processor';
 import { HomeComponent } from './home/home.component';
+import { InputParserService } from './service/input-parser.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PrivacyComponent } from './privacy/privacy.component';
-
+import { SimulationDefaultsComponent } from './component/simulation-defaults/simulation-defaults.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
     HomeComponent,
     PrivacyComponent,
     PageNotFoundComponent,
+    SimulationDefaultsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -39,6 +43,12 @@ import { PrivacyComponent } from './privacy/privacy.component';
     MatSelectModule,
   ],
   providers: [
+    { provide: 'ApPredictConfigService',
+      useClass: environment.apPredictConfigImpl },
+    { provide: 'InputParserService',
+      useClass: environment.inputParserImpl },
+    { provide: 'InputProcessorService',
+      useClass: environment.inputProcessorImpl }
   ],
   bootstrap: [AppComponent]
 })
