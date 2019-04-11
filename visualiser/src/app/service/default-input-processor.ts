@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { InputProcessorService } from './input-processor.service';
 
 @Injectable()
-export class DefaultInputProcessorImpl implements InputProcessorService {
+export class DefaultInputProcessorServiceImpl implements InputProcessorService {
+
   /**
    * {@link InputProcessorService#processInput }
    */
@@ -36,4 +37,5 @@ export class DefaultInputProcessorImpl implements InputProcessorService {
              "concentrations": concentrations,
              "assay": inputData['data'].assay };
   }
+
 }

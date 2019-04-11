@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { InputParserService } from '../service/input-parser.service';
 import { InputProcessorService } from '../service/input-processor.service';
-import { SimulationSettingsComponent } from '../component/simulation-settings/simulation-settings.component';
+import { SimulationsService } from '../service/simulations.service';
 
 /**
  * https://medium.freecodecamp.org/how-to-make-image-upload-easy-with-angular-1ed14cb2773b
@@ -22,16 +22,17 @@ class JSONSnippet {
 
 export class HomeComponent implements OnInit {
 
-  content: string;
   selectedFile: JSONSnippet;
 
   processedInputData: object;
+  showResults: boolean = false;
 
   constructor(@Inject('InputParserService')
                      private inputParserService: InputParserService,
               @Inject('InputProcessorService')
                      private inputProcessorService: InputProcessorService,
-              private simulationSettingsComponent: SimulationSettingsComponent) {}
+              @Inject('SimulationsService')
+                     private simulationsService: SimulationsService) {}
 
   ngOnInit(): void {}
 
@@ -47,6 +48,8 @@ export class HomeComponent implements OnInit {
   }
 
   processJSON(jsonInput: any) {
+    this.showResults = false;
+
     const file: File = jsonInput.files[0];
     const reader = new FileReader();
 
@@ -55,21 +58,23 @@ export class HomeComponent implements OnInit {
 
       this.selectedFile.pending = true;
 
-      var inputData = this.inputParserService.parseInput(this.selectedFile.src);
+      const inputData = this.inputParserService.parseInput(this.selectedFile.src);
 
-      if (inputData == null) {
+      if (inputData == null || inputData['data'] === undefined) {
         this.onError();
-        this.content = 'Could not parse the uploaded file - JSON format required.'
       } else {
         this.onSuccess();
         this.processedInputData = this.inputProcessorService.processInput(inputData);
-        this.content = JSON.stringify(this.processedInputData, null, 2);
-
-        // Redraw the simulation settings based on processed input data.
-        //this.simulationSettingsComponent.redraw(this.processedInputData);
       }
     });
 
     reader.readAsText(file);
+  }
+
+  public runSimulations(simulationsInput: object) {
+    this.showResults = true;
+    simulationsInput['assay'] = this.processedInputData['assay'];
+
+    this.simulationsService.runSimulations(simulationsInput)
   }
 }

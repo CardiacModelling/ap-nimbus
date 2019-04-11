@@ -11,7 +11,7 @@ import appredict from '../../assets/config/appredict.json';
  * Default `ApPredict` simulations default values configuration service.
  */
 @Injectable()
-export class DefaultApPredictConfigImpl implements ApPredictConfigService {
+export class DefaultApPredictConfigServiceImpl implements ApPredictConfigService {
 
   models: Model[] = appredict.models;
 

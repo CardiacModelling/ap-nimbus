@@ -15,8 +15,8 @@ import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ContactComponent } from './contact/contact.component';
-import { DefaultInputParserImpl } from './service/default-input-parser';
-import { DefaultInputProcessorImpl } from './service/default-input-processor';
+import { DefaultInputParserServiceImpl } from './service/default-input-parser';
+import { DefaultInputProcessorServiceImpl } from './service/default-input-processor';
 import { HomeComponent } from './home/home.component';
 import { InputParserService } from './service/input-parser.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -25,6 +25,7 @@ import { SimulationSettingsComponent } from './component/simulation-settings/sim
 import { PacingComponent } from './component/simulation-settings/pacing/pacing.component';
 import { ModelsComponent } from './component/simulation-settings/models/models.component';
 import { CompoundConcentrationsComponent } from './component/simulation-settings/compound-concentrations/compound-concentrations.component';
+import { ResultsComponent } from './component/results/results.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CompoundConcentrationsComponent } from './component/simulation-settings
     SimulationSettingsComponent,
     PacingComponent,
     ModelsComponent,
-    CompoundConcentrationsComponent
+    CompoundConcentrationsComponent,
+    ResultsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -54,11 +56,13 @@ import { CompoundConcentrationsComponent } from './component/simulation-settings
   providers: [
     SimulationSettingsComponent,
     { provide: 'ApPredictConfigService',
-      useClass: environment.apPredictConfigImpl },
+      useClass: environment.apPredictConfigServiceImpl },
     { provide: 'InputParserService',
-      useClass: environment.inputParserImpl },
+      useClass: environment.inputParserServiceImpl },
     { provide: 'InputProcessorService',
-      useClass: environment.inputProcessorImpl }
+      useClass: environment.inputProcessorServiceImpl },
+    { provide: 'SimulationsService',
+      useClass: environment.simulationsServiceImpl }
   ],
   bootstrap: [AppComponent]
 })

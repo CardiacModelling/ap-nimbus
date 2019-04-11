@@ -1,9 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 
 import { ApPredictConfigService } from '../../service/ap-predict-config.service';
 
-import { ApPredictInput } from '../../class/ap-predict-input';
+import { HomeComponent } from '../../home/home.component';
 import { Model } from '../../class/model';
 import { PlasmaIntermediatePointCount } from '../../class/plasma-intermediate-point-count';
 
@@ -12,31 +12,27 @@ import { PlasmaIntermediatePointCount } from '../../class/plasma-intermediate-po
   templateUrl: './simulation-settings.component.html',
   styleUrls: ['./simulation-settings.component.css']
 })
-export class SimulationSettingsComponent implements OnInit {
+export class SimulationSettingsComponent implements OnChanges, OnInit {
 
   defaultModelId: number;
-  //defaultPIPCId: number;
 
   configModels: Model[] = [];
   configPacingMaxTime: number;
 
-  //configPlasmaMaximum: number;
-  //configPlasmaMinimum: number;
-  //configPlasmaIntermediatePointCounts: PlasmaIntermediatePointCount[] = [];
-  //configPlasmaIntermediatePointLogScale: boolean;
-
   inputForm: FormGroup;
-  apPredictInput: ApPredictInput;
-
-  submitted: boolean = false;
-  success: boolean = false;
 
   @Input()
   processedInputData: object;
 
   constructor(@Inject('ApPredictConfigService')
                      private apPredictConfigService: ApPredictConfigService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private homeComponent: HomeComponent) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (typeof changes['processedInputData'] !== 'undefined') {
+    }
+  }
 
   ngOnInit() {
     var config = this.apPredictConfigService.retrieveConfig();
@@ -45,11 +41,6 @@ export class SimulationSettingsComponent implements OnInit {
     localStorage.setItem('configModels', JSON.stringify(this.configModels));
     localStorage.setItem('configPacingFrequencies', JSON.stringify(config['pacingFrequencies']));
     this.configPacingMaxTime = config['pacingMaxTime'];
-
-    //this.configPlasmaMaximum = config['plasmaMaximum'];
-    //this.configPlasmaMinimum = config['plasmaMinimum'];
-    //this.configPlasmaIntermediatePointCounts = config['plasmaIntermediatePointCounts'];
-    //this.configPlasmaIntermediatePointLogScale = config['plasmaIntermediatePointLogScale'];
 
     localStorage.setItem('configPlasmaPoints', JSON.stringify(config['plasmaPoints']));
 
@@ -60,12 +51,6 @@ export class SimulationSettingsComponent implements OnInit {
         this.defaultModelId = model.id;
       }
     });
-
-    //this.configPlasmaIntermediatePointCounts.forEach((plasmaIntermediatePointCount) => {
-    //  if (plasmaIntermediatePointCount.isDefault) {
-    //    this.defaultPIPCId = plasmaIntermediatePointCount.id;
-    //  }
-    //});
 
     this.inputForm = this.createInputFormGroup();
   }
@@ -83,15 +68,6 @@ export class SimulationSettingsComponent implements OnInit {
                                                       this.validatorGTThan(0),
                                                       Validators.required ]],
       fcConcentrationPoints : new FormArray([])
-
-      /*,
-      fcPlasmaMaximum : [ this.configPlasmaMaximum, [ Validators.required,
-                                                      this.validatorGTThan(0) ]],
-      fcPlasmaMinimum : [ this.configPlasmaMinimum, [ Validators.required,
-                                                      Validators.min(0) ]],
-      fcPlasmaIntermediatePointCount : [ this.defaultPIPCId, [ Validators.required ]],
-      fcPlasmaIntermediatePointLogScale : [ this.configPlasmaIntermediatePointLogScale,
-                                            [ Validators.required ]] */
     });
   }
 
@@ -106,39 +82,20 @@ export class SimulationSettingsComponent implements OnInit {
    * Form submission processing.
    */
   onSubmit(): void {
-    this.submitted = true;
 
     if (this.inputForm.invalid) {
       return;
     }
 
-    this.apPredictInput = new ApPredictInput();
     var form_values = this.inputForm.value;
-    this.apPredictInput.created = + new Date();
-    this.apPredictInput.modelId = form_values.fcModelId;
-    this.apPredictInput.pacingFrequencies = form_values.fcPacingFrequencies;
 
-    this.apPredictInput.pacingMaxTime = form_values.fcPacingMaxTime;
-
-    this.apPredictInput.plasmaPoints = form_values.fcConcentrationPoints;
-
-    //this.apPredictInput.plasmaMaximum = form_values.fcPlasmaMaximum;
-    //this.apPredictInput.plasmaMinimum = form_values.fcPlasmaMinimum;
-    //this.apPredictInput.plasmaIntermediatePointCount = form_values.fcPlasmaIntermediatePointCount;
-    //this.apPredictInput.plasmaIntermediatePointLogScale = form_values.fcPlasmaIntermediatePointLogScale;
-
-    //this.apPredictInput.pIC50IKr = form_values.fcIKrPIC50;
-    //this.apPredictInput.pIC50INa = form_values.fcINaPIC50;
-    //this.apPredictInput.pIC50ICaL = form_values.fcICaLPIC50;
-    //this.apPredictInput.pIC50IKs = form_values.fcIKsPIC50;
-    //this.apPredictInput.pIC50IK1 = form_values.fcIK1PIC50;
-    //this.apPredictInput.pIC50Ito = form_values.fcItoPIC50;
-
-    //console.log(this.processedInputData.assay);
-
-    console.log('ApPredictInput ' + JSON.stringify(this.apPredictInput))
-
-    this.success = true;
+    this.homeComponent.runSimulations({
+      'created': + new Date(),
+      'modelId': form_values.fcModelId,
+      'pacingFrequencies': form_values.fcPacingFrequencies,
+      'pacingMaxTime': form_values.fcPacingMaxTime,
+      'concentrations': form_values.fcConcentrationPoints
+    });
   }
 
   /**

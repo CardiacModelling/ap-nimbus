@@ -10,11 +10,9 @@
   <div *ngIf="selectedFile.status === 'ok'">
     <app-simulation-settings [processedInputData]="processedInputData"></app-simulation-settings>
   </div>
-  <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> JSON Upload Failed!</div>
+  <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> File parsing failed! Expecting JSON format, e.g. <code>{{'{'}} "data" : {{'{'}} "assay" ...</code></div>
 </div>
 
-<div>
-<pre>
-{{content}}
-</pre>
+<div *ngIf="showResults">
+  <app-results></app-results>
 </div>

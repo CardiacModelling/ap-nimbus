@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { InputParserService } from './input-parser.service';
 
 @Injectable()
-export class DefaultInputParserImpl implements InputParserService {
+export class DefaultInputParserServiceImpl implements InputParserService {
+
   /**
    * {@link InputParserService#parseInput }
    */
@@ -14,4 +15,5 @@ export class DefaultInputParserImpl implements InputParserService {
 
     return null;
   }
+
 }
