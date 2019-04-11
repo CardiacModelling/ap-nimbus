@@ -8,7 +8,7 @@
 
 <div *ngIf="selectedFile">
   <div *ngIf="selectedFile.status === 'ok'">
-    <app-simulation-defaults></app-simulation-defaults>
+    <app-simulation-settings [processedInputData]="processedInputData"></app-simulation-settings>
   </div>
   <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> JSON Upload Failed!</div>
 </div>

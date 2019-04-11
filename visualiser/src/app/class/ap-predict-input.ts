@@ -8,7 +8,7 @@ export class ApPredictInput {
 
   modelId: number;
 
-  pacingFrequency: number;
+  pacingFrequencies: number[];
   pacingMaxTime: number;
 
   pIC50IKr: number;
@@ -22,6 +22,8 @@ export class ApPredictInput {
   plasmaMinimum: number;
   plasmaIntermediatePointCount: number;
   plasmaIntermediatePointLogScale: boolean;
+
+  plasmaPoints: number[];
 
   /**
    * Default constructor.

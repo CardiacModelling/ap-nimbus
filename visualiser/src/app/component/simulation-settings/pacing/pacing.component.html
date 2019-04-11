@@ -1,0 +1,45 @@
+<div [formGroup]="inputForm">
+  <div class="row">
+    <div class="col-sm-1">Frequencies</div>
+    <div class="col-sm-2">
+      <div *ngFor="let pacingFrequency of inputForm.controls.fcPacingFrequencies.controls; let i = index">
+        <mat-checkbox [checked]="true" [formArrayName]="'fcPacingFrequencies'">
+          {{pacingFrequency.value}} Hz
+        </mat-checkbox>
+      </div>
+
+      <!--
+      <ng-container *ngIf="processedInputData.pacingFrequencies.length > 0; then useExperimental; else useConfig">
+      </ng-container>
+      <ng-template #useConfig>
+        <div *ngFor="let configPacingFrequency of configPacingFrequencies;">
+          <mat-checkbox [checked]="true" formControlName="fcPacingFrequencies">
+            {{configPacingFrequency}} Hz
+          </mat-checkbox>
+        </div>
+      </ng-template>
+      <ng-template #useExperimental>
+        <div *ngFor="let experimentalPacingFrequency of processedInputData.pacingFrequencies;">
+          <mat-checkbox [checked]="true" formControlName="fcPacingFrequencies">
+            {{experimentalPacingFrequency}} Hz
+          </mat-checkbox>
+        </div>
+      </ng-template>
+      -->
+    </div>
+    <div class="col-sm-1">Max Time</div>
+    <div class="col-sm-2">
+      <mat-form-field class="full-width-input">
+        <input matInput formControlName="fcPacingMaxTime"
+                        type="number" />
+        <mat-error *ngIf="hasError('fcPacingMaxTime', 'required')">A numeric value is required !</mat-error>
+        <mat-error *ngIf="hasError('fcPacingMaxTime', 'max')">The maximum value is 120 !</mat-error>
+        <mat-error *ngIf="hasError('fcPacingMaxTime', 'validatorGTThan')">The minimum value is > 0 !</mat-error>
+      </mat-form-field> (mins) <img class="info"
+                                    src="assets/img/info.png"
+                                    tooltip="Minimum value: > 0; Maximum value: 120"
+                                    data-placement="right" />
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+</div>

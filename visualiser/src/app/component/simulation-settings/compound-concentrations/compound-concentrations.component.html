@@ -1,0 +1,11 @@
+<div [formGroup]="inputForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <span *ngFor="let concentration of inputForm.controls.fcConcentrationPoints.controls; let i = index">
+        <mat-checkbox [checked]="true" [formArrayName]="'fcConcentrationPoints'">
+          {{concentration.value}} µM
+        </mat-checkbox><br />
+      </span>
+    </div>
+  </div>
+</div>

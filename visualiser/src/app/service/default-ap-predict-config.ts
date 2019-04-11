@@ -21,6 +21,7 @@ export class DefaultApPredictConfigImpl implements ApPredictConfigService {
   plasmaMinimum: number = appredict.compoundConcentrations.range.minimum;
   plasmaIntermediatePointCounts: PlasmaIntermediatePointCount[] = appredict.compoundConcentrations.range.intermediatePoints;
   plasmaIntermediatePointLogScale: boolean = appredict.compoundConcentrations.range.intermediatePointLogScale;
+  plasmaPoints: number[] = appredict.compoundConcentrations.points;
 
     /**
    * {@link ApPredictConfigService#retrieveConfig }
@@ -32,7 +33,8 @@ export class DefaultApPredictConfigImpl implements ApPredictConfigService {
              'plasmaMaximum' : this.plasmaMaximum,
              'plasmaMinimum' : this.plasmaMinimum,
              'plasmaIntermediatePointCounts' : this.plasmaIntermediatePointCounts,
-             'plasmaIntermediatePointLogScale' : this.plasmaIntermediatePointLogScale };
+             'plasmaIntermediatePointLogScale' : this.plasmaIntermediatePointLogScale,
+             'plasmaPoints' : this.plasmaPoints };
   }
 
 }

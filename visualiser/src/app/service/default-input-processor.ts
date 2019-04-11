@@ -9,10 +9,31 @@ export class DefaultInputProcessorImpl implements InputProcessorService {
    */
   processInput(inputData: object): object {
     var experimentalData = inputData['data'].experimental;
+    var pacingFrequencies = [];
+    var concentrations = [];
 
-    console.log('Storing ' + JSON.stringify(experimentalData));
-    localStorage.setItem('experimental-data', experimentalData);
+    if (experimentalData !== 'undefined') {
+      pacingFrequencies = Object.keys(experimentalData);
 
-    return inputData;
+      var allConcentrations = [];
+      for (var pacingFrequency in experimentalData) {
+        var pacingFrequencyData = experimentalData[pacingFrequency];
+        pacingFrequencyData.forEach((perFreqSource) => {
+          perFreqSource.values.forEach((perFreqSourceValues) => {
+            allConcentrations.push(perFreqSourceValues.experimental_conc);
+          });
+        });
+      }
+
+      // https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+      concentrations = allConcentrations.reduce((a, b) => {
+        if (a.indexOf(b) < 0 ) a.push(b);
+        return a;
+      },[]);
+    }
+
+    return { "pacingFrequencies": pacingFrequencies,
+             "concentrations": concentrations,
+             "assay": inputData['data'].assay };
   }
 }

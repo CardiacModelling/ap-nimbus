@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { environment } from '../environments/environment';
 
 import { AboutComponent } from './about/about.component';
@@ -19,7 +21,10 @@ import { HomeComponent } from './home/home.component';
 import { InputParserService } from './service/input-parser.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PrivacyComponent } from './privacy/privacy.component';
-import { SimulationDefaultsComponent } from './component/simulation-defaults/simulation-defaults.component';
+import { SimulationSettingsComponent } from './component/simulation-settings/simulation-settings.component';
+import { PacingComponent } from './component/simulation-settings/pacing/pacing.component';
+import { ModelsComponent } from './component/simulation-settings/models/models.component';
+import { CompoundConcentrationsComponent } from './component/simulation-settings/compound-concentrations/compound-concentrations.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,10 @@ import { SimulationDefaultsComponent } from './component/simulation-defaults/sim
     HomeComponent,
     PrivacyComponent,
     PageNotFoundComponent,
-    SimulationDefaultsComponent
+    SimulationSettingsComponent,
+    PacingComponent,
+    ModelsComponent,
+    CompoundConcentrationsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,8 +49,10 @@ import { SimulationDefaultsComponent } from './component/simulation-defaults/sim
     MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
+    TooltipModule.forRoot(),
   ],
   providers: [
+    SimulationSettingsComponent,
     { provide: 'ApPredictConfigService',
       useClass: environment.apPredictConfigImpl },
     { provide: 'InputParserService',

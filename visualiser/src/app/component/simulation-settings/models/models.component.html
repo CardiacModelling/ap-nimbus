@@ -1,0 +1,21 @@
+<div [formGroup]="inputForm">
+  <div class="row">
+    <div class="col-sm-1">Model</div>
+    <div class="col-sm-2">
+      <mat-form-field>
+        <mat-select class="form-control"
+                    formControlName="fcModelId"
+                    (selectionChange)="updateModelDescription($event)">
+          <mat-option *ngFor="let configModel of configModels"
+                      [value]="configModel.id">
+            {{configModel.name}}
+          </mat-option>
+        </mat-select>
+      <mat-error *ngIf="hasError('fcModelId', 'required')">Please select a CellML model !</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-3">{{modelDescription}}</div>
+    <div class="col-sm-2"><!-- View all Model Details --></div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
