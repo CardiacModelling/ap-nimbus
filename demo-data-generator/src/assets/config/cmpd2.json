@@ -2,7 +2,7 @@
   "identifier" : "cmpd2",
   "data" :
     {
-      "experimental" : [],
+      "experimental" : {},
       "assay" :
         [
           {
