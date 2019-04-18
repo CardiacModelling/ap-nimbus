@@ -1,3 +1,25 @@
-<p>
-  results works!
+<div *ngIf="multi !== undefined">
+  <ngx-charts-line-chart [view]="view"
+                         [legendTitle]="legendTitle"
+                         [scheme]="colorScheme"
+                         [results]="multi"
+                         [gradient]="gradient"
+                         [xAxis]="showXAxis"
+                         [yAxis]="showYAxis"
+                         [legend]="showLegend"
+                         [showXAxisLabel]="showXAxisLabel"
+                         [showYAxisLabel]="showYAxisLabel"
+                         [xAxisLabel]="xAxisLabel"
+                         [yAxisLabel]="yAxisLabel"
+                         (select)="onSelect($event)">
+  </ngx-charts-line-chart>
+</div>
+<p>{{vrMessage}}</p>
+<p *ngFor="let errorMessage of errorMessages">
+  {{errorMessage}}
 </p>
+--
+<pre>
+{{contento}}
+</pre>
+--

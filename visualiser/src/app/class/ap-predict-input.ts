@@ -8,15 +8,15 @@ export class ApPredictInput {
 
   modelId: number;
 
-  pacingFrequencies: number[];
+  pacingFrequency: number;
   pacingMaxTime: number;
 
-  pIC50IKr: number;
-  pIC50INa: number;
-  pIC50ICaL: number;
-  pIC50IKs: number;
-  pIC50IK1: number;
-  pIC50Ito: number;
+  pIC50sIKr: string;
+  pIC50sINa: string;
+  pIC50sICaL: string;
+  pIC50sIKs: string;
+  pIC50sIK1: string;
+  pIC50sIto: string;
 
   plasmaMaximum: number;
   plasmaMinimum: number;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { InputParserService } from '../service/input-parser.service';
 import { InputProcessorService } from '../service/input-processor.service';
@@ -19,12 +19,13 @@ class JSONSnippet {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   selectedFile: JSONSnippet;
 
   processedInputData: object;
+  simulationsOutput: object;
+
   showResults: boolean = false;
 
   constructor(@Inject('InputParserService')
@@ -33,8 +34,6 @@ export class HomeComponent implements OnInit {
                      private inputProcessorService: InputProcessorService,
               @Inject('SimulationsService')
                      private simulationsService: SimulationsService) {}
-
-  ngOnInit(): void {}
 
   private onSuccess() {
     this.selectedFile.pending = false;
@@ -71,10 +70,17 @@ export class HomeComponent implements OnInit {
     reader.readAsText(file);
   }
 
-  public runSimulations(simulationsInput: object) {
-    this.showResults = true;
+  /**
+   * 
+   * @param simulationsInput
+   * @see SimulationSettingsComponent#onSubmit()
+   */
+  public runSimulations(simulationsInput: object): void {
     simulationsInput['assay'] = this.processedInputData['assay'];
 
-    this.simulationsService.runSimulations(simulationsInput)
+    this.showResults = true;
+    this.simulationsOutput = {};
+
+    this.simulationsService.runSimulations(simulationsInput, this.simulationsOutput);
   }
 }

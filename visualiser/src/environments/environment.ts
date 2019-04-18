@@ -2,6 +2,7 @@ import { DefaultApPredictConfigServiceImpl } from '../app/service/default-ap-pre
 import { DefaultInputParserServiceImpl } from '../app/service/default-input-parser';
 import { DefaultInputProcessorServiceImpl } from '../app/service/default-input-processor';
 import { DefaultSimulationsServiceImpl } from '../app/service/default-simulations';
+import { SimulationRestApiImpl } from '../app/service/simulation-rest-api-impl';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
@@ -12,6 +13,7 @@ export const environment = {
   apPredictConfigServiceImpl: DefaultApPredictConfigServiceImpl,
   inputParserServiceImpl: DefaultInputParserServiceImpl,
   inputProcessorServiceImpl: DefaultInputProcessorServiceImpl,
+  simulationServiceImpl: SimulationRestApiImpl,
   simulationsServiceImpl: DefaultSimulationsServiceImpl
 };
 

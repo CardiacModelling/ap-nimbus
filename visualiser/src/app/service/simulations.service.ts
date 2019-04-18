@@ -3,6 +3,6 @@
  */
 export interface SimulationsService {
 
-  runSimulations(simulationsInput: any): object;
+  runSimulations(simulationsInput: object, simulationsOutput: object): void;
 
 }

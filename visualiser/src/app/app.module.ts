@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { environment } from '../environments/environment';
@@ -48,6 +49,7 @@ import { ResultsComponent } from './component/results/results.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxChartsModule,
     MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
@@ -61,6 +63,8 @@ import { ResultsComponent } from './component/results/results.component';
       useClass: environment.inputParserServiceImpl },
     { provide: 'InputProcessorService',
       useClass: environment.inputProcessorServiceImpl },
+    { provide: 'SimulationService',
+      useClass: environment.simulationServiceImpl },
     { provide: 'SimulationsService',
       useClass: environment.simulationsServiceImpl }
   ],

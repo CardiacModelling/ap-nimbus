@@ -5,7 +5,7 @@
       "description" : "Shannon et al. (2004) rabbit ventricular cell model",
       "cellml" : "https://models.cellml.org/exposure/d72a36fe0b7e121068c96bcb1ff6044a/shannon_wang_puglisi_weber_bers_2004_a.cellml/view",
       "paper" : "https://www.ncbi.nlm.nih.gov/pubmed/15347581",
-      "defaultModel" : false },
+      "defaultModel" : true },
     { "id" : 2,
       "name" : "TenTusscher",
       "description" : "TenTusscher et al. (2006) human ventricular cell model (epicardial)",
@@ -47,7 +47,7 @@
       "description" : "O'Hara-Rudy-CiPA-v1.0 (2017) human ventricular cell model (endocardial)",
       "cellml" : "https://models.cellml.org/e/4e8/",
       "paper" : "https://www.ncbi.nlm.nih.gov/pubmed/28878692",
-      "defaultModel" : true }
+      "defaultModel" : false }
   ],
   "pacing" : {
     "frequencies": [ 0.5 ],
