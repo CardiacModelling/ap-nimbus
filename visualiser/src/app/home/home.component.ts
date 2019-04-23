@@ -24,7 +24,10 @@ export class HomeComponent {
   selectedFile: JSONSnippet;
 
   processedInputData: object;
-  simulationsOutput: object;
+  simulationsOutput: object = {
+    'input': {},
+    'output': {}
+  };
 
   showResults: boolean = false;
 
@@ -64,6 +67,9 @@ export class HomeComponent {
       } else {
         this.onSuccess();
         this.processedInputData = this.inputProcessorService.processInput(inputData);
+
+        this.processedInputData['assay'] = inputData['data']['assay'];
+        this.processedInputData['experimental'] = inputData['data']['experimental'];
       }
     });
 
@@ -77,9 +83,13 @@ export class HomeComponent {
    */
   public runSimulations(simulationsInput: object): void {
     simulationsInput['assay'] = this.processedInputData['assay'];
+    simulationsInput['experimental'] = this.processedInputData['experimental'];
 
     this.showResults = true;
-    this.simulationsOutput = {};
+    this.simulationsOutput = {
+      'input' : simulationsInput,
+      'output' : {}
+    };
 
     this.simulationsService.runSimulations(simulationsInput, this.simulationsOutput);
   }

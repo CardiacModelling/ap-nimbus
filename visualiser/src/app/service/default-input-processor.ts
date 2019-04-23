@@ -33,9 +33,8 @@ export class DefaultInputProcessorServiceImpl implements InputProcessorService {
       },[]);
     }
 
-    return { "pacingFrequencies": pacingFrequencies,
-             "concentrations": concentrations,
-             "assay": inputData['data'].assay };
+    return { 'pacingFrequencies': pacingFrequencies,
+             'concentrations': concentrations };
   }
 
 }

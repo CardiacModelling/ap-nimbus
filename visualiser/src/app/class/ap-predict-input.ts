@@ -25,6 +25,8 @@ export class ApPredictInput {
 
   plasmaPoints: number[];
 
+  metaData: object = {};
+
   /**
    * Default constructor.
    */

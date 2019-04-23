@@ -22,7 +22,7 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
                          let simulationId = apPredictOutput.id;
                          // var ipAddress = apPredictOutput.ipAddress;
 
-                         simulationsOutput[simulationId] = apPredictInput;
+                         simulationsOutput['output'][simulationId] = apPredictInput;
                        },
                        error => console.log('invoke error ' + JSON.stringify(<any>error)));
       });
@@ -83,6 +83,9 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
         // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
         let perFreqApPredictInput = JSON.parse(JSON.stringify(apPredictInput));
         perFreqApPredictInput.pacingFrequency = pacingFrequency;
+        perFreqApPredictInput.metaData = {
+          'title': groupName + '@' + pacingFrequency + 'Hz'
+        };
 
         apPredictInputs.push(perFreqApPredictInput);
       });
@@ -93,6 +96,7 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
   /**
    * {@link SimulationsService#runSimulations }
    */
+  // Called by HomeComponent#runSimulations()
   runSimulations(simulationsInput: object, simulationsOutput: object): void {
     this.prepareSimulations(simulationsInput);
 

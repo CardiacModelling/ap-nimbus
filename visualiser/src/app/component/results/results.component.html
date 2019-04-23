@@ -11,6 +11,13 @@
                          [showYAxisLabel]="showYAxisLabel"
                          [xAxisLabel]="xAxisLabel"
                          [yAxisLabel]="yAxisLabel"
+                         [xAxisTicks]="xAxisTicks"
+                         [xAxisTickFormatting]="xAxisTickFormatting"
+                         [xScaleMin]="xScaleMin"
+                         [xScaleMax]="xScaleMax"
+                         [yAxisTicks]="yAxisTicks"
+                         [yScaleMin]="yScaleMin"
+                         [yScaleMax]="yScaleMax"
                          (select)="onSelect($event)">
   </ngx-charts-line-chart>
 </div>
@@ -18,8 +25,6 @@
 <p *ngFor="let errorMessage of errorMessages">
   {{errorMessage}}
 </p>
---
 <pre>
 {{contento}}
 </pre>
---

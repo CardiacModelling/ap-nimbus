@@ -59,22 +59,31 @@ export class ResultsComponent implements DoCheck, OnChanges {
   //yAxisLabel = 'Membrane Voltage (mV)';
   yAxisLabel = 'Δ APD90 (%)';
 
+  xAxisTicks: number[];
+  xScaleMin: number;
+  xScaleMax: number;
+  yAxisTicks: number[];
+  yScaleMin: number;
+  yScaleMax: number;
+
   allSimulationResults: any = {};
 
   constructor(private changeDetector: ChangeDetectorRef,
               @Inject('SimulationService')
-                      private simulationService: SimulationService) { }
+                      private simulationService: SimulationService) {
+    this.assignDefaultAxes();
+  }
 
   ngDoCheck() {
     //console.log('ngDoCheck ' + JSON.stringify(this.simulationsOutput));
-    let newCnt: number = Object.keys(this.simulationsOutput).length;
+    let newCnt: number = Object.keys(this.simulationsOutput['output']).length;
     if (newCnt != this.simCnt) {
       console.log('changed! ' + newCnt + ' vs. ' + this.simCnt);
       this.simCnt = newCnt;
 
       // Unsubscribe any timers not in current simulations.
       let allSimulationResultsKeys = Object.keys(this.allSimulationResults);
-      let newArrivalsKeys = Object.keys(this.simulationsOutput);
+      let newArrivalsKeys = Object.keys(this.simulationsOutput['output']);
 
       allSimulationResultsKeys.forEach((simulationId) => {
         if (!newArrivalsKeys.includes(simulationId)) {
@@ -91,18 +100,87 @@ export class ResultsComponent implements DoCheck, OnChanges {
           console.log('Known ' + simulationId);
         } else {
           // Newly arrived simulation id.
+          let title = this.simulationsOutput['output'][simulationId]['metaData']['title'];
           console.log('New simulation - adding timer ' + simulationId);
           this.allSimulationResults[simulationId] = {
-            'timer' : timer(0, 500).subscribe((val) => { this.sub(simulationId) }),
+            'timer' : timer(0, 500).subscribe((val) => { this.sub(simulationId, title) }),
             'completed' : false,
             'voltage_results' : []
           };
         }
       });
 
-      this.contento = JSON.stringify(this.simulationsOutput, null, 2);
+      //this.contento = JSON.stringify(this.simulationsOutput, null, 2);
       this.changeDetector.markForCheck();
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    let simulationsOutputChanges = changes['simulationsOutput'];
+    if (typeof simulationsOutputChanges !== 'undefined') {
+      /* This isn't being triggered when ApPredict invocation (via 
+       *   DefaultSimulationsServiceImpl#invokeSimulations()) ApPredictOutput
+       *   observable is received and simulationsOutput is modified!
+       * Assume that this only gets triggered when home component itself 
+       *   modifies simulationsOutput structure
+       */
+      console.log('ngOnChanges() : resetting simCnt!');
+      this.simCnt = 0;
+      this.assignDefaultAxes();
+
+      const currentValue = simulationsOutputChanges.currentValue;
+      let hasExperimental: boolean = false;
+      if (typeof currentValue !== 'undefined' && typeof currentValue['input'] !== 'undefined') {
+        const experimentalData = currentValue['input']['experimental'];
+        if (typeof experimentalData !== 'undefined') {
+          console.log('ngOnChanges() : CurrentValue! ' + JSON.stringify(experimentalData));
+          hasExperimental = true;
+
+          let pacingFrequencies = Object.keys(experimentalData);
+
+          for (let pacingFrequency in experimentalData) {
+            let pacingFrequencyData = experimentalData[pacingFrequency];
+            pacingFrequencyData.forEach((perFreqSource) => {
+              let seriesData = [];
+              perFreqSource.values.forEach((perFreqSourceValues) => {
+                let pctChangeConc = perFreqSourceValues.experimental_conc;
+                let pctChangeMean = perFreqSourceValues.experimental_pct_change_mean;
+                if (!Number.isNaN(Number.parseFloat(pctChangeMean))) {
+                  let dataPoint = {
+                    name: this.log10(Number.parseFloat(pctChangeConc)),
+                    value: Number.parseFloat(pctChangeMean)
+                  }
+                  seriesData.push(dataPoint);
+                }
+              });
+              let newData = {
+                name: perFreqSource.source + '@' + pacingFrequency,
+                series: seriesData
+              };
+              this.multi.push(newData);
+            });
+          }
+        }
+      }
+      if (!hasExperimental) {
+        this.multi = [];
+      } else {
+        // https://github.com/swimlane/ngx-charts/issues/118
+        // Expand array and put it back into another array!
+        this.multi = [...this.multi];
+      }
+    }
+  }
+
+  private assignDefaultAxes(): void {
+    this.yAxisTicks = [30,20,10,0,-10,-20,-30];
+    this.yScaleMin = -30;
+    this.yScaleMax = 30;
+
+    this.xAxisTicks = [-2.0,-1.523,-1.0,-0.523,0,0.477,1.0,1.477,2.0]; //,2.477,3.0
+    this.xScaleMin = -2.0;
+    this.xScaleMax = 2.0;
+
   }
 
   /**
@@ -130,51 +208,8 @@ export class ResultsComponent implements DoCheck, OnChanges {
     return this.allSimulationResults[simulationId].completed;
   }
 
-  private setCompleted(simulationId: string): void {
-    let simulationResults = this.allSimulationResults[simulationId];
-    simulationResults.completed = true;
-  }
-
-  private stopTimer(simulationId: string): void {
-    let simulationResults = this.allSimulationResults[simulationId];
-    let timer = simulationResults['timer'];
-    let timerRemoved = false;
-    if (typeof timer !== 'undefined') {
-      console.log('Removing timer for ' + simulationId);
-
-      timerRemoved = true;
-
-      timer.unsubscribe();
-      delete simulationResults['timer'];
-    }
-    console.log('Simulation ' + simulationId + (timerRemoved ? ' had timer removed' : ' had no timer to remove'));
-  }
-
-  private sub(simulationId: string): void {
-    this.simulationService.getOutput(simulationId,
-                                     DataType.VOLTAGE_RESULTS)
-                          .subscribe(apPredictOutput => {
-                                       this.processVR(apPredictOutput, simulationId);
-                                     },
-                                     error => {
-                                       this.handleError(error, simulationId);
-                                     });
-
-    if (this.isCompleted(simulationId)) {
-      this.stopTimer(simulationId);
-    } else {
-      this.simulationService.getOutput(simulationId,
-                                       DataType.STOP_INDICATOR)
-                            .subscribe(apPredictOutput => {
-                                         this.processSI(apPredictOutput, simulationId);
-                                       },
-                                       error => {
-                                         this.handleError(error, simulationId);
-                                       });
-      if (!this.isCompleted(simulationId)) {
-        // Progress stuff!
-      }
-    }
+  private log10(value): number {
+    return Math.log(value) / this.mathLog10;
   }
 
   private processSI(apPredictOutput: ApPredictOutput, simulationId: string): void {
@@ -184,11 +219,8 @@ export class ResultsComponent implements DoCheck, OnChanges {
     }
   }
 
-  
-  private log10(value): number {
-    return Math.log(value) / this.mathLog10;
-  }
-  private processVR(apPredictOutput: ApPredictOutput, simulationId: string): void {
+  private processVoltageResults(apPredictOutput: ApPredictOutput, simulationId: string,
+                                title: string): void {
     if (apPredictOutput.hasWaitingMessage()) {
       this.vrMessage = apPredictOutput.message;
     } else if (apPredictOutput.hasData(DataType.VOLTAGE_RESULTS)) {
@@ -218,7 +250,7 @@ export class ResultsComponent implements DoCheck, OnChanges {
         let eachMultiName = eachMulti['name'];
         let eachMultiSeries = eachMulti['series'];
 
-        if (eachMultiName == simulationId) {
+        if (eachMultiName == title) {
           found = true;
           if (eachMultiSeries.length != newSeriesCnt) {
             eachMulti['series'] = seriesData;
@@ -228,7 +260,7 @@ export class ResultsComponent implements DoCheck, OnChanges {
       });
       if (!found) {
         let newData = {
-          name: simulationId,
+          name: title,
           series: seriesData
         };
         this.multi.push(newData);
@@ -236,7 +268,7 @@ export class ResultsComponent implements DoCheck, OnChanges {
       // https://github.com/swimlane/ngx-charts/issues/118
       // Expand array and put it back into another array!
       this.multi = [...this.multi];
-      this.contento = JSON.stringify(this.multi, null, 2);
+      //this.contento = JSON.stringify(this.multi, null, 2);
 
       //if (this.multiStore != voltageResults) {
       //  this.multi = JSON.parse(voltageResults);
@@ -248,6 +280,68 @@ export class ResultsComponent implements DoCheck, OnChanges {
       this.errorMessages.push(apPredictOutput.message);
       this.stopTimer(simulationId);
     }
+  }
+
+  private cs_round_3dp(val: number): number {
+    return this.cs_round_number(val, 3);
+  }
+
+  private cs_round_number(val: number, decimal_places: number): number {
+    return Math.round(val * Math.pow(10, decimal_places)) / Math.pow(10, decimal_places);
+  }
+
+  private setCompleted(simulationId: string): void {
+    let simulationResults = this.allSimulationResults[simulationId];
+    simulationResults.completed = true;
+  }
+
+  private stopTimer(simulationId: string): void {
+    let simulationResults = this.allSimulationResults[simulationId];
+    let timer = simulationResults['timer'];
+    let timerRemoved = false;
+    if (typeof timer !== 'undefined') {
+      console.log('Removing timer for ' + simulationId);
+
+      timerRemoved = true;
+
+      timer.unsubscribe();
+      delete simulationResults['timer'];
+    }
+    console.log('Simulation ' + simulationId + (timerRemoved ? ' had timer removed' : ' had no timer to remove'));
+  }
+
+  private sub(simulationId: string, title: string): void {
+    this.simulationService.getOutput(simulationId,
+                                     DataType.VOLTAGE_RESULTS)
+                          .subscribe(apPredictOutput => {
+                                       this.processVoltageResults(apPredictOutput, simulationId,
+                                                                  title);
+                                     },
+                                     error => {
+                                       this.handleError(error, simulationId);
+                                     });
+
+    if (this.isCompleted(simulationId)) {
+      this.stopTimer(simulationId);
+    } else {
+      this.simulationService.getOutput(simulationId,
+                                       DataType.STOP_INDICATOR)
+                            .subscribe(apPredictOutput => {
+                                         this.processSI(apPredictOutput, simulationId);
+                                       },
+                                       error => {
+                                         this.handleError(error, simulationId);
+                                       });
+      if (!this.isCompleted(simulationId)) {
+        // Progress stuff!
+      }
+    }
+  }
+
+  xAxisTickFormatting(val: number): number {
+    let inverseCommonLog = Math.pow(10, val);
+    let decimalPlaces = 1;
+    return Math.round(inverseCommonLog * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
   }
 
   /*
@@ -271,19 +365,4 @@ export class ResultsComponent implements DoCheck, OnChanges {
     }
   }
   */
-
-  ngOnChanges(changes: SimpleChanges): void {
-    let simulationsOutputChanges = changes['simulationsOutput'];
-    if (typeof simulationsOutputChanges !== 'undefined') {
-      /* This isn't being triggered when ApPredict invocation (via 
-       *   DefaultSimulationsServiceImpl#invokeSimulations()) ApPredictOutput
-       *   observable is received and simulationsOutput is modified!
-       * Assume that this only gets triggered when home component itself 
-       *   modifies simulationsOutput structure
-       */
-      console.log('ngOnChanges() : resetting simCnt!');
-      this.simCnt = 0;
-      this.multi = [];
-    }
-  }
 }
