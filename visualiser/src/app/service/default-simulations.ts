@@ -83,8 +83,10 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
         // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
         let perFreqApPredictInput = JSON.parse(JSON.stringify(apPredictInput));
         perFreqApPredictInput.pacingFrequency = pacingFrequency;
-        perFreqApPredictInput.metaData = {
-          'title': groupName + '@' + pacingFrequency + 'Hz'
+        perFreqApPredictInput['metaData'] = {
+          'title': groupName + '@' + pacingFrequency + 'Hz',
+          'groupLevel': groupLevel,
+          'pacingFrequency': pacingFrequency
         };
 
         apPredictInputs.push(perFreqApPredictInput);
