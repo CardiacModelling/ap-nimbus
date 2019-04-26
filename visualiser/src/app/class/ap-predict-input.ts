@@ -24,8 +24,9 @@ export class ChannelData {
   associatedData: AssociatedItem[] = [];
   spreads: Spreads;
 
-  constructor(associatedData: AssociatedItem[]) {
+  constructor(associatedData: AssociatedItem[], spreads: Spreads) {
     this.associatedData = associatedData;
+    this.spreads = spreads;
   }
 }
 

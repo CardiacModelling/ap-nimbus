@@ -87,7 +87,7 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
         }
         let pIC50Count = pIC50Array.length;
 
-        if (typeof hills !== 'undefined' && hills.trim().length > 0 {
+        if (typeof hills !== 'undefined' && hills.trim().length > 0) {
           if (hills.includes(',')) {
             hillArray = hills.split(',');
           } else {
@@ -109,7 +109,7 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
             hillArray.push(1);
           }
         }
-        if (typeof saturations !== 'undefined' && saturations.trim().length > 0 {
+        if (typeof saturations !== 'undefined' && saturations.trim().length > 0) {
           if (saturations.includes(',')) {
             saturationArray = saturations.split(',');
           } else {

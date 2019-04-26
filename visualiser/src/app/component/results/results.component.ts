@@ -307,7 +307,7 @@ export class ResultsComponent implements DoCheck, OnChanges {
         let eachMultiName = eachMulti['name'];
         let eachMultiSeries = eachMulti['series'];
 
-        if (eachMultiName == metaData.title) {
+        if (eachMultiName == metaData['title']) {
           found = true;
           if (eachMultiSeries.length != newSeriesCnt) {
             eachMulti['series'] = seriesData;
@@ -317,9 +317,9 @@ export class ResultsComponent implements DoCheck, OnChanges {
       });
       if (!found) {
         let newData = {
-          groupLevel: metaData.groupLevel,
-          pacingFrequency: metaData.pacingFrequency,
-          name: metaData.title,
+          groupLevel: metaData['groupLevel'],
+          pacingFrequency: metaData['pacingFrequency'],
+          name: metaData['title'],
           series: seriesData
         };
         this.multi.push(newData);
