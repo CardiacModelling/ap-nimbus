@@ -31,7 +31,7 @@ export class DefaultSimulationsServiceImpl implements SimulationsService {
 
   private numbers(arr) {
     if (!arr.every((element) => {
-          return (typeof element !== 'undefined ' && element.trim() != '' &&
+          return (typeof element !== 'undefined' && element.trim() != '' &&
                   !isNaN(parseFloat(element)) && isFinite(element));
          })) {
        return;

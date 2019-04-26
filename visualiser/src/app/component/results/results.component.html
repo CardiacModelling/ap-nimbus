@@ -1,8 +1,8 @@
-<div *ngIf="multi !== undefined">
+<div *ngIf="chartData !== undefined">
   <ngx-charts-line-chart [view]="view"
                          [legendTitle]="legendTitle"
                          [scheme]="colorScheme"
-                         [results]="multi"
+                         [results]="chartData"
                          [gradient]="gradient"
                          [xAxis]="showXAxis"
                          [yAxis]="showYAxis"
