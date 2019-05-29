@@ -117,6 +117,44 @@ export class SimulationRestApiImpl implements SimulationService {
                                           return apPredictOutput;
 
                                         },catchError(this.handleError) ));
+
+      case DataType.QNET:
+        queryURL += 'q_net';
+        return this.httpClient.get(queryURL, httpHeadersText)
+                              .pipe(map(response => {
+                                          let vrObj = this.tryParseJSON(response);
+                                          if (!vrObj) {
+                                            // Fail! Cause is non-JSON format.
+                                            let errorMsg = 'Non-JSON format qNet data : ' + response;
+                                            console.log('ERROR : ' + errorMsg);
+
+                                            apPredictOutput.setErrorMessage(errorMsg);
+                                            return apPredictOutput;
+                                          }
+
+                                          let successObj = vrObj.success;
+                                          if (typeof successObj !== 'undefined') {
+                                            // Success! Data available.
+                                            apPredictOutput.setQNet(JSON.stringify(successObj));
+                                            return apPredictOutput;
+                                          }
+
+                                          if (apPredictOutput.isPlaceholderData(response)) {
+                                            // Success! Although awaiting data.
+                                            apPredictOutput.setWaitingForDataMessage();
+                                          } else {
+                                           // Fail! Cause is JSON content.
+                                           let errSpecifics = (typeof vrObj.error !== 'undefined') ? vrObj.error :
+                                                                                                     response;
+                                           let errorMsg = 'Cannot interpret the qNet data : ' + errSpecifics;
+                                           console.log('ERROR : ' + errorMsg);
+
+                                           apPredictOutput.setErrorMessage(errorMsg);
+                                         }
+
+                                         return apPredictOutput;
+
+                                       },catchError(this.handleError) ));
       case DataType.STOP_INDICATOR:
         queryURL += 'STOP';
         return this.httpClient.get(queryURL, httpHeadersText)

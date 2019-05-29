@@ -27,6 +27,12 @@ import { PacingComponent } from './component/simulation-settings/pacing/pacing.c
 import { ModelsComponent } from './component/simulation-settings/models/models.component';
 import { CompoundConcentrationsComponent } from './component/simulation-settings/compound-concentrations/compound-concentrations.component';
 import { ResultsComponent } from './component/results/results.component';
+import { FlotAPD50Directive } from './directive/flot-apd50.directive';
+import { FlotAPD90Directive } from './directive/flot-apd90.directive';
+import { FlotDeltaAPD90Directive } from './directive/flot-delta_apd90.directive';
+import { FlotPeakVmDirective } from './directive/flot-peak_vm.directive';
+import { FlotQNetDirective } from './directive/flot-q_net.directive';
+import { FlotUpstrokeVelocityDirective } from './directive/flot-upstroke_velocity.directive';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,13 @@ import { ResultsComponent } from './component/results/results.component';
     PacingComponent,
     ModelsComponent,
     CompoundConcentrationsComponent,
-    ResultsComponent
+    ResultsComponent,
+    FlotAPD50Directive,
+    FlotAPD90Directive,
+    FlotDeltaAPD90Directive,
+    FlotPeakVmDirective,
+    FlotQNetDirective,
+    FlotUpstrokeVelocityDirective
   ],
   imports: [
     AppRoutingModule,

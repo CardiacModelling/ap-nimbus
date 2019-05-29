@@ -7,6 +7,7 @@
  */
 export enum DataType {
   PROGRESS,
+  QNET,
   STOP_INDICATOR,
   VOLTAGE_TRACES,
   VOLTAGE_RESULTS
@@ -25,6 +26,8 @@ export class ApPredictOutput {
   completed: boolean = false;
   // Simulation progress.
   progress: string = this.placeholderData;
+  // qNet results.
+  qNet: string = this.placeholderData;
   // Simulation results - voltage traces.
   voltageTraces: string = this.placeholderData;
   // Simulation results - voltage results.
@@ -52,6 +55,9 @@ export class ApPredictOutput {
       case DataType.PROGRESS:
         return (typeof this.progress !== 'undefined' &&
                 !this.isPlaceholderData(this.progress));
+      case DataType.QNET:
+        return (typeof this.qNet !== 'undefined' &&
+                !this.isPlaceholderData(this.qNet));
       case DataType.STOP_INDICATOR:
         return (this.completed == true);
       case DataType.VOLTAGE_TRACES:
@@ -99,6 +105,15 @@ export class ApPredictOutput {
    */
   setCompleted() : void {
     this.completed = true;
+  }
+
+  /**
+   * Assign qNet data.
+   * 
+   * @param qNet qNet results data.
+   */
+  setQNet(qNet: string) : void {
+    this.qNet = qNet;
   }
 
   /**

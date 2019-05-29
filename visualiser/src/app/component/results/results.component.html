@@ -1,30 +1,49 @@
-<div *ngIf="chartData !== undefined">
-  <ngx-charts-line-chart [view]="view"
-                         [legendTitle]="legendTitle"
-                         [scheme]="colorScheme"
-                         [results]="chartData"
-                         [gradient]="gradient"
-                         [xAxis]="showXAxis"
-                         [yAxis]="showYAxis"
-                         [legend]="showLegend"
-                         [showXAxisLabel]="showXAxisLabel"
-                         [showYAxisLabel]="showYAxisLabel"
-                         [xAxisLabel]="xAxisLabel"
-                         [yAxisLabel]="yAxisLabel"
-                         [xAxisTicks]="xAxisTicks"
-                         [xAxisTickFormatting]="xAxisTickFormatting"
-                         [xScaleMin]="xScaleMin"
-                         [xScaleMax]="xScaleMax"
-                         [yAxisTicks]="yAxisTicks"
-                         [yScaleMin]="yScaleMin"
-                         [yScaleMax]="yScaleMax"
-                         (select)="onSelect($event)">
-  </ngx-charts-line-chart>
+<div *ngIf="deltaAPD90Data !== undefined">
+  <div class="container-fluid">
+    <div class="row">
+      <div>
+        <div appFlotDeltaAPD90
+             [directiveData]="deltaAPD90Data"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+      <div>
+        <div appFlotQNet
+             [directiveData]="qNetData"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <div appFlotUpstrokeVelocity
+             [directiveData]="upstrokeVelocityData"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+      <div>
+        <div appFlotPeakVm
+             [directiveData]="peakVmData"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <div appFlotAPD50
+             [directiveData]="apd50Data"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+      <div>
+        <div appFlotAPD90
+             [directiveData]="apd90Data"
+             style="height: 150px; width: 300px;"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
-<p>{{vrMessage}}</p>
-<p *ngFor="let errorMessage of errorMessages">
+<p *ngFor="let errorMessage of errorMessages" style="color: #f00">
   {{errorMessage}}
 </p>
+<p>vrMessage : {{vrMessage}}</p>
+<p>qNetMessage : {{qNetMessage}}</p>
 <pre>
 {{contento}}
 </pre>
