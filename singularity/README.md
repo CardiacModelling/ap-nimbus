@@ -4,7 +4,7 @@
 ## Environment
 
 CentOS Linux release 7.6.1810  
-Singularity v3.2.1 (from source)
+Singularity v3.2.1 (from source)  
 squashfs-tools-4.3-0.21.gitaae0aff4.el7.x86_64  
 
 ### Singularity persistent overlays
