@@ -1,0 +1,5 @@
+# Run ApPredict
+CHASTE_TEST_OUTPUT=`pwd` singularity run appredict-no-emulators.img --model 1 --plasma-conc-high 10
+
+# Enter Singularity container
+singularity exec appredict-no-emulators.img /bin/bash

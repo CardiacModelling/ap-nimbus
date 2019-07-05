@@ -1,0 +1,1 @@
+sudo singularity build appredict-with-emulators.img Singularity

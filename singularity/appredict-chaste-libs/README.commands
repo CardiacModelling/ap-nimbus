@@ -1,0 +1,4 @@
+# Nothing to run, it's just Chaste/ApPredict library dependencies
+
+# Enter Singularity container
+singularity exec appredict-chaste-libs.img /bin/bash

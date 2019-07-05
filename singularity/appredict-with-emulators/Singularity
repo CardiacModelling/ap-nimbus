@@ -1,0 +1,48 @@
+Bootstrap: localimage
+From: ../appredict-no-emulators/appredict-no-emulators.img
+
+%environment
+BUILD_PROCESSORS=8
+HOME_DIR=/home/appredict
+DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export DIR_APPREDICT=${HOME_DIR}/apps/ApPredict
+export PATH=${DIR_APPREDICT}:${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%post
+export BUILD_PROCESSORS=8
+export HOME_DIR=/home/appredict
+export DIR_APPREDICT=${HOME_DIR}/apps/ApPredict
+export DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+export DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export PATH=${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%files
+appredict-with-emulators.sh /
+emulators_bin_gen.sh /
+emulators_fetch.sh /
+
+%post
+cd ${SINGULARITY_ROOTFS}
+
+mv -v emulators_bin_gen.sh ${DIR_APPREDICT}/
+mv -v emulators_fetch.sh ${DIR_APPREDICT}/
+
+/bin/sh appredict-with-emulators.sh
+
+chown -R appredict.appredict ${HOME_DIR}
+chmod -R o=g,o-w ${HOME_DIR}
+
+%runscript
+cd ${DIR_APPREDICT} && \
+  exec ${DIR_APPREDICT}/ApPredict.sh "$@"
+
+%startscript
+exec /bin/bash "$@"
+

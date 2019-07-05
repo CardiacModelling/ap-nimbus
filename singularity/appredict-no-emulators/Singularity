@@ -1,0 +1,59 @@
+Bootstrap: localimage
+From: ../appredict-chaste-libs/appredict-chaste-libs.img
+
+%environment
+BUILD_PROCESSORS=8
+HOME_DIR=/home/appredict
+DIR_BUILD=${HOME_DIR}/build
+DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export DIR_APPREDICT=${HOME_DIR}/apps/ApPredict
+export PATH=${DIR_APPREDICT}:${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%post
+export APPREDICT_HASH=0f75df0
+export APPREDICT_BRANCH=master
+export CHASTE_HASH=12cdbe7
+export CHASTE_BRANCH=develop
+
+export BUILD_PROCESSORS=8
+export HOME_DIR=/home/appredict
+export DIR_APPREDICT=${HOME_DIR}/apps/ApPredict
+export DIR_BUILD=${HOME_DIR}/build
+export DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+export DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export PATH=${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%files
+appredict-no-emulators.sh /
+ApPredict.sh /
+default.py.patch /
+
+%post
+mkdir -vp ${DIR_APPREDICT}
+mkdir -vp ${DIR_BUILD}
+
+cd ${SINGULARITY_ROOTFS}
+
+mv -v ApPredict.sh ${DIR_APPREDICT}/
+mv -v default.py.patch ${DIR_BUILD}/
+
+/bin/sh appredict-no-emulators.sh
+
+chown -R appredict.appredict ${HOME_DIR}
+find ${HOME_DIR} -perm /g=s -exec chmod g-s {} +
+chmod -R o=g,o-w ${HOME_DIR}
+
+%runscript
+cd ${DIR_APPREDICT} && \
+  exec ${DIR_APPREDICT}/ApPredict.sh "$@"
+
+%startscript
+exec /bin/bash "$@"
+

@@ -1,0 +1,41 @@
+Bootstrap: docker
+From: alpine:3.8
+
+%environment
+BUILD_PROCESSORS=8
+HOME_DIR=/home/appredict
+DIR_BUILD=${HOME_DIR}/build
+DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export PATH=${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%post
+export BUILD_PROCESSORS=8
+export HOME_DIR=/home/appredict
+export DIR_BUILD=${HOME_DIR}/build
+export DIR_CHASTE_LIBS=${HOME_DIR}/chaste-libs
+export DIR_DOWNLOADS=${HOME_DIR}/downloads
+
+export PATH=${DIR_CHASTE_LIBS}/bin:${PATH}
+export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
+export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
+
+%files
+appredict-chaste-libs.sh /
+
+%post
+cd ${SINGULARITY_ROOTFS}
+
+/bin/sh appredict-chaste-libs.sh
+
+chown -R appredict.appredict ${HOME_DIR}
+find ${HOME_DIR} -perm /g=s -exec chmod g-s {} +
+chmod -R o=g,o-w ${HOME_DIR}
+
+%runscript
+cd ${HOME_DIR}
+exec /bin/bash "$@"
+

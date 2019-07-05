@@ -1,0 +1,1 @@
+sudo singularity build appredict-chaste-libs.img Singularity
