@@ -9,3 +9,6 @@ popd
 pushd appredict-with-emulators
 sudo singularity build appredict-with-emulators.img Singularity
 popd
+pushd app-manager
+sudo singularity build app-manager.img Singularity
+popd

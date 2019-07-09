@@ -1,0 +1,53 @@
+Bootstrap: localimage
+From: ../appredict-with-emulators/appredict-with-emulators.img
+
+%environment
+BUILD_PROCESSORS=8
+HOME_DIR=/home/appredict
+DIR_APPMANAGER=${HOME_DIR}/apps/app-manager
+
+export DIR_APPMANAGER=${HOME_DIR}/apps/app-manager
+export PATH=${HOME_DIR}/apps/node/v10.13.0/bin:${PATH}
+
+%post
+export BUILD_PROCESSORS=8
+export HOME_DIR=/home/appredict
+export DIR_APPMANAGER=${HOME_DIR}/apps/app-manager
+
+export PATH=${HOME_DIR}/apps/node/v10.13.0/bin:${PATH}
+
+%files
+app-manager.sh /
+kick_off.sh /
+convert.sh /
+package.json /
+package-lock.json /
+run_me.sh /
+server.js /
+
+%post
+mkdir -vp ${DIR_APPMANAGER}/node_modules
+mkdir -vp ${HOME_DIR}/apps/node
+
+cd ${SINGULARITY_ROOTFS}
+
+mv -v kick_off.sh ${DIR_APPMANAGER}/ 
+mv -v convert.sh ${DIR_APPMANAGER}/
+mv -v package.json ${DIR_APPMANAGER}/
+mv -v package-lock.json ${DIR_APPMANAGER}/
+mv -v run_me.sh ${DIR_APPMANAGER}/
+mv -v server.js ${DIR_APPMANAGER}/
+
+/bin/bash app-manager.sh
+
+chown -R appredict.appredict ${DIR_APPMANAGER}
+chown -R appredict.appredict ${HOME_DIR}/apps/node
+chmod -R o=g,o+w ${DIR_APPMANAGER}
+chmod -R o=g,o-w ${HOME_DIR}/apps/node
+
+%runscript
+cd ${DIR_APPMANAGER} && \
+  exec ${DIR_APPMANAGER}/kick_off.sh "$@"
+
+%startscript
+exec /bin/bash "$@"

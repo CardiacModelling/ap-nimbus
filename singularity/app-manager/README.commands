@@ -1,0 +1,134 @@
+# Create persistent overlay
+
+touch my_overlay
+dd if=/dev/zero of=my_overlay bs=1M count=10 && mkfs.ext3 my_overlay
+
+# Run the singularity container (using above overlay)
+
+singularity run --overlay my_overlay app-manager.img
+
+# Prepare simulation request.
+
+cat > request.json << END
+{
+  "metaData": {
+    "title": "Quattro,FLIPR,Barracuda@0.5Hz",
+    "groupLevel": 1,
+    "pacingFrequency": 0.5
+  },
+  "created": 1562590446666,
+  "modelId": 1,
+  "pacingMaxTime": 5,
+  "plasmaPoints": [
+    0,
+    0.3,
+    1,
+    3,
+    10
+  ],
+  "IKs": {
+    "associatedData": [
+      {
+        "pIC50": 4.3,
+        "hill": 0.92,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.3,
+        "hill": 0.92,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.3,
+        "hill": 0.92,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.3,
+        "hill": 0.92,
+        "saturation": 0
+      }
+    ],
+    "spreads": {
+      "c50Spread": null,
+      "hillSpread": null
+    }
+  },
+  "ICaL": {
+    "associatedData": [
+      {
+        "pIC50": 3.6135953011,
+        "hill": 0.441,
+        "saturation": 0
+      }
+    ],
+    "spreads": {
+      "c50Spread": null,
+      "hillSpread": null
+    }
+  },
+  "INa": {
+    "associatedData": [
+      {
+        "pIC50": 4.43,
+        "hill": 0.93,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.2693426277,
+        "hill": 0.95,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.3041942808,
+        "hill": 0.92,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4.2803294015,
+        "hill": 0.94,
+        "saturation": 0
+      },
+      {
+        "pIC50": 3.0693805212,
+        "hill": 1,
+        "saturation": 0
+      },
+      {
+        "pIC50": 4,
+        "hill": 1,
+        "saturation": 0
+      }
+    ],
+    "spreads": {
+      "c50Spread": null,
+      "hillSpread": null
+    }
+  },
+  "IKr": {
+    "associatedData": [
+      {
+        "pIC50": 4.3,
+        "hill": 0.2,
+        "saturation": 0
+      }
+    ],
+    "spreads": {
+      "c50Spread": null,
+      "hillSpread": null
+    }
+  },
+  "pacingFrequency": 0.5
+}
+END
+
+# Simulation request (pipe to jq is optional) : Record the simulation 'id'
+
+curl --header "Expect: " --header "Content-Type:application/json" -X POST -d @request.json http://<host>:8080/ | jq
+
+# Simulation results/progress response (pipe to jq is optional) : Output data (note content type of "text/plain"... albeit json format text)
+
+curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/progress_status | jq
+curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/STOP | jq
+curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_traces | jq
+curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_results | jq
