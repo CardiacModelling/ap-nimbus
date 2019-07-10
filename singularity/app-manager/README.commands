@@ -128,7 +128,7 @@ curl --header "Expect: " --header "Content-Type:application/json" -X POST -d @re
 
 # Simulation results/progress response (pipe to jq is optional) : Output data (note content type of "text/plain"... albeit json format text)
 
-curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/progress_status | jq
-curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/STOP | jq
-curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_traces | jq
-curl -i -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_results | jq
+curl -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/progress_status | jq
+curl -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/STOP | jq
+curl -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_traces | jq
+curl -H "Content-Type: text/plain; charset=utf-8" -X GET http://<host>:8080/api/collection/<sim id>/voltage_results | jq
