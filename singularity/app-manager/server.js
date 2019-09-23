@@ -563,22 +563,29 @@ const server = http.createServer((request, response) => {
   // Object to return to caller.
   var return_obj = {};
 
+  console.log('DEBUG : ----');
+  console.log(JSON.stringify(request.headers));
   if (request.method == 'POST') {
     var simulation_id = uuidv4();
 
+    let body = [];
     request.on('data', (data) => {
+      body.push(data);
       /* 
        * If there's more than 1024 bytes arriving via a curl command then see 
        * https://stackoverflow.com/questions/463144/php-http-post-fails-when-curl-data-1024
        * which illustrates the necessity to add the "Expect:" header, e.g.
        * `curl --header "Expect: " --header "Content-Type:application/json" -X POST -d @request.json http://192.168.0.20:8080/`
        */
+    }).on('end', () => {
+      /* https://nodejs.org/es/docs/guides/anatomy-of-an-http-transaction/ */
+      body = Buffer.concat(body).toString();
 
-      /* Example data: {"created":1550659422962,"modelId":8,"pacingFrequency":1,"pacingMaxTime":5,.... */
+      /* Example body: {"created":1550659422962,"modelId":8,"pacingFrequency":1,"pacingMaxTime":5,.... */
       try {
-        var parsed = JSON.parse(data);
+        var parsed = JSON.parse(body);
       } catch (error) {
-        var error_msg = 'Could not parse POSTed data!: ' + data;
+        var error_msg = 'Could not parse POSTed body!: ' + body;
         console.log('ERR06 : ' + error_msg);
         // TODO: Consider writing error to a file (for GET retrieval).
       }
@@ -586,6 +593,9 @@ const server = http.createServer((request, response) => {
       if (typeof parsed !== 'undefined') {
         run_appredict(parsed, simulation_id);
       }
+
+      console.log(body);
+      console.log('DEBUG : ----');
     });
 
     /*
