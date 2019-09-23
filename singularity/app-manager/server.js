@@ -563,8 +563,7 @@ const server = http.createServer((request, response) => {
   // Object to return to caller.
   var return_obj = {};
 
-  console.log('DEBUG : ----');
-  console.log(JSON.stringify(request.headers));
+  console.log('DEBUG : Request headers : ' + JSON.stringify(request.headers));
   if (request.method == 'POST') {
     var simulation_id = uuidv4();
 
@@ -594,8 +593,7 @@ const server = http.createServer((request, response) => {
         run_appredict(parsed, simulation_id);
       }
 
-      console.log(body);
-      console.log('DEBUG : ----');
+      console.log('DEBUG : Request body : ' + body);
     });
 
     /*
