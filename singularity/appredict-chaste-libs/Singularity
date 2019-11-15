@@ -29,7 +29,8 @@ appredict-chaste-libs.sh /
 %post
 cd ${SINGULARITY_ROOTFS}
 
-/bin/sh appredict-chaste-libs.sh
+/bin/sh appredict-chaste-libs.sh && \
+  /bin/rm -vf appredict-chaste-libs.sh
 
 chown -R appredict.appredict ${HOME_DIR}
 find ${HOME_DIR} -perm /g=s -exec chmod g-s {} +

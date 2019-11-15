@@ -44,7 +44,8 @@ cd ${SINGULARITY_ROOTFS}
 mv -v ApPredict.sh ${DIR_APPREDICT}/
 mv -v default.py.patch ${DIR_BUILD}/
 
-/bin/sh appredict-no-emulators.sh
+/bin/sh appredict-no-emulators.sh && \
+  /bin/rm -vf appredict-no-emulators.sh
 
 chown -R appredict.appredict ${HOME_DIR}
 find ${HOME_DIR} -perm /g=s -exec chmod g-s {} +

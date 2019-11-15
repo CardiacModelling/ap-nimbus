@@ -38,7 +38,8 @@ mv -v package-lock.json ${DIR_APPMANAGER}/
 mv -v run_me.sh ${DIR_APPMANAGER}/
 mv -v server.js ${DIR_APPMANAGER}/
 
-/bin/bash app-manager.sh
+/bin/bash app-manager.sh && \
+  /bin/rm -vf app-manager.sh
 
 chown -R appredict.appredict ${DIR_APPMANAGER}
 chown -R appredict.appredict ${HOME_DIR}/apps/node

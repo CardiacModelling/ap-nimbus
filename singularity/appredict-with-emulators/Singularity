@@ -34,7 +34,8 @@ cd ${SINGULARITY_ROOTFS}
 mv -v emulators_bin_gen.sh ${DIR_APPREDICT}/
 mv -v emulators_fetch.sh ${DIR_APPREDICT}/
 
-/bin/sh appredict-with-emulators.sh
+/bin/sh appredict-with-emulators.sh && \
+  /bin/rm -vf appredict-with-emulators.sh
 
 chown -R appredict.appredict ${HOME_DIR}
 chmod -R o=g,o-w ${HOME_DIR}
