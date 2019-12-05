@@ -426,6 +426,7 @@ function on_file_change(file_path) {
       } else if (/^voltage_results$/i.test(file_name_no_ext)) {
       } else if (/^conc_.*_voltage_trace$/i.test(file_name_no_ext)) {
       } else if (/^voltage_traces$/i.test(file_name_no_ext)) {
+      } else if (/^q_net$/i.test(file_name_no_ext)) {
       } else {
         send_data = false;
         console.log('WARN3 : Unrecognised .json file title of ' + file_name_no_ext + ' for id ' + uuid + '!');
