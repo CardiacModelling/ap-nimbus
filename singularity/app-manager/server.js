@@ -26,6 +26,22 @@ const RUNME_SCRIPT = './run_me.sh';
 
 /**************************** Function declarations ***************************/
 
+const CHANNELS = {
+  IKr: 'herg',
+  INa: 'na',
+  ICaL: 'cal',
+  IKs: 'iks',
+  IK1: 'ik1',
+  Ito: 'ito',
+  INaL: 'nal'
+}
+
+/**
+ * Process pIC50/Hill/Saturation and spread data.
+ *
+ * @param Channel's associatedItem item.
+ * @return Object with arrayed associated data values joined by spaces.
+ */
 function process_associated_data(associated_item) {
   if (typeof associated_item === 'undefined') {
     return;
@@ -36,19 +52,34 @@ function process_associated_data(associated_item) {
   var pIC50s = [];
   var hills = [];
   var saturations = [];
-  associated_data.forEach((associated_item) => {
-    pIC50s.push(associated_item.pIC50);
-    hills.push(associated_item.hill);
-    saturations.push(associated_item.saturation);
-  });
+  if (typeof associated_data !== 'undefined') {
+    associated_data.forEach((associated_item) => {
+      pIC50s.push(associated_item.pIC50);
+      hills.push(associated_item.hill);
+      saturations.push(associated_item.saturation);
+    });
 
-  return {
-    'spreads': spreads,
-    'pIC50s': pIC50s.join(' '),
-    'hills': hills.join(' '),
-    'saturations': saturations.join(' ')
+    return {
+      'spreads': spreads,
+      'pIC50s': pIC50s.join(' '),
+      'hills': hills.join(' '),
+      'saturations': saturations.join(' ')
+    }
   }
+
+  return;
 }
+
+/**
+ * Helper function to indicate non-empty string value.
+ *
+ * @param obj String item to test.
+ * @return {@code true} if non-empty string, otherwise {@code false}.
+ */
+function has_data(obj) {
+  return (typeof obj !== 'undefined' && obj.trim() + '' != '');
+}
+
 /**
  * Perform an asynchronous invocation of the script which kicks of ApPredict.
  *
@@ -61,69 +92,6 @@ function call_invoke(appredict_input, simulation_id) {
     var model_id = appredict_input.modelId;
     var pacing_frequency = appredict_input.pacingFrequency;
     var pacing_max_time = appredict_input.pacingMaxTime;
-
-    var pIC50s_IKr;
-    var hills_IKr;
-    var saturations_IKr;
-    var pIC50s_INa;
-    var hills_INa;
-    var saturations_INa;
-    var pIC50s_ICaL;
-    var hills_ICaL;
-    var saturations_ICaL;
-    var pIC50s_IKs;
-    var hills_IKs;
-    var saturations_IKs;
-    var pIC50s_IK1;
-    var hills_IK1;
-    var saturations_IK1;
-    var pIC50s_Ito;
-    var hills_Ito;
-    var saturations_Ito;
-
-    var data_IKr = process_associated_data(appredict_input.IKr);
-    if (typeof data_IKr !== 'undefined') {
-      pIC50s_IKr = data_IKr.pIC50s;
-      hills_IKr = data_IKr.hills;
-      saturations_IKr = data_IKr.saturations;
-    }
-    var data_INa = process_associated_data(appredict_input.INa);
-    if (typeof data_INa !== 'undefined') {
-      pIC50s_INa = data_INa.pIC50s;
-      hills_INa = data_INa.hills;
-      saturations_INa = data_INa.saturations;
-    }
-    var data_ICaL = process_associated_data(appredict_input.ICaL);
-    if (typeof data_ICaL !== 'undefined') {
-      pIC50s_ICaL = data_ICaL.pIC50s;
-      hills_ICaL = data_ICaL.hills;
-      saturations_ICaL = data_ICaL.saturations;
-    }
-    var data_IKs = process_associated_data(appredict_input.IKs);
-    if (typeof data_IKs !== 'undefined') {
-      pIC50s_IKs = data_IKs.pIC50s;
-      hills_IKs = data_IKs.hills;
-      saturations_IKs = data_IKs.saturations;
-    }
-    var data_IK1 = process_associated_data(appredict_input.IK1);
-    if (typeof data_IK1 !== 'undefined') {
-      pIC50s_IK1 = data_IK1.pIC50s;
-      hills_IK1 = data_IK1.hills;
-      saturations_IK1 = data_IK1.saturations;
-    }
-    var data_Ito = process_associated_data(appredict_input.Ito);
-    if (typeof data_Ito !== 'undefined') {
-      pIC50s_Ito = data_Ito.pIC50s;
-      hills_Ito = data_Ito.hills;
-      saturations_Ito = data_Ito.saturations;
-    }
-
-    //var pIC50s_IKr = process_pIC50s(appredict_input.pIC50sIKr);
-    //var pIC50s_INa = process_pIC50s(appredict_input.pIC50sINa);
-    //var pIC50s_ICaL = process_pIC50s(appredict_input.pIC50sICaL);
-    //var pIC50s_IKs = process_pIC50s(appredict_input.pIC50sIKs);
-    //var pIC50s_IK1 = process_pIC50s(appredict_input.pIC50sIK1);
-    //var pIC50s_Ito = process_pIC50s(appredict_input.pIC50sIto);
 
     var plasma_max = appredict_input.plasmaMaximum;
     var plasma_min = appredict_input.plasmaMinimum;
@@ -157,17 +125,6 @@ function call_invoke(appredict_input, simulation_id) {
         return;
       }
     }
-
-    /*
-    if (![pIC50s_IKr, pIC50s_INa, pIC50s_ICaL,pIC50s_IKs, pIC50s_IK1, pIC50s_Ito].every((element) => {
-            return (element == '' || typeof element === 'undefined' || typeof element !== 'undefined '&& 
-                    !isNaN(parseFloat(element)) && isFinite(element));
-           }) ) {
-      console.log('WARN1.2 : Non-numeric encountered! : ' + JSON.stringify(appredict_input));
-
-      return;
-    }
-    */
 
     if (![model_id, pacing_frequency, pacing_max_time].every((element) => {
             return (element == '' || typeof element !== 'undefined' ||
@@ -207,35 +164,49 @@ function call_invoke(appredict_input, simulation_id) {
       }
     }
 
-    if (pIC50s_IKr !== undefined && pIC50s_IKr != '') {
-      args += '--pic50-herg ' + pIC50s_IKr + ' ';
-      args += '--hill-herg ' + hills_IKr + ' ';
-      args += '--saturation-herg ' + saturations_IKr + ' ';
-    }
-    if (pIC50s_INa !== undefined && pIC50s_INa != '') {
-      args += '--pic50-na ' + pIC50s_INa + ' ';
-      args += '--hill-na ' + hills_INa + ' ';
-      args += '--saturation-na ' + saturations_INa + ' ';
-    }
-    if (pIC50s_ICaL !== undefined && pIC50s_ICaL != '') {
-      args += '--pic50-cal ' + pIC50s_ICaL + ' ';
-      args += '--hill-cal ' + hills_ICaL + ' ';
-      args += '--saturation-cal ' + saturations_ICaL + ' ';
-    }
-    if (pIC50s_IKs !== undefined && pIC50s_IKs != '') {
-      args += '--pic50-iks ' + pIC50s_IKs + ' ';
-      args += '--hill-iks ' + hills_IKs + ' ';
-      args += '--saturation-iks ' + saturations_IKs + ' ';
-    }
-    if (pIC50s_IK1 !== undefined && pIC50s_IK1 != '') {
-      args += '--pic50-ik1 ' + pIC50s_IK1 + ' ';
-      args += '--hill-ik1 ' + hills_IK1 + ' ';
-      args += '--saturation-ik1 ' + saturations_IK1 + ' ';
-    }
-    if (pIC50s_Ito !== undefined && pIC50s_Ito != '') {
-      args += '--pic50-ito ' + pIC50s_Ito + ' ';
-      args += '--hill-ito ' + hills_Ito + ' ';
-      args += '--saturation-ito ' + saturations_Ito + ' ';
+    var credible_intervals = false;
+
+    Object.keys(CHANNELS).forEach(function(key, index) {
+      var channel = key;
+      var appredict_name = CHANNELS[key];
+      var associated_item = appredict_input[channel];
+      if (typeof associated_item !== 'undefined') {
+        var channel_data = process_associated_data(associated_item);
+        if (typeof channel_data !== 'undefined') {
+          var pIC50s = channel_data.pIC50s;
+          if (has_data(pIC50s)) {
+            args += '--pic50-' + appredict_name + ' ' + pIC50s + ' ';
+            var hills = channel_data.hills;
+            if (has_data(hills)) {
+              args += '--hill-' + appredict_name + ' ' + hills + ' ';
+            }
+            var saturations = channel_data.saturations;
+            if (has_data(saturations)) {
+              args += '--saturation-' + appredict_name + ' ' + saturations + ' ';
+            }
+
+            var spreads = channel_data.spreads;
+            if (typeof spreads !== 'undefined') {
+              var pIC50_spread = spreads.c50Spread;
+              var hill_spread = spreads.hillSpread;
+              if (has_data(pIC50_spread)) {
+                credible_intervals = true;
+                args += '--pic50-spread-' + appredict_name + ' ' + pIC50_spread + ' ';
+              }
+              if (has_data(hill_spread)) {
+                credible_intervals = true;
+                args += '--hill-spread-' + appredict_name + ' ' + hill_spread + ' ';
+              }
+            }
+          } else {
+            console.log('No pIC50 data for ' + channel + '. Ignoring!');
+          }
+        }
+      }
+    });
+
+    if (credible_intervals) {
+      args += '--credible-intervals 38 68 86 95 ';
     }
 
     console.log('DEBUG : ApPredict args : ' + args);
@@ -243,21 +214,39 @@ function call_invoke(appredict_input, simulation_id) {
     var run_dir = concatenator( [ DIR_APPREDICT_RUN, simulation_id], false);
     var res_dir = concatenator( [ DIR_APPREDICT_RESULTS, simulation_id], false);
 
-    exec(RUNME_SCRIPT + ' ' + run_dir + ' ' + res_dir + ' ' + args, (error, stdout, stderr) => {
-          // TODO : If we're not capturing run_me.sh output in the shell script then should at least
-          //        be providing a mechanism here to return simulation stdout/stderr output to the UI.
+    var appredict_output_dir = 'ApPredict_output';
+
+    exec(RUNME_SCRIPT + ' ' + run_dir
+                      + ' ' + res_dir
+                      + ' ' + appredict_output_dir
+                      + ' ' + args,
+                      (error, stdout, stderr) => {
+          var std_file_prefix = concatenator( [ res_dir, appredict_output_dir ], false);
           if (stdout) {
             console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
             console.log(stdout);
             console.log('********************************************************************************');
+            var stdout_file = concatenator( [ std_file_prefix, 'STDOUT' ], false);
+            fs.appendFile(stdout_file, stdout, function (err) {
+              if (err != null) {
+                console.log('stdout ' + err);
+              }
+            });
           }
           if (stderr) {
             // Possible causes:
             //   1. Can't find ApPredict.sh (maybe app-manager not started in container)
             //   2. Simulation crashed during processing.
+            //   3. ApPredict invoking wget (which writes download info to stderr!)
             console.log('ERR01 : ** ' + simulation_id + ' : ApPredict stderr follows *****');
             console.log(stderr);
             console.log('********************************************************************************');
+            var stderr_file = concatenator( [ std_file_prefix, 'STDERR' ], false);
+            fs.appendFile(stderr_file, stderr, function (err) {
+              if (err != null) {
+                console.log('stderr ' + err);
+              }
+            });
           }
           if (error !== null) {
             console.log('ERR02 : ' + error);
@@ -269,50 +258,11 @@ function call_invoke(appredict_input, simulation_id) {
 };
 
 /**
- * Incoming formats are ..
- * <ul>
- *   <li>CSV, e.g. "4.4300000000,4.1994589303,4.1834193885,4.1759209425,3.0693805212,4.0000000000"</li>
- *   <li>An array of values</li>
- *   <li>Single value</li>
- * </ul>
- * 
- * @param pIC50s
- * @returns String of values.
+ * Helper function to indicate if all values in the array are numbers.
+ *
+ * @param arr Array to process.
+ * @return {@code true} if all values were numeric, otherwise {@code false}.
  */
-function process_pIC50s(pIC50s) {
-  var returned;
-
-  if (typeof pIC50s !== 'undefined') {
-    // Appears to be a value declaration of some sort!
-    if (Array.isArray(pIC50s)) {
-      // Array for splitting.
-      if (numbers(pIC50s)) {
-        returned = pIC50s.join(' ');
-      } 
-    } else {
-      // Assume string
-      if (typeof pIC50s === 'string' || pIC50s instanceof String) {
-        if (pIC50s.indexOf(',') == -1) {
-          // Single value
-          if (numbers([ pIC50s ])) {
-            returned = pIC50s;
-          }
-        } else {
-          // CSV
-          var arrayed = pIC50s.split(',');
-          if (numbers(pIC50s.split(','))) {
-            returned = arrayed.join(' ');
-          }
-        }
-      } else {
-        console.log('ERR09 - cannot determine format of ' + pIC50s);
-      }
-    }
-  }
-
-  return returned;
-}
-
 function numbers(arr) {
   if (!arr.every((element) => {
         return (typeof element !== 'undefined' && element.trim() != '' &&
@@ -327,7 +277,7 @@ function numbers(arr) {
 
 /**
  * Build up a directory path with native path separator.
- * 
+ *
  * @param string_arr String array to concatenate.
  * @param append_separator `true` if to append a native path separator, otherwise `false`.
  * @returns Concatenated string.
@@ -342,7 +292,7 @@ function concatenator(string_arr, append_separator) {
 
 /**
  * Handle a URL response.
- * 
+ *
  * @param origin Calling function name/identifier.
  * @param url URL responded to.
  * @param error Optional error message received.
@@ -444,6 +394,8 @@ function on_file_add(file_path) {
       }, (error, response, body) => {
         handle_data_response('on_file_add', url, error, response, body);
       });
+    } else if (/^STD(ERR|OUT)$/i.test(file_name)) {
+      //
     }
   }
 }
@@ -465,18 +417,18 @@ function on_file_change(file_path) {
     var uuid = third_last_component;
 
     var file_name = path.basename(file_path);
+    var send_data = true;
     // Does it have the json file extension?
     if (/\.json$/i.test(file_name)) {
       var file_name_no_ext = path.basename(file_path, '.json');
 
-      var send_data = true;
       if (/^progress_status$/i.test(file_name_no_ext)) {
       } else if (/^voltage_results$/i.test(file_name_no_ext)) {
       } else if (/^conc_.*_voltage_trace$/i.test(file_name_no_ext)) {
       } else if (/^voltage_traces$/i.test(file_name_no_ext)) {
       } else {
         send_data = false;
-        console.log('WARN3 : Unrecognised file title of ' + file_name_no_ext + ' for id ' + uuid + '!');
+        console.log('WARN3 : Unrecognised .json file title of ' + file_name_no_ext + ' for id ' + uuid + '!');
       }
 
       if (send_data) {
@@ -489,7 +441,7 @@ function on_file_change(file_path) {
             try {
               parsed = JSON.parse(contents);
             } catch (e) {
-              // Can occur quite frequently 
+              // Can occur quite frequently
               let show_contents = contents.length > 100 ?
                                   contents.substring(0, 99) + '.... <-- truncated!' :
                                   contents;
@@ -511,6 +463,32 @@ function on_file_change(file_path) {
                 handle_data_response('on_file_change', url, error, response, body);
               });
             }
+          }
+        });
+      }
+    } else {
+      if (!/^STD(ERR|OUT)$/i.test(file_name)) {
+        send_data = false;
+      }
+
+      if (send_data) {
+        fs.readFile(file_path, { encoding: 'utf-8' }, (error, contents) => {
+          if (error) {
+            console.log('ERR10 : File read : ' + file_path + ' ' + error);
+          } else {
+            var url = rest_api_url_data + REST_API_URL_COLLECTION;
+            console.log('Posting to ' + url + ': ' + contents);
+            request.post({
+              url: url,
+              body: {
+                'uuid': uuid,
+                'filetitle': file_name,
+                'contents': contents
+              },
+              json: true
+            }, (error, response, body) => {
+              handle_data_response('on_file_change', url, error, response, body);
+            });
           }
         });
       }
@@ -563,26 +541,27 @@ const server = http.createServer((request, response) => {
   // Object to return to caller.
   var return_obj = {};
 
-  console.log('DEBUG : Request headers : ' + JSON.stringify(request.headers));
   if (request.method == 'POST') {
     var simulation_id = uuidv4();
 
     let body = [];
     request.on('data', (data) => {
       body.push(data);
-      /* 
-       * If there's more than 1024 bytes arriving via a curl command then see 
+      console.log('DEBUG : on data : ' + Buffer.concat(body).toString());
+      /*
+       * If there's more than 1024 bytes arriving via a curl command then see
        * https://stackoverflow.com/questions/463144/php-http-post-fails-when-curl-data-1024
        * which illustrates the necessity to add the "Expect:" header, e.g.
        * `curl --header "Expect: " --header "Content-Type:application/json" -X POST -d @request.json http://192.168.0.20:8080/`
        */
-    }).on('end', () => {
+     }).on('end', () => {
       /* https://nodejs.org/es/docs/guides/anatomy-of-an-http-transaction/ */
       body = Buffer.concat(body).toString();
 
-      /* Example body: {"created":1550659422962,"modelId":8,"pacingFrequency":1,"pacingMaxTime":5,.... */
+      /* Example data: {"created":1550659422962,"modelId":8,"pacingFrequency":1,"pacingMaxTime":5,.... */
       try {
         var parsed = JSON.parse(body);
+        console.log('DEBUG : on end : ' + JSON.stringify(parsed));
       } catch (error) {
         var error_msg = 'Could not parse POSTed body!: ' + body;
         console.log('ERR06 : ' + error_msg);
@@ -597,11 +576,16 @@ const server = http.createServer((request, response) => {
     });
 
     /*
-     * Going to ask for client to close connection after container has kicked off a simulation.
-     * If the client is a browser it's more than likely Connection will be 'keep-alive'
-     * which if there's app-manager replication, it will cause all simulation requests to end
-     * up hitting the same container (until the keep-alive timeout is reached, e.g. 115 seconds
-     * on FF I think - see about:config).
+     * Going to ask for client to close connection after container has kicked
+     * off a simulation.
+     * If the client is a browser it's more than likely Connection will be
+     * 'keep-alive' which if there's app-manager replication, it will cause all
+     * simulation requests to end up hitting the same container (until the
+     * keep-alive timeout is reached, e.g. 115 seconds on FF I think - see
+     * about:config).
+     * Some clients may be restricted in the capacity to send all data in a
+     * single POST request, and as such require additional 'data' calls to the
+     * REST API, in which case the "Connection: close" needs to be removed.
      */
     response.writeHead(200, {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
@@ -647,18 +631,23 @@ const server = http.createServer((request, response) => {
 
       if (typeof operation !== 'undefined') {
         switch (operation) {
+          case 'STDERR':
+          case 'STDOUT':
           case 'STOP':
-            var stopped_file = results_pfx += 'STOP';
+            var file = results_pfx += operation;
             try {
-              fs.readFileSync(stopped_file);
+              var content = fs.readFileSync(file);
+              // TODO: String appended otherwise seems to be treated as an object - why!?
+              content += '';
               return_obj = {
-                'success': true
+                'success': true,
+                'content': content
               };
             } catch (error) {
               // Ignore "file doesn't exist!" errors (as file only appears when ApPredict stops!)
               if (!error.message.startsWith('ENOENT:')) {
                 return_obj = {
-                  'error': 'Problem reading ' + stopped_file + ' (Caused by: ' + error.message + ')'
+                  'error': 'Problem reading ' + file + ' (Caused by: ' + error.message + ')'
                 }
               }
             }
@@ -666,6 +655,7 @@ const server = http.createServer((request, response) => {
           case 'voltage_results':
           case 'voltage_traces':
           case 'progress_status':
+          case 'q_net':
             var json_file_path = results_pfx += operation + '.json';
             try {
               // Try parsing first to make sure that it's valid JSON.
@@ -683,7 +673,7 @@ const server = http.createServer((request, response) => {
             break;
           default:
             return_obj = {
-              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results" and "progress_status"'
+              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status" and "q_net"'
             }
             break;
         }

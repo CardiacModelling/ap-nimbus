@@ -59,6 +59,22 @@ function process_progress {
   fi
 }
 
+function process_qnet {
+  in_dir=$1
+  in_file=$2
+
+  file_read=${in_dir}${in_file}
+  out_dir=$(mk_out_dir ${in_dir})
+  file_tmp=${out_dir}q_net.tmp
+  file_write=${out_dir}q_net.json
+
+  if [ -f ${file_read} ]; then
+    jq -R -c '[inputs | split("\t") | {c: .[0], qnet: .[1]}]' <${file_read} >${file_tmp}
+    # Ensure a single file action which node (i.e. chokidar) can watch and act on!
+    mv ${file_tmp} ${file_write}
+  fi
+}
+
 function process_voltage_results {
   in_dir=$1
   in_file=$2
@@ -69,7 +85,16 @@ function process_voltage_results {
   file_write=${out_dir}voltage_results.json
 
   if [ -f ${file_read} ]; then
-    jq -R -c '[inputs | split("\t") | {c: .[0], uv: .[1], pv: .[2], a50: .[3], a90: .[4], da90: .[5]}]' <${file_read} >${file_tmp}
+    # The presence of the additional .da90 split is for when there's a CSV format
+    # for DeltaAPD90 on credible intervals. Converts CSV to an array of values.
+
+    # 1. `echo` the header line
+    # 2. `cat` the header line and the main file, i.e. duplicate the header line
+    # 3. Run jq with -R option to ignore first line... because otherwise it fails!
+    echo $(head -n 1 ${file_read}) | \
+      cat - ${file_read} | \
+      jq -R -c '[inputs | split("\t") | {c: .[0], uv: .[1], pv: .[2], a50: .[3], a90: .[4], da90: .[5]} | .da90 |= split(",")]' >${file_tmp}
+
     # Ensure a single file action which node (i.e. chokidar) can watch and act on!
     mv ${file_tmp} ${file_write}
   fi
@@ -124,16 +149,19 @@ fi
 inotifywait -m -r -e close_write -e modify -e delete ${run_dir} | \
   while read dir event file
     do
-      [[ "${event}" == 'MODIFY' && "${file}" == 'progress_status.txt' ]] && \
-        process_progress $dir $file
+      if [[ "${event}" == 'MODIFY' ]]; then
+        if [[ "${file}" == 'progress_status.txt' ]]; then
+          process_progress ${dir} ${file}
+        elif [[ "${file}" == 'voltage_results.dat' ]]; then
+          process_voltage_results ${dir} ${file}
+        elif [[ "${file}" == 'q_net.txt' ]]; then
+          process_qnet ${dir} ${file}
+        fi
+      else
+        [[ "${event}" == 'CLOSE_WRITE,CLOSE' && "${file}" == conc_*_voltage_trace.dat ]] && \
+          process_voltage_trace ${dir} ${file}
 
-      [[ "${event}" == 'CLOSE_WRITE,CLOSE' && "${file}" == conc_*_voltage_trace.dat ]] && \
-        process_voltage_trace $dir $file
-
-      [[ "${event}" == 'MODIFY' && "${file}" == 'voltage_results.dat' ]] && \
-        process_voltage_results $dir $file
-
-      [[ "${event}" == 'DELETE,ISDIR' && "${file}" == 'ApPredict_output' ]] && \
-        touch $(mk_out_dir ${dir})${file}/STOP
+        [[ "${event}" == 'DELETE,ISDIR' && "${file}" == 'ApPredict_output' ]] && \
+          touch $(mk_out_dir ${dir})${file}/STOP
+      fi
     done
-
