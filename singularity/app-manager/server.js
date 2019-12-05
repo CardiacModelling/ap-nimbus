@@ -71,13 +71,13 @@ function process_associated_data(associated_item) {
 }
 
 /**
- * Helper function to indicate non-empty string value.
+ * Helper function to indicate non-empty value.
  *
- * @param obj String item to test.
- * @return {@code true} if non-empty string, otherwise {@code false}.
+ * @param obj Item to test.
+ * @return {@code true} if non-empty, otherwise {@code false}.
  */
 function has_data(obj) {
-  return (typeof obj !== 'undefined' && obj.trim() + '' != '');
+  return ((typeof obj !== 'undefined') && ((obj + '').trim().length > 0));
 }
 
 /**
@@ -335,7 +335,7 @@ async function run_appredict(appredict_input, simulation_id) {
   try {
     await call_invoke(appredict_input, simulation_id);
   } catch (error) {
-    console.log('ERR03 : ' + error);
+    console.log('ERR09 : ' + error);
   }
 }
 
