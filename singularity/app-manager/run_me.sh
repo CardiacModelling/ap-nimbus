@@ -65,12 +65,6 @@ else
 
   CHASTE_TEST_OUTPUT=${run_dir} ${appredict} ${appredict_args}
 
-  # Keeping the below because when run with Paci (model 9) it crashes at 300uM!
-  #CHASTE_TEST_OUTPUT=${run_dir} ${appredict} --model 9 \
-  #                                           --pacing-max-time 2.00 \
-  #                                           --pic50-herg 4.99 4.91 4.75 4.9 4.77 --hill-herg 1.32 1.42 1.49 1.33 1.86 --saturation-herg 0 0 0 0 0 \
-  #                                           --plasma-concs 0.01 0.03 0.1 0.3 1 3 10 30 100 300 --plasma-conc-logscale true
-
   retVal=$?
   if [ ${retVal} -ne 0 ]; then
     # Could have arrived here prior to first conc or towards end of sim!
@@ -89,6 +83,8 @@ echo "" >> ${output_dir}/STOP
 # may cause the run dir removal to fail (albeit not a show-stopper, just
 # leaves an untidy legacy).
 # Adding a small delay to allow filesystem tidy-up prior to removal.
+#
+# ** Changing the value below? Update setTimeout in client-direct/src/app/results/results.component.ts **
 sleep 1
 
 rm -rf ${run_dir}
