@@ -39,7 +39,10 @@ fi
 mkdir -p ${run_dir}
 
 pushd ${run_dir}
-appredict="/home/appredict/apps/ApPredict/ApPredict.sh"
+
+appredict_home="/home/appredict/apps/ApPredict"
+appredict="${appredict_home}/ApPredict.sh"
+
 if [ ! -e "${appredict}" ]; then
   # May end up here if script is not being run in a container!
   echo "ERROR : Failed to find ${appredict}"
@@ -55,13 +58,15 @@ if [ ! -e "${appredict}" ]; then
   sleep 9
 else
   # If there are any emulator files then symlink them to run dir.
-  if [ "$(find /home/appredict/apps/ApPredict/ -maxdepth 1 -name '*.arch' | wc -l)" -gt 0 ]; then
-    ln -s /home/appredict/apps/ApPredict/*.arch ${run_dir}/
+  if [ "$(find ${appredict_home}/ -maxdepth 1 -name '*.arch' | wc -l)" -gt 0 ]; then
+    ln -s ${appredict_home}/*.arch .
+    # Don't bother with the manifest file as it either; gets ignored if no
+    # internet access, or replaced if internet access. See
+    # https://github.com/Chaste/ApPredict/blob/master/src/lookup/LookupTableLoader.cpp
   fi
 
   # Record the ApPredict args for posterity!
-  echo "${appredict_args}" >> ${output_dir}/STDOUT
-  echo "" >> ${output_dir}/STDOUT
+  echo "ApPredict args : ${appredict_args}" >> ${output_dir}/STDOUT
 
   CHASTE_TEST_OUTPUT=${run_dir} ${appredict} ${appredict_args}
 

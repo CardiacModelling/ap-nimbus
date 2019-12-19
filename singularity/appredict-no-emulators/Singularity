@@ -14,9 +14,9 @@ export LD_LIBRARY_PATH=${DIR_CHASTE_LIBS}/lib
 export PYTHONPATH=${LD_LIBRARY_PATH}/python2.7/site-packages:${LD_LIBRARY_PATH}/lib64/python2.7
 
 %post
-export APPREDICT_HASH=0f75df0
+export APPREDICT_HASH=727bc85
 export APPREDICT_BRANCH=master
-export CHASTE_HASH=12cdbe7
+export CHASTE_HASH=3adb96d
 export CHASTE_BRANCH=develop
 
 export BUILD_PROCESSORS=8

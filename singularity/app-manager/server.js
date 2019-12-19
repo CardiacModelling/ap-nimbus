@@ -24,6 +24,158 @@ const REST_API_URL_COLLECTIONS = 'api/collections';
 
 const RUNME_SCRIPT = './run_me.sh';
 
+/**************************** OPTIONS help texts    ***************************/
+
+const HELP_APPREDICT = `Copyright (c) 2005-2019, University of Oxford.
+All rights reserved.
+
+University of Oxford means the Chancellor, Masters and Scholars of the
+University of Oxford, having an administrative office at Wellington
+Square, Oxford OX1 2JD, UK.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ * Neither the name of the University of Oxford nor the names of its
+   contributors may be used to endorse or promote products derived from this
+   software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+This version of Chaste was compiled on:
+Wed, 18 Dec 2019 20:39:10 +0000 by Linux e29626c1fd94 4.14.16-200.fc26.x86_64 #1 SMP Wed Jan 31 19:34:52 UTC 2018 x86_64 (uname)
+from revision number 3adb96d with build type GccOptNative, shared libraries.
+
+# 0 arguments supplied.
+
+***********************************************************************************************
+* ApPredict::Please provide some of these inputs:
+*
+* EITHER --model
+*   options: 1 = Shannon, 2 = TenTusscher (06), 3 = Mahajan,
+*            4 = Hund-Rudy, 5 = Grandi, 6 = O'Hara-Rudy 2011 (endo),
+*            7 = Paci (ventricular), 8 = O'Hara-Rudy CiPA v1 2017 (endo)
+* OR --cellml <file>
+*
+* SPECIFYING PACING:
+* --pacing-freq            Pacing frequency (Hz) (optional - defaults to 1Hz)
+* --pacing-max-time        Maximum time for which to pace the cell model in MINUTES
+*                          (optional - defaults to time for 10,000 paces at this frequency)
+* --pacing-stim-duration   Duration of the square wave stimulus pulse applied (ms)
+*                          (optional - defaults to stimulus duration from CellML)
+* --pacing-stim-magnitude  Height of the square wave stimulus pulse applied (uA/cm^2)
+*                          (optional - defaults to stimulus magnitude from CellML)
+*
+* SPECIFYING DRUG PROPERTIES dose-response properties for each channel:
+* Channels are named:
+* * herg (IKr current - hERG),
+* * na (fast sodium current - NaV1.5),
+* * nal (late/persistent sodium current - NaV1.5 (perhaps!)),
+* * cal (L-type calcium current- CaV1.2),
+* * iks (IKs current - KCNQ1 + MinK),
+* * ik1 (IK1 current - KCNN4 a.k.a. KCa3.1),
+* * ito ([fast] Ito current - Kv4.3 + KChIP2.2).
+*
+* For each channel you specify dose-response parameters [multiple entries for repeat experiments]
+*   EITHER with IC50 values (in uM), for example for 'hERG':
+* --ic50-herg     hERG IC50    (optional - defaults to "no effect")
+*   OR with pIC50 values (in log M):
+* --pic50-herg    hERG pIC50   (optional - defaults to "no effect")
+*     (you can use a mixture of these for different channels if you wish, 
+*     e.g. --ic50-herg 16600 --pic50-na 5.3 )
+*   AND specify Hill coefficients (dimensionless):
+* --hill-herg     hERG Hill    (optional - defaults to "1.0")
+*   AND specify the saturation effect of the drug on peak conductance (%):
+* --saturation-herg   saturation level effect of drug (optional - defaults to 0%)
+*
+* SPECIFYING CONCENTRATIONS AT COMMAND LINE:
+* --plasma-concs  A list of (space separated) plasma concentrations at which to test (uM)
+* OR alternatively:
+* --plasma-conc-high  Highest plasma concentration to test (uM)
+* --plasma-conc-low   Lowest  plasma concentration to test (uM) 
+*                     (optional - defaults to 0)
+*
+* both ways of specifying test concentrations have the following optional arguments
+* --plasma-conc-count  Number of intermediate plasma concentrations to test 
+*                 (optional - defaults to 0 (for --plasma-concs) or 11 (for --plasma-conc-high))
+* --plasma-conc-logscale <True/False> Whether to use log spacing for the plasma concentrations 
+*
+* SPECIFYING CONCENTRATIONS IN A FILE (for PKPD runs):
+* if you want to run at concentrations in a file instead of specifying at command line, you can do:
+* --pkpd-file <relative or absolute filepath>
+*   To evaluate APD90s throughout a PKPD profile please provide a file with the data format:
+*   Time(any units)<tab>Conc_trace_1(uM)<tab>Conc_trace_2(uM)<tab>...Conc_trace_N(uM)
+*   on each row.
+*
+* UNCERTAINTY QUANTIFICATION:
+* --credible-intervals [x y z...] This flag must be present to do uncertainty calculations.
+*                      It can optionally be followed by a specific list of percentiles that are required
+*                      (not including 0 or 100, defaults to just the 95% intervals).
+* Then to specify 'spread' parameters for assay variability - for use with Lookup Tables:
+* --pic50-spread-herg      (for each channel that you are providing ic50/pic50 values for,
+* --hill-spread-herg        herg is just given as an example)
+*   (for details of what these spread parameters are see 'sigma' and '1/beta' in Table 1 of:
+*    Elkins et al. 2013  Journal of Pharmacological and Toxicological 
+*    Methods, 68(1), 112-122. doi: 10.1016/j.vascn.2013.04.007 )
+*
+* OTHER OPTIONS:
+* --no-downsampling  By default, we print downsampled output to create small action potential
+*                    traces, but you can switch this off by calling this option.
+* --output-dir       By default output goes into '$CHASTE_TEST_OUTPUT/ApPredict_output'
+*                    but you can redirect it (useful for parallel scripting)
+*                    with this argument.
+*
+`;
+
+const HELP_LOOKUP_TABLE_MANIFEST = `grandi_pasqualini_bers_2010_1d_hERG_1Hz_generator.arch.tgz
+HundRudy2004_units_1d_hERG_1Hz_generator.arch.tgz
+HundRudy2004_units_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+MahajanShiferaw2008_units_1d_hERG_1Hz_generator.arch.tgz
+MahajanShiferaw2008_units_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+ohara_rudy_2011_1d_hERG_1Hz_generator.arch.tgz
+ohara_rudy_2011_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+paci_hyttinen_aaltosetala_severi_ventricularVersion_1d_hERG_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_hERG_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_hERG_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_ICaL_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_ICaL_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_IK1_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_IK1_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_IKs_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_IKs_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_INa_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_INa_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_Ito_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_1d_Ito_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_4d_hERG_IKs_INa_ICaL_0.5Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_4d_hERG_IKs_INa_ICaL_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_hERG_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_ICaL_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_IK1_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_IKs_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_INa_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_1d_Ito_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_2d_hERG_ICaL_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_2d_hERG_IKs_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+tentusscher_model_2006_epi_4d_hERG_IKs_INa_ICaL_1Hz_generator.arch.tgz
+`;
+
 /**************************** Function declarations ***************************/
 
 const CHANNELS = {
@@ -227,7 +379,8 @@ function call_invoke(appredict_input, simulation_id) {
             console.log(stdout);
             console.log('********************************************************************************');
             var stdout_file = concatenator( [ std_file_prefix, 'STDOUT' ], false);
-            fs.appendFile(stdout_file, stdout, function (err) {
+            var to_stdout = '\nHTTP Request : ' + JSON.stringify(appredict_input) + '\n\n' + stdout + '\n';
+            fs.appendFile(stdout_file, to_stdout, function (err) {
               if (err != null) {
                 console.log('stdout ' + err);
               }
@@ -703,18 +856,46 @@ const server = http.createServer((request, response) => {
     response.end(JSON.stringify(return_obj));
     response.setTimeout(5);
   } else if (request.method == 'OPTIONS') {
-    /*
-     * In the CORS world there are certain client request combos (e.g. a POST with some data)
-     * which spark a 'preflight' request - This is to handle such.
-     * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS}
-     */
+    var pathname_data = url.parse(request.url, true).pathname;
+
     response.writeHead(200, {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
       'Content-Type': 'text/plain; charset=utf-8'
     });
-    response.end('');
+
+    if (pathname_data.trim() == '/') {
+      /*
+       * In the CORS world there are certain client request combos (e.g. a POST with some data)
+       * which spark a 'preflight' request - This is to handle such.
+       * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS}
+       */
+      response.writeHead(200, {
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
+        'Content-Type': 'text/plain; charset=utf-8'
+      });
+      response.end('');
+    } else {
+      // Various bits like /api/collection will be arriving here as well as "help"!
+      var help_on = '';
+
+      var components = pathname_data.split(path.sep);
+      // Note: pathname_data should have started with a '/'!
+      if (components.length == 2) {
+        var seeking = components[1];
+        var check_for = seeking.toLowerCase();
+        if ('appredict' == check_for) {
+          help_on = HELP_APPREDICT;
+        } else if ('appredict_lookup_table_manifest.txt' == check_for) {
+          help_on = HELP_LOOKUP_TABLE_MANIFEST;
+        }
+      }
+
+      response.end(help_on);
+    }
   } else {
     response.writeHead(200, {
       'Access-Control-Allow-Origin': '*',
