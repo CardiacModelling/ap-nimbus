@@ -520,7 +520,7 @@ function on_add_dir(directory_path) {
  * React when convert.sh has written a new file.
  *
  * Added files are usually created empty so generally not of much concern to
- * the application - it's usually the "change" event signifying data being 
+ * the application - it's usually the "change" event signifying data being
  * written to the file which is useful.
 
  * @param file_path Just-created file.
@@ -837,8 +837,30 @@ const server = http.createServer((request, response) => {
         }
       }
     } else {
-      return_obj = {
-        'error': 'No simulation id found in ' + pathname_data
+      if (components.length > 2 && 'help' == components[1].toLowerCase()) {
+        // It's a request for help!
+        var seeking = components[2];                                 // Only consider first child
+        var check_for = seeking.toLowerCase();
+
+        var help_on = '';
+        if ('appredict' == check_for) {
+          help_on = HELP_APPREDICT;
+        } else if ('appredict_lookup_table_manifest.txt' == check_for) {
+          help_on = HELP_LOOKUP_TABLE_MANIFEST;
+        }
+        if (help_on != '') {
+          return_obj = {
+            'success': help_on
+          }
+        } else {
+          return_obj = {
+            'error': 'No help available for: ' + seeking
+          }
+        }
+      } else {
+        return_obj = {
+          'error': 'No simulation id found in ' + pathname_data
+        }
       }
     }
 
@@ -856,46 +878,18 @@ const server = http.createServer((request, response) => {
     response.end(JSON.stringify(return_obj));
     response.setTimeout(5);
   } else if (request.method == 'OPTIONS') {
-    var pathname_data = url.parse(request.url, true).pathname;
-
+    /*
+     * In the CORS world there are certain client request combos (e.g. a POST with some data)
+     * which spark a 'preflight' request - This is to handle such.
+     * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS}
+     */
     response.writeHead(200, {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
       'Content-Type': 'text/plain; charset=utf-8'
     });
-
-    if (pathname_data.trim() == '/') {
-      /*
-       * In the CORS world there are certain client request combos (e.g. a POST with some data)
-       * which spark a 'preflight' request - This is to handle such.
-       * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS}
-       */
-      response.writeHead(200, {
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
-        'Content-Type': 'text/plain; charset=utf-8'
-      });
-      response.end('');
-    } else {
-      // Various bits like /api/collection will be arriving here as well as "help"!
-      var help_on = '';
-
-      var components = pathname_data.split(path.sep);
-      // Note: pathname_data should have started with a '/'!
-      if (components.length == 2) {
-        var seeking = components[1];
-        var check_for = seeking.toLowerCase();
-        if ('appredict' == check_for) {
-          help_on = HELP_APPREDICT;
-        } else if ('appredict_lookup_table_manifest.txt' == check_for) {
-          help_on = HELP_LOOKUP_TABLE_MANIFEST;
-        }
-      }
-
-      response.end(help_on);
-    }
+    response.end('');
   } else {
     response.writeHead(200, {
       'Access-Control-Allow-Origin': '*',
