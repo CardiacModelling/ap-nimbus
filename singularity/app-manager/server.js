@@ -695,8 +695,14 @@ const server = http.createServer((request, response) => {
   // Object to return to caller.
   var return_obj = {};
 
+  var pathname_data = url.parse(request.url, true).pathname;
+  var components = pathname_data.split(path.sep);
+
   if (request.method == 'POST') {
     var simulation_id = uuidv4();
+
+    console.log('DEBUG : Request path : ' + pathname_data);
+    var keep_alive = components.includes('keep_alive');
 
     let body = [];
     request.on('data', (data) => {
@@ -741,12 +747,17 @@ const server = http.createServer((request, response) => {
      * single POST request, and as such require additional 'data' calls to the
      * REST API, in which case the "Connection: close" needs to be removed.
      */
-    response.writeHead(200, {
+    var response_headers = {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, cache-control, pragma, expires, connection',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Origin': '*',
-      'Connection': 'close',
-      'Content-Type': 'application/json' });
+      'Content-Type': 'application/json' };
+
+    if (!keep_alive) {
+      console.log('DEBUG : Adding \'Connection: close\' to response headers');
+      response_headers.Connection = 'close';
+    }
+    response.writeHead(200, response_headers);
 
     /*
      * Simply receiving a simulation request is considered a "success"!
@@ -769,9 +780,6 @@ const server = http.createServer((request, response) => {
        The "api/collection/" is used so that client-direct has consistency in
        URL structure between direct app-manager <=> client-direct results/
        progress querying, and similarly via an intermediary REST API data store. */
-    var pathname_data = url.parse(request.url, true).pathname;
-    var components = pathname_data.split(path.sep);
-
     if (components.length > 4) {
       // Note: pathname_data should have started with a '/'!
       var simulation_id = components[3];
@@ -906,7 +914,19 @@ const server = http.createServer((request, response) => {
   }
 });
 
-const port = 8080;
+const default_port = 8080;
+var port_in_env = (typeof process.env.REST_API_PORT !== 'undefined' && process.env.REST_API_PORT != '');
+if (!port_in_env) {
+  console.log('INFO4 : REST_API_PORT not defined in ENV vars. Using default value of ' + default_port + '.');
+} else {
+  var specified_port = new Array(process.env.REST_API_PORT);
+  if (!numbers(specified_port)) {
+    console.log('ERR11 : Illegal environment port value of ' + specified_port + ' specified - reverting to default value of ' + default_port + '.');
+    port_in_env = false;
+  }
+}
+const port = port_in_env ? process.env.REST_API_PORT : default_port;
+
 const host = '0.0.0.0';
 server.listen(port, host);
 console.log('INFO3 : app-manager listening at http://' + host + ':' + port);
