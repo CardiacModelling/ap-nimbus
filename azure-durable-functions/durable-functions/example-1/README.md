@@ -29,4 +29,4 @@
 
 ## To call
 
- 1. `curl -v -H "Content-Length: 0" -X POST http://172.17.0.1:7071/orchestrators/E1_HelloSequence`
+ 1. `curl -v -H "Content-Length: 0" -X POST http://0.0.0.0:7071/orchestrators/E1_HelloSequence`
