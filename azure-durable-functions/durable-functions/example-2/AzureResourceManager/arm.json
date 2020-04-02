@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "utcValue": {
+            "type": "string",
+            "defaultValue": "[utcNow()]"
+        },
+        "containerCount": {
+            "defaultValue": 1,
+            "type": "int"
+        }
+    },
+    "variables": {
+        "baseName": "[concat('app-manager-', uniqueString(resourceGroup().id, parameters('utcValue')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2018-10-01",
+            "name": "[concat('ci-', variables('basename'), '-', copyIndex())]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[concat('ci-', variables('basename'), '-', copyIndex())]",
+                        "properties": {
+                            "image": "cardiacmodelling/ap-nimbus-app-manager:0.0.10",
+                            "ports": [
+                                {
+                                    "protocol": "TCP",
+                                    "port": 8080
+                                } 
+                            ],
+                            "environmentVariables": [],
+                            "resources": {
+                                "requests": {
+                                    "memoryInGB": 1,
+                                    "cpu": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "restartPolicy": "Always",
+                "ipAddress": {
+                    "ports": [
+                        {
+                            "protocol": "TCP",
+                            "port": 8080
+                        }
+                    ],
+                    "type": "Public",
+                    "dnsNameLabel": "[concat('dns-', variables('basename'), '-', copyIndex())]"
+                },
+                "osType": "Linux"
+            },
+            "copy": {
+                "name": "containercopy",
+                "count": "[parameters('containerCount')]"
+            }
+        }
+    ],
+    "outputs": {
+        "containerEndpoints":{
+            "type": "array",
+            "copy": {
+                "count": "[parameters('containerCount')]",
+                "input": {
+                    "fqdn": "[reference(concat('ci-', variables('basename'), '-', copyIndex())).ipAddress.fqdn]"
+                }
+            }
+        }
+    }
+}
