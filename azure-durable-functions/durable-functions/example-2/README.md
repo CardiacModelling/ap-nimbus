@@ -1,9 +1,5 @@
 # Azure Durable Functions on Linux demo (in Docker)
 
-## Based on
-
-[https://github.com/Azure/azure-functions-durable-extension](https://github.com/Azure/azure-functions-durable-extension) (commit #717fca4 I think).
-
 ## Prerequisite
 
  1. Azure Storage (Unfortunately Storage Emulators, e.g. Azurite 2/3, didn't work). 
