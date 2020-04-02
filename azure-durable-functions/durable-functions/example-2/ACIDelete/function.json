@@ -1,0 +1,9 @@
+{
+  "bindings": [
+    {
+      "name": "createdAci",
+      "type": "activityTrigger",
+      "direction": "in"
+    }
+  ]
+}

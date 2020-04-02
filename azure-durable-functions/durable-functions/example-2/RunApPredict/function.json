@@ -1,0 +1,9 @@
+{
+  "bindings": [
+    {
+      "name": "simulationData",
+      "type": "activityTrigger",
+      "direction": "in"
+    }
+  ]
+}
