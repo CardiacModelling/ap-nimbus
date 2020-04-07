@@ -1,5 +1,12 @@
 # ARM (Azure Resource Manager) Templates
 
+## Use of Templates
+
+As of Apr. 2020 I'm struggling to find a way of combining
+[Azure SDK for js](https://github.com/Azure/azure-sdk-for-js/)
+and [ARM template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/)s so
+going to focus on creating multiple Container Instances programmatically.
+
 ## Information Sources
 
  1. [https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/)

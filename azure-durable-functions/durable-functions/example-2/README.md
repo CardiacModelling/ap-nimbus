@@ -59,7 +59,7 @@ build pauses, prints "Build failed", but continues to build an image that won't 
 
 ## To start
 
- 1. `docker run -e AZURE_USER=<username> -e AZURE_PASS=<password> -it -p 7071:7071 --rm azure-durable-functions-appredict:0.0.1`
+ 1. `docker run -e SUBSCRIPTION_ID=<subscription-id> -e RESOURCE_GROUP_NAME=<resource-group-name> -e AZURE_USER=<username> -e AZURE_PASS=<password> -it -p 7071:7071 --rm azure-durable-functions-appredict:0.0.1`
 
 ## To call
 

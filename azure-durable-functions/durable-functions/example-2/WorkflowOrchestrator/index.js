@@ -25,13 +25,15 @@ module.exports = durableFunctions.orchestrator(function*(context) {
     // Step 2. Run ApPredict simulations in ACIs in parallel.
     const parallelTasks = [];
 
+    const fqdns = createdAci.fqdns;
+
     for (let idx = 0; idx < requestBody.length; idx++) {
+        const fqdn = fqdns[idx];
         const apPredictInput = requestBody[idx];
-        const aciData = createdAci[idx];
 
         const simulationData = {
           'ApPredictInput' : apPredictInput,
-          'ACIData' : aciData
+          'fqdn' : fqdn
         }
 
         parallelTasks.push(context.df.callActivity("RunApPredict", simulationData));
