@@ -10,36 +10,33 @@ const uuidv4 = require('uuid/v4');
  * @see https://github.com/Azure/azure-sdk-for-js/tree/master/sdk/containerinstance/arm-containerinstance
  */
 module.exports = async function(context) {
-  console.log('~ACICreate()');
+  console.log("~ACICreate()");
 
   const simulationCount = context.bindings.simulationCount;
 
   var createdContainers = msRestNodeAuth.loginWithUsernamePassword(process.env.AZURE_USER,
                                                                    process.env.AZURE_PASS)
                                         .then((credentials) => {
-                                           console.log('~ACICreate() : Obtained credentials');
+                                           console.log("~ACICreate() : Obtained credentials");
                                            const containerInstanceManagementClient = new armContainerInstance.ContainerInstanceManagementClient(credentials,
                                                                                                                                                 process.env.SUBSCRIPTION_ID);
 
-                                           return createContainers(containerInstanceManagementClient,
-                                                                   simulationCount,
-                                                                   credentials)
-                                         })
-                                        .then((createdContainers) => {
-                                           console.log('~ACICreate() : ' + JSON.stringify(createdContainers));
+                                           const createdContainers = createContainers(simulationCount,
+                                                                                      containerInstanceManagementClient);
+                                           console.log("~ACICreate() : createdContainers : " + JSON.stringify(createdContainers));
                                            return createdContainers;
                                          })
                                         .catch((err) => {
-                                           console.log('~ACICreate() : Processing fail ' + JSON.stringify(err));
-                                           return [];
+                                           console.log("~ACICreate() : Processing fail " + err);
+                                           console.log("~ACICreate() : Processing fail " + JSON.stringify(err));
+                                           return {};
                                          });
-
+  console.log("~ACICreate() : Returning : " + JSON.stringify(createdContainers));
   return createdContainers;
 }
 
-async function createContainers(containerInstanceManagementClient,
-                                containerCount, credentials) {
-  console.log('~createContainers() : Total [' + containerCount + ']');
+async function createContainers(containerCount, containerInstanceManagementClient) {
+  console.log("~createContainers() : Total [" + containerCount + "]");
 
   const resourceGroupName = process.env.RESOURCE_GROUP_NAME;
 
@@ -49,7 +46,7 @@ async function createContainers(containerInstanceManagementClient,
   var promises = [];
 
   for (var idx = 0; idx < containerCount; idx++) {
-    console.log('~createContainers() : Processing [' + idx + ']');
+    console.log("~createContainers() : Processing [" + idx + "]");
     const containerGroup = {};
 
     const nameSuffix = containerGroupNameBase + "-" + idx;
@@ -58,6 +55,10 @@ async function createContainers(containerInstanceManagementClient,
     const nameDNS = "dns-" + nameSuffix;
     const nameGroupName = "gn-" + nameSuffix;
 
+    /*
+     * If using ACR and Service Principals - see README.md
+     * "image": "appredictregistry1.azurecr.io/ap-nimbus-app-manager:0.0.10",
+     */
     containerGroup.containers = [{
                                    "environmentVariables": [],
                                    "name": nameContainerInstance,
@@ -75,6 +76,15 @@ async function createContainers(containerInstanceManagementClient,
                                      }
                                    }
                                  }];
+    /*
+     * If using ACR and Service Principals - see README.md
+     * 
+     * containerGroup.imageRegistryCredentials = [{
+     *   "server": "<registry_name>.azurecr.io",
+     *    "username": "<username>",
+     *    "password": "password"
+     * }];
+     */
 
     containerGroup.ipAddress = {
       "ports": [
@@ -97,20 +107,28 @@ async function createContainers(containerInstanceManagementClient,
                                                                    containerGroup));
   }
 
-  var fqdns = [];
+  var containerData = [];
 
-  console.log('~createContainers() : Awaiting');
+  console.log("~createContainers() : Awaiting");
   // Wait for all the arrayed promises to complete
   const results = await Promise.all(promises);
-  console.log('~createContainers() : ' + JSON.stringify(results));
+  console.log("~createContainers() : " + JSON.stringify(results));
 
   results.forEach((result, index) => {
-    console.log('~createContainers() : ' + JSON.stringify(result));
-    fqdns.push(result.ipAddress.fqdn);
+    const fqdn = result.ipAddress.fqdn;
+    const containerGroupName = result.name;
+
+    containerData.push({
+      "fqdn": fqdn,
+      "containerGroupName": containerGroupName
+    });
   });
 
-  return {
-    "credentials": credentials,
-    "fqdns": fqdns
-  }
+  const toReturn = {
+    "containerData": containerData
+  };
+
+  console.log("~createContainers() : toReturn : " + JSON.stringify(toReturn));
+
+  return toReturn; 
 }

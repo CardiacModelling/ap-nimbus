@@ -13,37 +13,36 @@ const durableFunctions = require("durable-functions");
  * @see https://medium.com/front-end-weekly/modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await-550275cbe433
  */
 module.exports = durableFunctions.orchestrator(function*(context) {
-    console.log('Called WorkflowOrchestrator');
+  console.log("~WorkflowOrchestrator()");
 
-    const requestBody = context.df.getInput();
+  const requestBody = context.df.getInput();
 
-    const output = [];
+  const output = [];
 
-    // Step 1. Create the ACI(s)
-    const createdAci = yield context.df.callActivity("ACICreate", requestBody.length);
+  // Step 1. Create the ACI(s)
+  const createdACIs = yield context.df.callActivity("ACICreate", requestBody.length);
+  console.log("~WorkflowOrchestrator() : createdACIs : " + JSON.stringify(createdACIs));
 
-    // Step 2. Run ApPredict simulations in ACIs in parallel.
-    const parallelTasks = [];
+  // Step 2. Run ApPredict simulations in ACIs in parallel.
+  const parallelTasks = [];
 
-    const fqdns = createdAci.fqdns;
+  const containerData = createdACIs.containerData;
+  for (let idx = 0; idx < requestBody.length; idx++) {
+    const fqdn = containerData[idx].fqdn;
+    const apPredictInput = requestBody[idx];
 
-    for (let idx = 0; idx < requestBody.length; idx++) {
-        const fqdn = fqdns[idx];
-        const apPredictInput = requestBody[idx];
-
-        const simulationData = {
-          'ApPredictInput' : apPredictInput,
-          'fqdn' : fqdn
-        }
-
-        parallelTasks.push(context.df.callActivity("RunApPredict", simulationData));
+    const simulationData = {
+      "ApPredictInput" : apPredictInput,
+      "fqdn" : fqdn
     }
 
-    const results = yield context.df.Task.all(parallelTasks);
+    parallelTasks.push(context.df.callActivity("RunApPredict", simulationData));
+  }
 
-    // Step 3. Delete the ACI(s)
-    yield context.df.callActivity("ACIDelete", createdAci);
+  const results = yield context.df.Task.all(parallelTasks);
 
-    return results;
+  // Step 3. Delete the ACI(s)
+  yield context.df.callActivity("ACIDelete", createdACIs);
 
+  return results;
 });

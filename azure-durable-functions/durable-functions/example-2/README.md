@@ -11,7 +11,7 @@
 
 ## Prerequisite
 
- 1. Azure Storage -- a *real* Azure storage resource.     
+ 1. Azure Storage -- a *real* Azure storage resource, e.g. [General-purpose v1](https://docs.microsoft.com/en-gb/azure/storage/common/storage-account-overview#general-purpose-v1-accounts) with [pricing](https://azure.microsoft.com/en-gb/pricing/details/storage/blobs/).     
     As of Mar. 2020 I couldn't use [Azurite 3](https://github.com/Azure/Azurite#azurite-v3) because
     it doesn't have *Table* storage which durable functions need, and while Azurite 2 does, I
     couldn't get it to work.
@@ -39,6 +39,44 @@ communicate with a non-existent endpoint `<storage-name>.blob.core.windows.net` 
 [04/04/2020 10:45:04] Initializing Warmup Extension.
 Value cannot be null.
 Parameter name: provider
+```
+
+## Azure Container Registry (ACR) background.
+
+As the [cardiacmodelling/ap-nimbus-app-manager:0.0.10](https://hub.docker.com/layers/cardiacmodelling/ap-nimbus-app-manager/0.0.10/images/sha256-45e742ebd53ac859799c679bb8202a68746079a619105d121647fab615d1410a?context=explore) image is 
+approx 1.4Gb it's been taking approx 7 minutes for the containers to be spun up (which isn't much
+better than the time it takes to pull the image from dockerhub on my home broadband!). So I thought
+it would be quicker to use the ACR... but it wasn't, it still took 8 minutes to pull the image. So
+much for Corey Sanders' (Corporate Vice President, Azure) claim of
+[An Azure Container Instance is a single container that starts in seconds ...](https://azure.microsoft.com/en-gb/blog/announcing-azure-container-instances/)!
+
+Pricing is as [Container Registry pricing](https://azure.microsoft.com/en-gb/pricing/details/container-registry/)
+
+Beware though, as usual something as fundamental as a read-only, anonymous ACR
+[isn't straightforward](https://feedback.azure.com/forums/903958-azure-container-registry/suggestions/32517127-enable-anonymous-access-to-registries)
+, so you may need to use [Authenticate with an Azure container registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication), e.g. Service Principals, as below.
+
+ 1. Created a "Basic" Azure Container Registry in "westeurope" location.
+ 1. `az acr login --name <registry_name>`
+ 1. `docker run -it cardiacmodelling/ap-nimbus-app-manager:0.0.10`
+ 1. `docker tag cardiacmodelling/ap-nimbus-app-manager:0.0.10 <registry_name>.azurecr.io/ap-nimbus-app-manager:0.0.10`
+ 1. `docker push <registry_name>.azurecr.io/ap-nimbus-app-manager:0.0.10`
+ 1. [Create a service principal](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal#create-a-service-principal)   
+    Edit the `<container-registry-name>` value to `<registry_name>` before running the script.  
+    Make a note of the `Service principal ID` (aka "username") and `Service principal password` (aka "password").
+ 1. Try `docker login <registry-name>.azurecr.io --username <username> --password <password>`.
+ 1. Based on [Microsoft.ContainerInstance containerGroups template reference](https://docs.microsoft.com/en-us/azure/templates/Microsoft.ContainerInstance/2018-10-01/containerGroups) adapt the ARM in `ACICreate/index.js` to.   
+
+```
+                                   }
+                                 }];
+    containerGroup.imageRegistryCredentials = [{
+      "server": "<registry_name>.azurecr.io",
+      "username": "<username>",
+      "password": "<password>"
+    }];
+    containerGroup.ipAddress = {
+      "ports": [
 ```
 
 ## NPM background

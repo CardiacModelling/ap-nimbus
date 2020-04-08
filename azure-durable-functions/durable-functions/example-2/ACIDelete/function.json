@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "name": "createdAci",
+      "name": "createdACIs",
       "type": "activityTrigger",
       "direction": "in"
     }
