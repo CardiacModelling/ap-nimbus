@@ -1,0 +1,1875 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client-direct documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client-direct documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>InputFormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/input-form/input-form.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Form for :</p>
+<ul>
+   <li>Presenting configured (via <a href="../injectables/AppredictConfigService.html">AppredictConfigService</a>) input  values</li>
+   <li>Handling user input and populating the input form</li>
+   <li>
+     Transferring values from the input form <a href="FormGroup">FormGroup</a> to the <a href="../classes/ApPredictInput.html">ApPredictInput</a>
+     object
+   </li>
+</ul> 
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-input-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./input-form.component.sass</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./input-form.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#apPredictInput">apPredictInput</a>
+                            </li>
+                            <li>
+                                <a href="#configModels">configModels</a>
+                            </li>
+                            <li>
+                                <a href="#configPacingFrequency">configPacingFrequency</a>
+                            </li>
+                            <li>
+                                <a href="#configPacingMaxTime">configPacingMaxTime</a>
+                            </li>
+                            <li>
+                                <a href="#configPlasmaIntermediatePointCounts">configPlasmaIntermediatePointCounts</a>
+                            </li>
+                            <li>
+                                <a href="#configPlasmaIntermediatePointLogScale">configPlasmaIntermediatePointLogScale</a>
+                            </li>
+                            <li>
+                                <a href="#configPlasmaMaximum">configPlasmaMaximum</a>
+                            </li>
+                            <li>
+                                <a href="#configPlasmaMinimum">configPlasmaMinimum</a>
+                            </li>
+                            <li>
+                                <a href="#defaultModelId">defaultModelId</a>
+                            </li>
+                            <li>
+                                <a href="#defaultPIPCId">defaultPIPCId</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage">errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#hasError">hasError</a>
+                            </li>
+                            <li>
+                                <a href="#inputForm">inputForm</a>
+                            </li>
+                            <li>
+                                <a href="#modelDescription">modelDescription</a>
+                            </li>
+                            <li>
+                                <a href="#submitted">submitted</a>
+                            </li>
+                            <li>
+                                <a href="#success">success</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createInputFormGroup">createInputFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit">onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#updateDescription">updateDescription</a>
+                            </li>
+                            <li>
+                                <a href="#validatorGTThan">validatorGTThan</a>
+                            </li>
+                            <li>
+                                <a href="#validatorOptionalNumber">validatorOptionalNumber</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#diagnostic">diagnostic</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(apPredictConfigService: <a href="../injectables/AppredictConfigService.html">AppredictConfigService</a>, apPredictRestService: <a href="../injectables/AppredictRestService.html">AppredictRestService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, formBuilder: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/input-form/input-form.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initialising constructor.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>apPredictConfigService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/AppredictConfigService.html" target="_self" >AppredictConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p><code>ApPredict</code> simulations default values configuration service. </p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>apPredictRestService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/AppredictRestService.html" target="_self" >AppredictRestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Service for REST invocations of the <code>app-manager</code> application.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Angular app routing mechanism.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Angular form-backing object mechanism.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createInputFormGroup"></a>
+                        <span class="name">
+                            <b>
+                            createInputFormGroup
+                            </b>
+                            <a href="#createInputFormGroup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createInputFormGroup()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/input-form/input-form.component.ts:98</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create the form-backing object.</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p>Form-backing object.</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/input-form/input-form.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initialisation routine.</p>
+<p>Assigning default values from configuration settings.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSubmit"></a>
+                        <span class="name">
+                            <b>
+                            onSubmit
+                            </b>
+                            <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSubmit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">src/app/input-form/input-form.component.ts:133</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Form submission processing.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateDescription"></a>
+                        <span class="name">
+                            <b>
+                            updateDescription
+                            </b>
+                            <a href="#updateDescription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateDescription(event)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/app/input-form/input-form.component.ts:174</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Update the CellML model description in response to <code>select</code> element events.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p><code>select</code> element change event.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="validatorGTThan"></a>
+                        <span class="name">
+                            <b>
+                            validatorGTThan
+                            </b>
+                            <a href="#validatorGTThan"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>validatorGTThan(minVal: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="193" class="link-to-prism">src/app/input-form/input-form.component.ts:193</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Form validation: If the control&#39;s value (i.e. the <code>input</code> field value) is greater than the
+specified minimum value.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>minVal</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Minimum permitted value.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://angular.io/api/forms/ValidatorFn" target="_blank" >ValidatorFn</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p><code>null</code> if everything ok, i.e. input value is greater than the minimum, otherwise an
+object generating a UI rejection.</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="validatorOptionalNumber"></a>
+                        <span class="name">
+                            <b>
+                            validatorOptionalNumber
+                            </b>
+                            <a href="#validatorOptionalNumber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>validatorOptionalNumber()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">src/app/input-form/input-form.component.ts:206</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Form validation: If the control&#39;s value is a number.</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://angular.io/api/forms/ValidatorFn" target="_blank" >ValidatorFn</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p><code>null</code> if everything ok, i.e. it&#39;s a number, otherwise an object generating a UI
+rejection.</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="apPredictInput"></a>
+                        <span class="name">
+                            <b>
+                            apPredictInput
+                            </b>
+                            <a href="#apPredictInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>apPredictInput:     <code><a href="../classes/ApPredictInput.html" target="_self" >ApPredictInput</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/ApPredictInput.html" target="_self" >ApPredictInput</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/input-form/input-form.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configModels"></a>
+                        <span class="name">
+                            <b>
+                            configModels
+                            </b>
+                            <a href="#configModels"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configModels:     <code><a href="../classes/Model.html" target="_self" >Model[]</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/Model.html" target="_self" >Model[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/input-form/input-form.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPacingFrequency"></a>
+                        <span class="name">
+                            <b>
+                            configPacingFrequency
+                            </b>
+                            <a href="#configPacingFrequency"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPacingFrequency:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/input-form/input-form.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPacingMaxTime"></a>
+                        <span class="name">
+                            <b>
+                            configPacingMaxTime
+                            </b>
+                            <a href="#configPacingMaxTime"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPacingMaxTime:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/input-form/input-form.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPlasmaIntermediatePointCounts"></a>
+                        <span class="name">
+                            <b>
+                            configPlasmaIntermediatePointCounts
+                            </b>
+                            <a href="#configPlasmaIntermediatePointCounts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPlasmaIntermediatePointCounts:     <code><a href="../classes/PlasmaIntermediatePointCount.html" target="_self" >PlasmaIntermediatePointCount[]</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/PlasmaIntermediatePointCount.html" target="_self" >PlasmaIntermediatePointCount[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/input-form/input-form.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPlasmaIntermediatePointLogScale"></a>
+                        <span class="name">
+                            <b>
+                            configPlasmaIntermediatePointLogScale
+                            </b>
+                            <a href="#configPlasmaIntermediatePointLogScale"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPlasmaIntermediatePointLogScale:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/input-form/input-form.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPlasmaMaximum"></a>
+                        <span class="name">
+                            <b>
+                            configPlasmaMaximum
+                            </b>
+                            <a href="#configPlasmaMaximum"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPlasmaMaximum:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/input-form/input-form.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configPlasmaMinimum"></a>
+                        <span class="name">
+                            <b>
+                            configPlasmaMinimum
+                            </b>
+                            <a href="#configPlasmaMinimum"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>configPlasmaMinimum:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/input-form/input-form.component.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultModelId"></a>
+                        <span class="name">
+                            <b>
+                            defaultModelId
+                            </b>
+                            <a href="#defaultModelId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>defaultModelId:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/input-form/input-form.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultPIPCId"></a>
+                        <span class="name">
+                            <b>
+                            defaultPIPCId
+                            </b>
+                            <a href="#defaultPIPCId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>defaultPIPCId:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/input-form/input-form.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errorMessage"></a>
+                        <span class="name">
+                            <b>
+                            errorMessage
+                            </b>
+                            <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>errorMessage:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/input-form/input-form.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasError"></a>
+                        <span class="name">
+                            <b>
+                            hasError
+                            </b>
+                            <a href="#hasError"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>hasError:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(controlName: string, errorName: string) &#x3D;&gt; {
+    return this.inputForm.controls[controlName].hasError(errorName);
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">src/app/input-form/input-form.component.ts:126</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="inputForm"></a>
+                        <span class="name">
+                            <b>
+                            inputForm
+                            </b>
+                            <a href="#inputForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>inputForm:     <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/input-form/input-form.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelDescription"></a>
+                        <span class="name">
+                            <b>
+                            modelDescription
+                            </b>
+                            <a href="#modelDescription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>modelDescription:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/input-form/input-form.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="submitted"></a>
+                        <span class="name">
+                            <b>
+                            submitted
+                            </b>
+                            <a href="#submitted"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>submitted:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/input-form/input-form.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="success"></a>
+                        <span class="name">
+                            <b>
+                            success
+                            </b>
+                            <a href="#success"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>success:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/input-form/input-form.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="diagnostic"></a>
+                        <span class="name"><b>diagnostic</b><a href="#diagnostic"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>diagnostic()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">src/app/input-form/input-form.component.ts:218</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Debugging - diagnostics retrieval.</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { AbstractControl, FormControl, FormBuilder, FormGroup, Validators, ValidatorFn } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+import { AppredictConfigService } from &#x27;../appredict-config.service&#x27;;
+import { ApPredictInput } from &#x27;../ap-predict-input&#x27;;
+import { AppredictRestService } from &#x27;../appredict-rest.service&#x27;;
+import { ApPredictOutput } from &#x27;../ap-predict-output&#x27;;
+import { Model } from &#x27;../model&#x27;;
+import { PlasmaIntermediatePointCount } from &#x27;../plasma-intermediate-point-count&#x27;;
+
+/**
+ * Form for :
+ * 
+ * &lt;ul&gt;
+ *   &lt;li&gt;Presenting configured (via {@link AppredictConfigService}) input  values&lt;/li&gt;
+ *   &lt;li&gt;Handling user input and populating the input form&lt;/li&gt;
+ *   &lt;li&gt;
+ *     Transferring values from the input form {@link FormGroup} to the {@link ApPredictInput}
+ *     object
+ *   &lt;/li&gt;
+ * &lt;/ul&gt; 
+ */
+@Component({
+  selector: &#x27;app-input-form&#x27;,
+  templateUrl: &#x27;./input-form.component.html&#x27;,
+  styleUrls: [&#x27;./input-form.component.sass&#x27;]
+})
+
+export class InputFormComponent implements OnInit {
+  errorMessage: string;
+  defaultModelId: number;
+  defaultPIPCId: number;
+
+  configModels: Model[] &#x3D; [];
+  configPacingFrequency: number;
+  configPacingMaxTime: number;
+  configPlasmaMaximum: number;
+  configPlasmaMinimum: number;
+  configPlasmaIntermediatePointCounts: PlasmaIntermediatePointCount[] &#x3D; [];
+  configPlasmaIntermediatePointLogScale: boolean;
+
+  inputForm: FormGroup;
+  apPredictInput: ApPredictInput;
+
+  modelDescription: string;
+  submitted: boolean &#x3D; false;
+  success: boolean &#x3D; false;
+
+  /**
+   * Initialising constructor.
+   * 
+   * @param apPredictConfigService &#x60;ApPredict&#x60; simulations default values configuration service. 
+   * @param apPredictRestService Service for REST invocations of the &#x60;app-manager&#x60; application.
+   * @param router Angular app routing mechanism.
+   * @param formBuilder Angular form-backing object mechanism.
+   */
+  constructor(private apPredictConfigService: AppredictConfigService,
+              private apPredictRestService: AppredictRestService,
+              private router: Router,
+              private formBuilder: FormBuilder) { }
+
+  /**
+   * Initialisation routine.
+   * 
+   * Assigning default values from configuration settings.
+   */
+  ngOnInit() {
+    this.configModels &#x3D; this.apPredictConfigService.models;
+    this.configPacingFrequency &#x3D; this.apPredictConfigService.pacingFrequency;
+    this.configPacingMaxTime &#x3D; this.apPredictConfigService.pacingMaxTime;
+    this.configPlasmaMaximum &#x3D; this.apPredictConfigService.plasmaMaximum;
+    this.configPlasmaMinimum &#x3D; this.apPredictConfigService.plasmaMinimum;
+    this.configPlasmaIntermediatePointCounts &#x3D; this.apPredictConfigService.plasmaIntermediatePointCounts;
+    this.configPlasmaIntermediatePointLogScale &#x3D; this.apPredictConfigService.plasmaIntermediatePointLogScale;
+
+    this.configModels.forEach((model) &#x3D;&gt; {
+      if (model.defaultModel) {
+        this.defaultModelId &#x3D; model.id;
+        this.modelDescription &#x3D; model.description;
+      }
+    });
+
+    this.configPlasmaIntermediatePointCounts.forEach((plasmaIntermediatePointCount) &#x3D;&gt; {
+      if (plasmaIntermediatePointCount.isDefault) {
+        this.defaultPIPCId &#x3D; plasmaIntermediatePointCount.id;
+      }
+    });
+
+    this.inputForm &#x3D; this.createInputFormGroup();
+  }
+
+  /**
+   * Create the form-backing object.
+   * 
+   * @return Form-backing object.
+   */
+  createInputFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      fcModelId : [ this.defaultModelId, [ Validators.required ]],
+      fcPacingFrequency : [ this.configPacingFrequency, [ Validators.min(0.05),
+                                                          Validators.max(5),
+                                                          Validators.required ]],
+      fcPacingMaxTime : [ this.configPacingMaxTime, [ Validators.max(120),
+                                                      this.validatorGTThan(0),
+                                                      Validators.required ]],
+      fcIKrPIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcINaPIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcICaLPIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcIKsPIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcIK1PIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcItoPIC50 : [ &#x27;&#x27;, [ this.validatorOptionalNumber() ]],
+      fcPlasmaMaximum : [ this.configPlasmaMaximum, [ Validators.required,
+                                                      this.validatorGTThan(0) ]],
+      fcPlasmaMinimum : [ this.configPlasmaMinimum, [ Validators.required,
+                                                      Validators.min(0) ]],
+      fcPlasmaIntermediatePointCount : [ this.defaultPIPCId, [ Validators.required ]],
+      fcPlasmaIntermediatePointLogScale : [ this.configPlasmaIntermediatePointLogScale,
+                                            [ Validators.required ]]
+    });
+  }
+
+  /**
+   * 
+   */
+  hasError &#x3D; (controlName: string, errorName: string) &#x3D;&gt; {
+    return this.inputForm.controls[controlName].hasError(errorName);
+  }
+
+  /**
+   * Form submission processing.
+   */
+  onSubmit(): void {
+    this.submitted &#x3D; true;
+
+    if (this.inputForm.invalid) {
+      return;
+    }
+
+    this.apPredictInput &#x3D; new ApPredictInput();
+    var form_values &#x3D; this.inputForm.value;
+    this.apPredictInput.created &#x3D; + new Date();
+    this.apPredictInput.modelId &#x3D; form_values.fcModelId;
+    this.apPredictInput.pacingFrequency &#x3D; form_values.fcPacingFrequency;
+    this.apPredictInput.pacingMaxTime &#x3D; form_values.fcPacingMaxTime;
+    this.apPredictInput.pIC50IKr &#x3D; form_values.fcIKrPIC50;
+    this.apPredictInput.pIC50INa &#x3D; form_values.fcINaPIC50;
+    this.apPredictInput.pIC50ICaL &#x3D; form_values.fcICaLPIC50;
+    this.apPredictInput.pIC50IKs &#x3D; form_values.fcIKsPIC50;
+    this.apPredictInput.pIC50IK1 &#x3D; form_values.fcIK1PIC50;
+    this.apPredictInput.pIC50Ito &#x3D; form_values.fcItoPIC50;
+    this.apPredictInput.plasmaMaximum &#x3D; form_values.fcPlasmaMaximum;
+    this.apPredictInput.plasmaMinimum &#x3D; form_values.fcPlasmaMinimum;
+    this.apPredictInput.plasmaIntermediatePointCount &#x3D; form_values.fcPlasmaIntermediatePointCount;
+    this.apPredictInput.plasmaIntermediatePointLogScale &#x3D; form_values.fcPlasmaIntermediatePointLogScale;
+
+    this.apPredictRestService.invokeApPredict(this.apPredictInput)
+                             .subscribe(apPredictOutput &#x3D;&gt; {
+                                          this.apPredictInput.simulationId &#x3D; apPredictOutput.id;
+                                          var apPredictInputStr &#x3D; JSON.stringify(this.apPredictInput);
+                                          localStorage.setItem(apPredictOutput.id, apPredictInputStr);
+
+                                          this.router.navigateByUrl(&quot;/results/&quot; + apPredictOutput.id);
+                                        },
+                                        error &#x3D;&gt; this.errorMessage &#x3D; &lt;any&gt;error);
+    this.success &#x3D; true;
+  }
+
+  /**
+   * Update the CellML model description in response to &#x60;select&#x60; element events.
+   * 
+   * @param event &#x60;select&#x60; element change event.
+   */
+  updateDescription(event): void {
+    var selected_model &#x3D; this.configModels.filter(function(val) {
+      return val.id &#x3D;&#x3D;&#x3D; event.value;
+    });
+    if (selected_model.length &gt; 0) {
+      this.modelDescription &#x3D; selected_model[0].description;
+    } else {
+      this.modelDescription &#x3D; &quot;Unknown&quot;;
+    }
+  }
+
+  /**
+   * Form validation: If the control&#x27;s value (i.e. the &#x60;input&#x60; field value) is greater than the
+   * specified minimum value.
+   *  
+   * @param minVal Minimum permitted value.
+   * @return &#x60;null&#x60; if everything ok, i.e. input value is greater than the minimum, otherwise an
+   *         object generating a UI rejection.
+   */
+  validatorGTThan(minVal: number): ValidatorFn {
+    return (control: AbstractControl): { [ key: string ]: any } | null &#x3D;&gt; {
+      // If user-entered value is gt minVal everything ok!
+      return (control.value &gt; minVal) ? null : { &#x27;validatorGTThan&#x27;: { } };
+    };
+  }
+
+  /**
+   * Form validation: If the control&#x27;s value is a number.
+   * 
+   * @return &#x60;null&#x60; if everything ok, i.e. it&#x27;s a number, otherwise an object generating a UI
+   *         rejection.
+   */
+  validatorOptionalNumber(): ValidatorFn {
+    return (control: AbstractControl): { [ key: string ]: any } | null &#x3D;&gt; {
+      // If user-entered value is non-blank and a number, everything ok!
+      return (control.value !&#x3D; null &amp;&amp; !isNaN(control.value)) ? null : { &#x27;validatorOptionalNumber&#x27;: { } };
+    };
+  }
+
+  /**
+   * Debugging - diagnostics retrieval.
+   * 
+   * @return Input object.
+   */
+  get diagnostic(): string {
+    return JSON.stringify(this.apPredictInput);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;form [formGroup]&#x3D;&quot;inputForm&quot; 
+      class&#x3D;&quot;form-horizontal&quot;
+      (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
+  &lt;div class&#x3D;&quot;form-group&quot;&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8 input-division rounded-5&quot;&gt;Cell Model ( Please contact us via the &lt;a (click)&#x3D;goToContactPage() title&#x3D;&quot;Go To Contact&quot;&gt;Contact&lt;/a&gt; page if you would like a different model )&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Model&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field&gt;
+          &lt;mat-select class&#x3D;&quot;form-control&quot;
+                      formControlName&#x3D;&quot;fcModelId&quot;
+                      (selectionChange)&#x3D;&quot;updateDescription($event)&quot;&gt;
+            &lt;mat-option *ngFor&#x3D;&quot;let configModel of configModels&quot;
+                        [value]&#x3D;&quot;configModel.id&quot;&gt;
+              {{configModel.name}}
+            &lt;/mat-option&gt;
+          &lt;/mat-select&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcModelId&#x27;, &#x27;required&#x27;)&quot;&gt;Please select a CellML model !&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;{{modelDescription}}&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;&lt;!-- View all Model Details --&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8 input-division rounded-5&quot;&gt;Pacing Details&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Pacing Frequency&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcPacingFrequency&quot;
+                          type&#x3D;&quot;number&quot;&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingFrequency&#x27;, &#x27;required&#x27;)&quot;&gt;A numeric value is required !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingFrequency&#x27;, &#x27;max&#x27;)&quot;&gt;The maximum value is 5 !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingFrequency&#x27;, &#x27;min&#x27;)&quot;&gt;The minimum value is 0.05 !&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; (Hz) &lt;img class&#x3D;&quot;info&quot;
+                                    src&#x3D;&quot;assets/img/info.png&quot;
+                                    tooltip&#x3D;&quot;Minimum value: 0.05; Maximum value: 5&quot;
+                                    data-placement&#x3D;&quot;right&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Frequency of pacing&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Maximum Pacing Time&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcPacingMaxTime&quot;
+                          type&#x3D;&quot;number&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingMaxTime&#x27;, &#x27;required&#x27;)&quot;&gt;A numeric value is required !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingMaxTime&#x27;, &#x27;max&#x27;)&quot;&gt;The maximum value is 120 !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPacingMaxTime&#x27;, &#x27;validatorGTThan&#x27;)&quot;&gt;The minimum value is &gt; 0 !&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; (mins) &lt;img class&#x3D;&quot;info&quot;
+                                      src&#x3D;&quot;assets/img/info.png&quot;
+                                      tooltip&#x3D;&quot;Minimum value: &gt; 0; Maximum value: 120&quot;
+                                      data-placement&#x3D;&quot;right&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Maximum pacing time&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8 input-division rounded-5&quot;&gt;Ion Channel Current Inhibitory Concentrations&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8&quot;&gt;
+        Note 1 : No value for Inhibitory Concentration implies &quot;no effect&quot;&lt;br /&gt;
+        Note 2 : Unless otherwise assigned, Hill Coefficients default to 1, and Saturation Levels default to 0.
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row table-headers&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Ion current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;(p)IC50&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Channel protein&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Gene&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;Description&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;IKr&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcIKrPIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcIKrPIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;K&lt;sub&gt;v&lt;/sub&gt;11.1&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;hERG&lt;/i&gt; or &lt;i&gt;KCNH2&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;Rapid delayed rectifier potassium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;INa&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcINaPIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcINaPIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Na&lt;sub&gt;v&lt;/sub&gt;1.5&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;SCN5A&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;Fast sodium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;ICaL&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcICaLPIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcICaLPIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Ca&lt;sub&gt;v&lt;/sub&gt;1.2&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;CACNA1C&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;Long-lasting (L-type) calcium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;IKs&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcIKsPIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcIKsPIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;K&lt;sub&gt;v&lt;/sub&gt;7.1&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;KCNQ1&lt;/i&gt;/&lt;i&gt;minK&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;Slow delayed rectifier potassium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;IK1&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcIK1PIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcIK1PIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;K&lt;sub&gt;ir&lt;/sub&gt;2.1&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;KCNJ2&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;Inward rectifier potassium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Ito&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcItoPIC50&quot;
+                          type&#x3D;&quot;text&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcItoPIC50&#x27;, &#x27;validatorOptionalNumber&#x27;)&quot;&gt;Numeric value (or empty field)!&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; --log(M)
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;K&lt;sub&gt;v&lt;/sub&gt;4.3&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;i&gt;KCND3&lt;/i&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;(Fast) transient outward potassium current&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8 input-division rounded-5&quot;&gt;Compound Concentration Range&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Min.&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcPlasmaMinimum&quot;
+                          type&#x3D;&quot;number&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPlasmaMinimum&#x27;, &#x27;required&#x27;)&quot;&gt;A numeric value is required !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPlasmaMinimum&#x27;, &#x27;min&#x27;)&quot;&gt;The mimimum value is 0 !&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; (µM) &lt;img class&#x3D;&quot;info&quot;
+                                    src&#x3D;&quot;assets/img/info.png&quot;
+                                    tooltip&#x3D;&quot;Minimum value: 0&quot;
+                                    data-placement&#x3D;&quot;right&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Minimum compound concentration&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Max.&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;full-width-input&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;fcPlasmaMaximum&quot;
+                          type&#x3D;&quot;number&quot; /&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPlasmaMaximum&#x27;, &#x27;required&#x27;)&quot;&gt;A numeric value is required !&lt;/mat-error&gt;
+          &lt;mat-error *ngIf&#x3D;&quot;hasError(&#x27;fcPlasmaMaximum&#x27;, &#x27;validatorGTThan&#x27;)&quot;&gt;The mimimum value is &gt; 0 !&lt;/mat-error&gt;
+        &lt;/mat-form-field&gt; (µM) &lt;img class&#x3D;&quot;info&quot;
+                                    src&#x3D;&quot;assets/img/info.png&quot;
+                                    tooltip&#x3D;&quot;Minimum value: &gt; 0&quot;
+                                    data-placement&#x3D;&quot;right&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Maximum compound concentration&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Intermediate point count&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-form-field&gt;
+          &lt;mat-select class&#x3D;&quot;form-control&quot;
+                      formControlName&#x3D;&quot;fcPlasmaIntermediatePointCount&quot;&gt;
+            &lt;mat-option *ngFor&#x3D;&quot;let plasmaIntermediatePointCount of configPlasmaIntermediatePointCounts&quot;
+                        [value]&#x3D;&quot;plasmaIntermediatePointCount.id&quot;&gt;
+              {{plasmaIntermediatePointCount.id}}
+            &lt;/mat-option&gt;
+          &lt;/mat-select&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Count of plasma concentrations between the minimum and maximum&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;Intermediate point log scale&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+        &lt;mat-checkbox formControlName&#x3D;&quot;fcPlasmaIntermediatePointLogScale&quot;&gt;&lt;/mat-checkbox&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-5&quot;&gt;Whether intermediate points should be using a log scale&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-8 input-division rounded-5&quot;&gt;&amp;nbsp;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-offset-2 col-sm-10&quot;&gt;
+          &lt;button [disabled]&#x3D;&#x27;inputForm.invalid&#x27; class&#x3D;&quot;btn btn-success&quot;
+                                                 type&#x3D;&quot;submit&quot;&gt;Run Simulation&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./input-form.component.sass</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><form [formGroup]="inputForm"       class="form-horizontal"      (ngSubmit)="onSubmit()">  <div class="form-group">    <div class="row">      <div class="col-sm-8 input-division rounded-5">Cell Model ( Please contact us via the <a (click)=goToContactPage() title="Go To Contact">Contact</a> page if you would like a different model )</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Model</div>      <div class="col-sm-2">        <mat-form-field>          <mat-select class="form-control"                      formControlName="fcModelId"                      (selectionChange)="updateDescription($event)">            <mat-option *ngFor="let configModel of configModels"                        [value]="configModel.id">              {{configModel.name}}            </mat-option>          </mat-select>          <mat-error *ngIf="hasError(\'fcModelId\', \'required\')">Please select a CellML model !</mat-error>        </mat-form-field>      </div>      <div class="col-sm-3">{{modelDescription}}</div>      <div class="col-sm-2"><!-- View all Model Details --></div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-8 input-division rounded-5">Pacing Details</div>    </div>    <div class="row">      <div class="col-sm-1">Pacing Frequency</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcPacingFrequency"                          type="number">          <mat-error *ngIf="hasError(\'fcPacingFrequency\', \'required\')">A numeric value is required !</mat-error>          <mat-error *ngIf="hasError(\'fcPacingFrequency\', \'max\')">The maximum value is 5 !</mat-error>          <mat-error *ngIf="hasError(\'fcPacingFrequency\', \'min\')">The minimum value is 0.05 !</mat-error>        </mat-form-field> (Hz) <img class="info"                                    src="assets/img/info.png"                                    tooltip="Minimum value: 0.05; Maximum value: 5"                                    data-placement="right" />      </div>      <div class="col-sm-5">Frequency of pacing</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Maximum Pacing Time</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcPacingMaxTime"                          type="number" />          <mat-error *ngIf="hasError(\'fcPacingMaxTime\', \'required\')">A numeric value is required !</mat-error>          <mat-error *ngIf="hasError(\'fcPacingMaxTime\', \'max\')">The maximum value is 120 !</mat-error>          <mat-error *ngIf="hasError(\'fcPacingMaxTime\', \'validatorGTThan\')">The minimum value is > 0 !</mat-error>        </mat-form-field> (mins) <img class="info"                                      src="assets/img/info.png"                                      tooltip="Minimum value: > 0; Maximum value: 120"                                      data-placement="right" />      </div>      <div class="col-sm-5">Maximum pacing time</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-8 input-division rounded-5">Ion Channel Current Inhibitory Concentrations</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-8">        Note 1 : No value for Inhibitory Concentration implies "no effect"<br />        Note 2 : Unless otherwise assigned, Hill Coefficients default to 1, and Saturation Levels default to 0.      </div>      <div class="col-sm-4"></div>    </div>    <div class="row table-headers">      <div class="col-sm-1">Ion current</div>      <div class="col-sm-2">(p)IC50</div>      <div class="col-sm-1">Channel protein</div>      <div class="col-sm-1">Gene</div>      <div class="col-sm-2">Description</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">IKr</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcIKrPIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcIKrPIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">K<sub>v</sub>11.1</div>      <div class="col-sm-1"><i>hERG</i> or <i>KCNH2</i></div>      <div class="col-sm-3">Rapid delayed rectifier potassium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">INa</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcINaPIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcINaPIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">Na<sub>v</sub>1.5</div>      <div class="col-sm-1"><i>SCN5A</i></div>      <div class="col-sm-3">Fast sodium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">ICaL</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcICaLPIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcICaLPIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">Ca<sub>v</sub>1.2</div>      <div class="col-sm-1"><i>CACNA1C</i></div>      <div class="col-sm-3">Long-lasting (L-type) calcium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">IKs</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcIKsPIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcIKsPIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">K<sub>v</sub>7.1</div>      <div class="col-sm-1"><i>KCNQ1</i>/<i>minK</i></div>      <div class="col-sm-3">Slow delayed rectifier potassium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">IK1</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcIK1PIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcIK1PIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">K<sub>ir</sub>2.1</div>      <div class="col-sm-1"><i>KCNJ2</i></div>      <div class="col-sm-3">Inward rectifier potassium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Ito</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcItoPIC50"                          type="text" />          <mat-error *ngIf="hasError(\'fcItoPIC50\', \'validatorOptionalNumber\')">Numeric value (or empty field)!</mat-error>        </mat-form-field> --log(M)      </div>      <div class="col-sm-1">K<sub>v</sub>4.3</div>      <div class="col-sm-1"><i>KCND3</i></div>      <div class="col-sm-3">(Fast) transient outward potassium current</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-8 input-division rounded-5">Compound Concentration Range</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Min.</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcPlasmaMinimum"                          type="number" />          <mat-error *ngIf="hasError(\'fcPlasmaMinimum\', \'required\')">A numeric value is required !</mat-error>          <mat-error *ngIf="hasError(\'fcPlasmaMinimum\', \'min\')">The mimimum value is 0 !</mat-error>        </mat-form-field> (µM) <img class="info"                                    src="assets/img/info.png"                                    tooltip="Minimum value: 0"                                    data-placement="right" />      </div>      <div class="col-sm-5">Minimum compound concentration</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Max.</div>      <div class="col-sm-2">        <mat-form-field class="full-width-input">          <input matInput formControlName="fcPlasmaMaximum"                          type="number" />          <mat-error *ngIf="hasError(\'fcPlasmaMaximum\', \'required\')">A numeric value is required !</mat-error>          <mat-error *ngIf="hasError(\'fcPlasmaMaximum\', \'validatorGTThan\')">The mimimum value is > 0 !</mat-error>        </mat-form-field> (µM) <img class="info"                                    src="assets/img/info.png"                                    tooltip="Minimum value: > 0"                                    data-placement="right" />      </div>      <div class="col-sm-5">Maximum compound concentration</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Intermediate point count</div>      <div class="col-sm-2">        <mat-form-field>          <mat-select class="form-control"                      formControlName="fcPlasmaIntermediatePointCount">            <mat-option *ngFor="let plasmaIntermediatePointCount of configPlasmaIntermediatePointCounts"                        [value]="plasmaIntermediatePointCount.id">              {{plasmaIntermediatePointCount.id}}            </mat-option>          </mat-select>        </mat-form-field>      </div>      <div class="col-sm-5">Count of plasma concentrations between the minimum and maximum</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-1">Intermediate point log scale</div>      <div class="col-sm-2">        <mat-checkbox formControlName="fcPlasmaIntermediatePointLogScale"></mat-checkbox>      </div>      <div class="col-sm-5">Whether intermediate points should be using a log scale</div>      <div class="col-sm-4"></div>    </div>    <div class="row">      <div class="col-sm-8 input-division rounded-5">&nbsp;</div>      <div class="col-sm-4"></div>    </div>    <div class="form-group">      <div class="row">        <div class="col-sm-offset-2 col-sm-10">          <button [disabled]=\'inputForm.invalid\' class="btn btn-success"                                                 type="submit">Run Simulation</button>        </div>      </div>    </div>  </div></form></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'InputComponent', 'selector': 'app-input'},{'name': 'InputFormComponent', 'selector': 'app-input-form'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrivacyComponent', 'selector': 'app-privacy'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SimulationsComponent', 'selector': 'app-simulations'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'InputFormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'InputFormComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

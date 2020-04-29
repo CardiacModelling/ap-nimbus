@@ -1,0 +1,19 @@
+# See: https://bitbucket.org/gef_work/ap_nimbus/src/master/deploy/docker/
+version: '2'
+services:
+  appmanager:
+    image: cardiacmodelling/ap-nimbus-app-manager:0.0.10
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+  clientdirect:
+    image: cardiacmodelling/ap-nimbus-client-direct:0.0.6
+    environment:
+      # Can't use the docker networking as calls originate from browser (not docker network).
+      REST_API_URL_APPMGR: http://127.0.0.1:8080/
+      REST_API_URL_DATA: http://127.0.0.1:8080/api/collection/
+    expose:
+      - 4200
+    ports:
+      - "4200:4200"

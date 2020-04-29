@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: dev-namespace
+  annotations:
+    kompose.cmd: kompose-1.17.0 convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: clientdirect
+  name: clientdirect
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: clientdirect
+    spec:
+      containers:
+      - env:
+        - name: REST_API_URL_APPMGR
+          value: https://168.62.202.121/am/
+        - name: REST_API_URL_DATA
+          value: https://168.62.202.121/api/collection/
+        image: cardiacmodelling/ap-nimbus-client-direct:0.0.4
+        name: clientdirect
+        ports:
+        - containerPort: 4200
+        resources: {}
+        #imagePullPolicy: Always
+      restartPolicy: Always
+status: {}
+

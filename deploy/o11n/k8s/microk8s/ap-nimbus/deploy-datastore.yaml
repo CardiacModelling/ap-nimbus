@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-datastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apnimbus: svc-datastore
+  template:
+    metadata:
+      labels:
+        apnimbus: svc-datastore
+    spec:
+      containers:
+      - env:
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: example
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: example
+        - name: PORT
+          value: "8118"
+        - name: WAIT_HOSTS
+          value: svc-database.dev-namespace.svc.cluster.local:27017
+        image: ${LOCAL_REGISTRY}/ap-nimbus-datastore:jenkinslatest
+        imagePullPolicy: Always
+        name: datastore-ctr
+        ports:
+        - containerPort: 8118
+      restartPolicy: Always

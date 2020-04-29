@@ -1,0 +1,252 @@
+<hr />
+<div class="row">
+  <div class="col">
+    <a (click)=viewSimulationsPage()
+       class="btn btn-success">View Simulations</a> &nbsp;
+    <a (click)=viewInputPage() 
+       class="btn btn-success">New Simulation</a> &nbsp;
+
+    <a #std 
+       *ngIf="stdErr !== undefined && stdErr != null" (click)=toggleStdDisplay(std.id)
+       class="btn btn-success"
+       id="err"
+       style="margin-left: 20px">{{showHideStdErr}} {{titleStdErr}}</a> &nbsp;
+    <a #std
+       *ngIf="stdOut !== undefined && stdOut != null" (click)=toggleStdDisplay(std.id)
+       class="btn btn-success"
+       id="out"
+       style="margin-left: 20px">{{showHideStdOut}} {{titleStdOut}}</a> &nbsp;
+    <!--
+    <a (click)=viewInputPageAsTemplate() class="btn btn-success">Use as template</a>
+    -->
+  </div>
+</div>
+<hr />
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="errorMessage !== undefined && errorMessage != null"
+         class="error">Error: {{errorMessage}}</div>
+  </div>
+  <div *ngIf="showStdErr" class="row">
+<pre class="xxsmall">{{stdErr}}</pre>
+  </div>
+  <div *ngIf="showStdOut" class="row">
+<pre class="xxsmall">{{stdOut}}</pre>
+  </div>
+  <!--
+  <div class="row">
+    <div *ngIf="progressMessage !== undefined && progressMessage != null">
+      Progress: {{progressMessage}}
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="vtMessage !== undefined && vtMessage != null">
+      Voltage Traces: {{vtMessage}}
+    </div>
+  </div>
+  <div class="row">
+    Results for simulation: <span class="input-highlighted rounded-3">{{simulationId}}</span>
+    [Status: <span class="input-highlighted rounded-3"> {{status}} @ {{ipAddress}} </span> ]
+  </div>
+  -->
+  <div class="row">
+    <div class="input-highlighted rounded-3 centred"
+         style="width: 100%;">{{status}}</div>
+  </div>
+  <div class="row" style="height: 400px;">
+    <div class="col-sm-3">
+      <div class="row">
+        <div class="col input-division rounded-3">Cell Model</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Model</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{modelName}}</div>
+        <div class="col-sm-7">{{modelDescription}}</div>
+      </div>
+      <div class="row">
+        <div class="col input-division rounded-3">Pacing Details</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">Frequency</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.pacingFrequency}}</div>
+        <div class="col-sm-6">(Hz)</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">Maximum Time</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.pacingMaxTime}}</div>
+        <div class="col-sm-6">(mins)</div>
+      </div>
+      <div class="row">
+        <div class="col input-division rounded-3">Ion Channel Current Inhibitory Concentration</div>
+      </div>
+      <div class="row">
+        <div class="col">Note 1 : No value for Inhibitory Concentration implies "no effect"</div>
+      </div>
+      <div class="row table-headers gutter-10">
+        <div class="col-sm-3">Ion Curr.</div>
+        <div class="col-sm-3">pIC50 ( -log(M) )</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">Channel Protein</div>
+        <div *ngIf="!showAllData" class="col-sm-3">Gene</div>
+
+        <div *ngIf="showAllData" class="col-sm-2">Hill Coefficient</div>
+        <div *ngIf="showAllData" class="col-sm-2">Saturation (%)</div>
+        <div *ngIf="showAllData" class="col-sm-2">Spread</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">IKr</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.IKr)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">K<sub>v</sub>11.1</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>hERG</i> or <i>KCNH2</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.IKr)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.IKr)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.IKr)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">INa</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.INa)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">Na<sub>v</sub>1.5</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>SCN5A</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.INa)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.INa)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.INa)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">ICaL</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.ICaL)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">Ca<sub>v</sub>1.2</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>CACNA1C</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.ICaL)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.ICaL)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.ICaL)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">IKs</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.IKs)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">K<sub>v</sub>7.1</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>KCNQ1/minK</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.IKs)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.IKs)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.IKs)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">IK1</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.IK1)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">K<sub>ir</sub>2.1</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>KCNJ2</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.IK1)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.IK1)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.IK1)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">Ito</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.Ito)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">K<sub>v</sub>4.3</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>KCND3</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.Ito)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.Ito)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.Ito)}}</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-3">INaL</div>
+        <div class="col-sm-3 input-highlighted rounded-3">{{displayPIC50(apPredictInput.INaL)}}</div>
+
+        <div *ngIf="!showAllData" class="col-sm-3">Na<sub>v</sub>1.5</div>
+        <div *ngIf="!showAllData" class="col-sm-3"><i>SCN5A</i></div>
+
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayHill(apPredictInput.INaL)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displaySaturation(apPredictInput.INaL)}}</div>
+        <div *ngIf="showAllData" class="col-sm-2 input-highlighted rounded-3">{{displayPIC50Spread(apPredictInput.INaL)}}</div>
+      </div>
+      <div class="row">
+        <div class="col input-division rounded-3"> Compound Concentration</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Minimum</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.plasmaMinimum}}</div>
+        <div class="col-sm-4">(µM)</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Maximum</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.plasmaMaximum}}</div>
+        <div class="col-sm-4">(µM)</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Intermediate Point Count</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.plasmaIntermediatePointCount}}</div>
+        <div class="col-sm-4"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">Intermediate Point Log Scale</div>
+        <div class="col-sm-2 input-highlighted rounded-3">{{apPredictInput.plasmaIntermediatePointLogScale}}</div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+    <div class="col-sm-1">
+      <a (click)=toggleGraph()
+         class="btn btn-success">Toggle graphs</a>
+    </div>
+    <div *ngIf="multi !== undefined && toggled">
+      <p class="bold centred">Membrane Voltage (mV) vs. Time (ms)</p>
+      <div *ngIf="multi.length == 0">
+        <span class="bold">Waiting... </span>
+        <img alt="Spinning" src="assets/img/spinner.gif" />
+      </div>
+      <ngx-charts-line-chart *ngIf="multi.length != 0"
+                             [view]="view"
+                             [legendTitle]="legendTitle"
+                             [scheme]="colorScheme"
+                             [results]="multi"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [yAxis]="showYAxis"
+                             [legend]="showLegend"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="xAxisLabel"
+                             [yAxisLabel]="yAxisLabel"
+                             (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+    <div *ngIf="multi !== undefined && !toggled">
+      <p class="bold centred">{{vrGraphTitle}}</p>
+      <div *ngIf="vrGraphData.length == 0">
+        <span class="bold">Waiting... </span>
+        <img alt="Spinning" src="assets/img/spinner.gif" />
+      </div>
+      <ngx-charts-line-chart *ngIf="vrGraphData.length != 0"
+                             [view]="view"
+                             [legendTitle]="vrLegendTitle"
+                             [scheme]="vrColorScheme"
+                             [results]="vrGraphData"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [xAxisTicks]="vrXAxisTicks"
+                             [yAxis]="showYAxis"
+                             [legend]="showLegend"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [yScaleMin]="vrYScaleMin"
+                             [yScaleMax]="vrYScaleMax"
+                             [xScaleMin]="vrXScaleMin"
+                             [xScaleMax]="vrXScaleMax"
+                             [xAxisLabel]="vrXAxisLabel"
+                             [yAxisLabel]="vrYAxisLabel"
+                             [xAxisTickFormatting]="vrXAxisTickFormattingFn"
+                             (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+  </div>
+</div>

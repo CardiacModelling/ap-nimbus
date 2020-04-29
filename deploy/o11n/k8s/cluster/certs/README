@@ -1,0 +1,7 @@
+https://kubernetes.io/docs/concepts/cluster-administration/certificates/ -- openssl
+
+master:
+  /etc/kubernetes/apiserver
+  KUBE_API_ARGS="--client-ca-file=/etc/pki/kube-apiserver/ca.crt --tls-cert-file=/etc/pki/kube-apiserver/server.crt --tls-private-key-file=/etc/pki/kube-apiserver/server.key --service-account-key-file=/etc/pki/kube-apiserver/server.crt"
+
+  systemctl restart kube-apiserver

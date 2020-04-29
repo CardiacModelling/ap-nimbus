@@ -1,0 +1,78 @@
+<hr />
+<div class="row">
+  <div class="col">
+    <a (click)=viewInputPage() class="btn btn-success">New Simulation</a>
+  </div>
+</div>
+<hr />
+<div class="container-fluid">
+  <div class="row table-headers gutter-10">
+    <div class="col-sm-2 border-b2 border-r2">Date</div>
+    <div class="col-sm-2 border-b2 border-r2">Cell Model</div>
+    <div class="col-sm-3 border-b2 border-r2">
+      <div class="row gutter-10">
+        <div class="col-sm-12 border-b1">
+          Pacing Details
+        </div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-6">Freq. (Hz)</div>
+        <div class="col-sm-6">Max. Time (m)</div>
+      </div>
+    </div>
+    <div class="col-sm-3 border-b2 border-r2">
+      <div class="row gutter-10">
+        <div class="col border-b1">
+          Ion Channel Current Inhibitory Concs (--log(M))
+        </div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col border-r1">IKr</div>
+        <div class="col border-r1">INa</div>
+        <div class="col border-r1">ICaL</div>
+        <div class="col border-r1">IKs</div>
+        <div class="col border-r1">IK1</div>
+        <div class="col border-r1">Ito</div>
+        <div class="col">INaL</div>
+      </div>
+    </div>
+    <div class="col-sm-1 border-b2 border-r2">Cmpd Concs</div>
+    <div class="col-sm-1 border-b2">
+      <div class="row gutter-10">
+        <div class="col-sm-12">Actions</div>
+      </div>
+      <div class="row gutter-10">
+        <div class="col-sm-6">View</div>
+        <div class="col-sm-6">Delete</div>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let item of simulationArray" class="row gutter-10 odd-highlighted">
+    <div class="col-sm-2 border-r2">{{displayDate(item.created)}}</div>
+    <div class="col-sm-2 border-r2">{{modelName(item.modelId)}}</div>
+    <div class="col-sm-3 border-r2">
+      <div class="row gutter-10">
+        <div class="col-sm-6">{{item.pacingFrequency}}</div>
+        <div class="col-sm-6">{{item.pacingMaxTime}}</div>
+      </div>
+    </div>
+    <div class="col-sm-3 border-r2">
+      <div class="row gutter-10">
+        <div class="col border-r1">{{displayPIC50(item.IKr)}}</div>
+        <div class="col border-r1">{{displayPIC50(item.INa)}}</div>
+        <div class="col border-r1">{{displayPIC50(item.ICaL)}}</div>
+        <div class="col border-r1">{{displayPIC50(item.IKs)}}</div>
+        <div class="col border-r1">{{displayPIC50(item.IK1)}}</div>
+        <div class="col border-r1">{{displayPIC50(item.Ito)}}</div>
+        <div class="col">{{displayPIC50(item.INaL)}}</div>
+      </div>
+    </div>
+    <div class="col-sm-1 border-r2">{{item.plasmaMinimum}} - {{item.plasmaMaximum}} (µM)</div>
+    <div class="col-sm-1">
+      <div class="row gutter-10">
+        <div class="col-sm-6"><a (click)=viewResultsPage(item.simulationId) href="javascript:void(0);">view</a></div> 
+        <div class="col-sm-6"><a (click)=deleteSimulation(item.simulationId) href="javascript:void(0);">delete</a></div>
+      </div>
+    </div>
+  </div>
+</div>

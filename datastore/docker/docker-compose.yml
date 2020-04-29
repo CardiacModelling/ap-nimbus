@@ -1,0 +1,12 @@
+version: '3'
+services:
+  datastore:
+    image: datastore
+    build: 
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        port: ${PORT}
+    container_name: datastore
+    env_file:
+      - ../.env

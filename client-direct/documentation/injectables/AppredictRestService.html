@@ -1,0 +1,684 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client-direct documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client-direct documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>AppredictRestService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/appredict-rest.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for REST invocations of the <code>app-manager</code> application.</p>
+
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#apPredictRestUrl">apPredictRestUrl</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleError">handleError</a>
+                            </li>
+                            <li>
+                                <a href="#invokeApPredict">invokeApPredict</a>
+                            </li>
+                            <li>
+                                <a href="#queryApPredict">queryApPredict</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(httpClient: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, envService: <a href="../classes/EnvService.html">EnvService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/appredict-rest.service.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initialising constructor.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>httpClient</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>HTTP client.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>envService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../classes/EnvService.html" target="_self" >EnvService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Environment variable service.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="handleError"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            handleError
+                            </b>
+                            <a href="#handleError"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>handleError(error: <a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank">HttpErrorResponse</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/appredict-rest.service.ts:63</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Handle backend errors.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>error</td>
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank" >HttpErrorResponse</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Error to handle.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="invokeApPredict"></a>
+                        <span class="name">
+                            <b>
+                            invokeApPredict
+                            </b>
+                            <a href="#invokeApPredict"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>invokeApPredict(apPredictInput: <a href="../classes/ApPredictInput.html">ApPredictInput</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/appredict-rest.service.ts:85</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p><code>POST</code> data to start an <code>ApPredict</code> simulation on the <code>app-manager</code> application.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>apPredictInput</td>
+                                                        <td>
+                                                                    <code><a href="../classes/ApPredictInput.html" target="_self" >ApPredictInput</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p><code>ApPredict</code> input data.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="../classes/ApPredictOutput.html" target="_self" >Observable&lt;ApPredictOutput&gt;</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p><code>ApPredict</code> invocation/simulation output.</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="queryApPredict"></a>
+                        <span class="name">
+                            <b>
+                            queryApPredict
+                            </b>
+                            <a href="#queryApPredict"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>queryApPredict(simulationId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, getOpt: <a href="../undefineds/GetOp.html">GetOp</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/appredict-rest.service.ts:98</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Query the <code>app-manager</code> application to retrieve simulation data.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>simulationId</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Simulation identifier to query.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>getOpt</td>
+                                                        <td>
+                                                                    <code><a href="../miscellaneous/enumerations.html#GetOp" target="_self" >GetOp</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Nature of query, e.g. retrieve voltage trace, progress, etc. data.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="../classes/ApPredictOutput.html" target="_self" >Observable&lt;ApPredictOutput&gt;</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p><code>ApPredict</code> invocation/simulation output.</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="apPredictRestUrl"></a>
+                        <span class="name">
+                            <b>
+                            apPredictRestUrl
+                            </b>
+                            <a href="#apPredictRestUrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>apPredictRestUrl:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;http://localhost:8080/&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/appredict-rest.service.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { HttpClient, HttpParams } from &#x27;@angular/common/http&#x27;;
+import { HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { HttpErrorResponse, HttpResponse } from &#x27;@angular/common/http&#x27;;
+
+import { Observable, of, from, throwError } from &#x27;rxjs&#x27;;
+import { catchError, retry, map } from &#x27;rxjs/operators&#x27;;
+
+import { ApPredictInput } from &#x27;./ap-predict-input&#x27;;
+import { ApPredictOutput } from &#x27;./ap-predict-output&#x27;;
+import { EnvService } from &#x27;./env.service&#x27;;
+
+/**
+ * JSON content type HTTP header.
+ */
+const httpHeaderJSON &#x3D; {
+  headers: new HttpHeaders({ 
+    &#x27;Content-Type&#x27;: &#x27;application/json&#x27;
+  })
+}
+
+/**
+ * text/plain content type HTTP header.
+ */
+const headers &#x3D; new HttpHeaders().set(&#x27;Content-Type&#x27;, &#x27;text/plain; charset&#x3D;utf-8&#x27;);
+
+export enum GetOp {
+  PROGRESS,
+  STOP_INDICATOR,
+  VOLTAGE_TRACES
+}
+
+/**
+ * Service for REST invocations of the &#x60;app-manager&#x60; application.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class AppredictRestService {
+
+  // Set the default app-manager endpoint.
+  apPredictRestUrl: string &#x3D; &#x27;http://localhost:8080/&#x27;;
+
+  /**
+   * Initialising constructor.
+   * 
+   * @param httpClient HTTP client.
+   * @param envService Environment variable service.
+   */
+  constructor(private httpClient: HttpClient, private envService: EnvService) {
+    let envUrl: string &#x3D; envService.apiUrl;
+    if (envUrl !&#x3D; &#x27;&#x27;) {
+      this.apPredictRestUrl &#x3D; envUrl;
+    }
+  }
+
+  /**
+   * Handle backend errors.
+   * 
+   * @param error Error to handle.
+   * @link https://angular.io/guide/http#getting-error-details 
+   */
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error(&#x27;An error occurred:&#x27;, error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        &#x60;Backend returned code ${error.status}, &#x60; +
+        &#x60;body was: ${error.error}&#x60;);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      &#x27;Something bad happened; please try again later.&#x27;);
+  };
+
+  /**
+   * &#x60;POST&#x60; data to start an &#x60;ApPredict&#x60; simulation on the &#x60;app-manager&#x60; application.
+   * 
+   * @param apPredictInput &#x60;ApPredict&#x60; input data.
+   * @return &#x60;ApPredict&#x60; invocation/simulation output.
+   */
+  invokeApPredict(apPredictInput: ApPredictInput): Observable&lt;ApPredictOutput&gt; {
+    return this.httpClient.post&lt;ApPredictOutput&gt;(this.apPredictRestUrl, apPredictInput,
+                                                 httpHeaderJSON)
+                          .pipe(catchError(this.handleError))
+  }
+
+  /**
+   * Query the &#x60;app-manager&#x60; application to retrieve simulation data.
+   * 
+   * @param simulationId Simulation identifier to query.
+   * @param getOpt Nature of query, e.g. retrieve voltage trace, progress, etc. data.
+   * @return &#x60;ApPredict&#x60; invocation/simulation output.
+   */
+  queryApPredict(simulationId: string,
+                 getOpt: GetOp): Observable&lt;ApPredictOutput&gt; {
+    let queryURL: string &#x3D; this.apPredictRestUrl + &quot;?id&#x3D;&quot; + simulationId;
+
+    switch (getOpt) {
+      case GetOp.VOLTAGE_TRACES:
+        queryURL +&#x3D; &quot;&amp;op&#x3D;v&quot;;
+        return this.httpClient.get(queryURL, { headers, responseType: &#x27;text&#x27; })
+                              .pipe(map(response &#x3D;&gt; {
+                                          return new ApPredictOutput(simulationId, false,
+                                                                     &#x27;&#x27;, response);
+                                        },catchError(this.handleError) ));
+      case GetOp.STOP_INDICATOR:
+        queryURL +&#x3D; &quot;&amp;op&#x3D;s&quot;;
+        return this.httpClient.get(queryURL, { headers, responseType: &#x27;text&#x27; })
+                              .pipe(map(response &#x3D;&gt; {
+                                          var stopped &#x3D; (response &#x3D;&#x3D; &quot;STOPPED&quot;) ? true : false;
+                                          return new ApPredictOutput(simulationId, stopped,
+                                                                     &#x27;&#x27;, &#x27;&#x27;);
+                                        },catchError(this.handleError) ));
+      default:
+        let errorMessage: string &#x3D; &#x27;~queryApPredict() : Unrecognised operation &#x27; + getOpt;
+        console.error(errorMessage);
+        return of(new ApPredictOutput(simulationId, false, errorMessage, &#x27;&#x27;));
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AppredictRestService.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

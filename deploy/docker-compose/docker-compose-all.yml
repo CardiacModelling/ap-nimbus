@@ -1,0 +1,42 @@
+# See: https://bitbucket.org/gef_work/ap_nimbus/src/master/deploy/docker/
+version: '3'
+services:
+  datastore:
+    image: cardiacmodelling/ap-nimbus-datastore:0.0.5
+    ports:
+      - 8118:8118
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: example
+      MONGO_INITDB_ROOT_PASSWORD: example
+      PORT: 8118
+      # Docker networks "database" traffic to the database service.
+      WAIT_HOSTS: database:27017
+  database:
+    image: mongo:4.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: example
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: api
+      MONGO_DATA_DIR: /data/db
+      MONGO_TEST_DATA_DIR: /data/test_db
+      MONGO_LOG_FILE: /var/log/mongodb/mongodb.log
+    command: "mongod --smallfiles --logpath=/var/log/mongodb/mongodb.log"
+  appmanager:
+    image: cardiacmodelling/ap-nimbus-app-manager:0.0.10
+    # "deploy" is available `docker-compose version` 3+. Can be commented out. 
+    deploy:
+      mode: replicated
+      replicas: 1
+    ports:
+      - "8080:8080"
+    environment:
+      # Docker networks "datastore" traffic to the "datastore" service.
+      REST_API_URL_DATA: http://datastore:8118/
+  clientdirect:
+    image: cardiacmodelling/ap-nimbus-client-direct:0.0.6
+    environment:
+      # Can't use the docker networking as calls originate from browser (not docker network).
+      REST_API_URL_APPMGR: http://127.0.0.1:8080/
+      REST_API_URL_DATA: http://127.0.0.1:8118/api/collection/
+    ports:
+      - "4200:4200"
