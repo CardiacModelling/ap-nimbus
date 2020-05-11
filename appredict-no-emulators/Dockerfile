@@ -4,7 +4,7 @@ FROM cardiacmodelling/appredict-chaste-libs:0.0.3
 # Modifiable (e.g. via command line) args.                                     #
 ################################################################################
 
-ARG appredict_hash=23aba22
+ARG appredict_hash=f34b928
 ARG appredict_branch=master
 ARG chaste_hash=c4f5695
 ARG chaste_branch=develop
@@ -103,8 +103,8 @@ COPY --chown=appredict:appredict ApPredict.sh ${dir_appredict}/ApPredict.sh
 RUN sed -i -- "s|<chaste-libs-dir>|${dir_chaste_libs}|g" ${dir_appredict}/ApPredict.sh && \
     ln -s ${dir_build}/ApPredict/apps/src/ApPredict ${dir_appredict}/ && \
     ln -s ${dir_build}/Chaste/lib/*.so ${dir_appredict}/libs/ && \
-    mkdir -p ${dir_build}/Chaste/heart/build/optimised_native/dynamic/ && \
-    chmod o+rwX ${dir_build}/Chaste/heart/build/optimised_native/dynamic/ && \
+    mkdir -p ${dir_build}/Chaste/heart/build/optimised/dynamic/ && \
+    chmod o+rwX ${dir_build}/Chaste/heart/build/optimised/dynamic/ && \
     chmod o+rwX ${dir_build}/Chaste/heart/dynamic/ 
 
 ENV CHASTE_TEST_OUTPUT=${dir_appredict}/testoutput
