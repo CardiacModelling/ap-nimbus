@@ -41,6 +41,7 @@ param_ik1=" --pic50-ik1 4 --pic50-spread-ik1 0.1 "
 param_iks=" --pic50-iks 4 --pic50-spread-iks 0.1 "
 param_ito=" --pic50-ito 4 --pic50-spread-ito 0.1 "
 param_na=" --pic50-na 4 --pic50-spread-na 0.1 "
+param_nal=" --pic50-nal 4 --pic50-spread-nal 0.1 "
 
 #
 # Read in the *_generator.arch files in the local directory and generate
@@ -92,6 +93,9 @@ for arch_file in `ls *_generator.arch`; do
   fi
   if [[ "${arch_file}" =~ "_INa_" ]]; then
     channels+=${param_na}
+  fi
+  if [[ "${arch_file}" =~ "_INaL_" ]]; then
+    channels+=${param_nal}
   fi
 
   commands+=("${appredict} --model ${model} --plasma-concs 0 ${channels} --pacing-freq ${pacing_freq} --pacing-max-time 1 --credible-intervals")
