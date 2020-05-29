@@ -1,0 +1,57 @@
+/* Impacts "``!!!``" rst */
+code.docutils.literal {
+  border: 0px !important;
+}
+
+/* Impacts ":file:`!!!`" rst */
+code.file.docutils.literal {
+  border: 0px !important;
+}
+
+img.info { height: 15px; width: 15px; }
+
+/* Add a bit of space between list items (except in ToC) */
+li:not([class*=toctree]) {
+  margin-top: 6px;
+}
+
+/* One-size-fits-all approach to ensuring text below titles/sections/etc is indented a bit. */
+p {
+  margin-left: 10px;
+}
+
+/* Impacts "``!!!``" rst */
+.rst-content code.literal {
+  color:grey !important;
+}
+
+.rst-content h1 {
+  text-decoration: none !important;
+  border-bottom: 3px double black !important;
+}
+
+.rst-content h2 {
+  text-decoration: none !important;
+  border-bottom: 2px solid black !important;
+}
+
+.rst-content h3 {
+  text-decoration: none !important;
+  padding-bottom: 1px !important;
+  border-bottom: 1px solid lightgray !important;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.wy-nav-content {
+  /* Screen width */
+  max-width: 1200px !important;
+  /* Decrease padding as introduced a <p> with margin-left of 10px */
+  padding: 0.618em 2.236em !important;
+}
