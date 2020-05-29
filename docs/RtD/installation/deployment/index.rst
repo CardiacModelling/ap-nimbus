@@ -20,6 +20,12 @@ Microservice-related
 ApPredict-related Containers
 ----------------------------
 
+The following will auto-download and run dockerhub's cardiacmodelling/appredict-with-emulators:<version>.
+
+If you wish to run a :ref:`locally built container <installation_build_local>`, then
+substitute the image name:version combination you specified during the 
+``docker build ...``, e.g. "appredict-with-emulators:<new version, e.g. mytest1>".
+
 ::
 
    user@host:~/tmp> mkdir testoutput
@@ -27,7 +33,7 @@ ApPredict-related Containers
                                -u `id -u`:`id -g` \
                                -v `pwd`/testoutput:/home/appredict/apps/ApPredict/testoutput:Z \
                                -w /home/appredict/apps/ApPredict/ \
-                               appredict-with-emulators:<version> /home/appredict/apps/ApPredict/ApPredict.sh --model 1 --plasma-conc-high 100
+                               cardiacmodelling/appredict-with-emulators:<version> /home/appredict/apps/ApPredict/ApPredict.sh --model 1 --plasma-conc-high 100
 
 Microservice-related Containers
 -------------------------------

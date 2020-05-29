@@ -20,6 +20,8 @@ Microservice-related
 ApPredict-related Containers
 ----------------------------
 
+.. _installation_build_local:
+
 It's important to note that even when using 32 processors it can take an hour to
 build!
 
