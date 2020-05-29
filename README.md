@@ -1,9 +1,13 @@
 # Action Potential prediction (`ApPredict`) _in containers_ - `AP-Nimbus`!
 
-[`ApPredict`](https://github.com/Chaste/ApPredict) performs simulations of drug-induced changes to the cardiac action potential to support the [CiPA initiative](http://cipaproject.org/).
+[`ApPredict`](https://github.com/Chaste/ApPredict) performs simulations of
+drug-induced changes to the cardiac action potential to support the
+[CiPA initiative](http://cipaproject.org/).
 
 This activity is a continuation of the [ap_predict_online](https://bitbucket.org/gef_work/ap_predict_online/src/)
 work -- the aim being to containerise the `AP-Portal`.
+
+We're working on the documentation side of things at https://ap-nimbus.readthedocs.io/
 
 ## Repository content :
 

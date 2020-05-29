@@ -8,6 +8,7 @@ Welcome to AP-Nimbus's documentation
 ====================================
 
 :Project Home: https://github.com/CardiacModelling/ap-nimbus
+:Documentation: https://ap-nimbus.readthedocs.io/
 :Created: |today|
 :Version: |release|
 
