@@ -48,6 +48,7 @@ param_nal=" --pic50-nal 4 --pic50-spread-nal 0.1 "
 # the command to run which would use it. Place each command in the array.
 #
 commands=()
+files=()
 for arch_file in `ls *_generator.arch`; do
   model=""
   if [[ "${arch_file}" =~ "shannon_wang_puglisi_weber_bers_2004_model_updated" ]]; then
@@ -60,7 +61,7 @@ for arch_file in `ls *_generator.arch`; do
     model=4
   elif [[ "${arch_file}" =~ "grandi_pasqualini_bers_2010" ]]; then
     model=5
-  elif [[ "${arch_file}" =~ "ohara_rudy_2011" ]]; then
+  elif [[ "${arch_file}" =~ "ohara_rudy_2011_endo" ]]; then
     model=6
   elif [[ "${arch_file}" =~ "paci_hyttinen_aaltosetala_severi_ventricularVersion" ]]; then
     model=7
@@ -99,14 +100,28 @@ for arch_file in `ls *_generator.arch`; do
   fi
 
   commands+=("${appredict} --model ${model} --plasma-concs 0 ${channels} --pacing-freq ${pacing_freq} --pacing-max-time 1 --credible-intervals")
+  files+=(${arch_file});
 done
+
+output_base=`pwd`/output
+
+#  https://askubuntu.com/questions/674333/how-to-pass-an-array-as-function-argument
+clear_files() {
+  files_to_delete=("$@")
+  for ((idx = 0; idx < ${#files_to_delete[@]}; idx++)); do
+    rm -vf ${files_to_delete[$idx]}*
+  done
+  rm -rf ${output_base}/*
+}
 
 #
 # Traverse created commands and run (in parallel if more than one processor
 # specified).
 #
-output_base=`pwd`/output
+del_files=();
 for ((i = 0; i < ${#commands[@]}; i++)); do
+  del_files+=(${files[$i]})
+
   # Create chaste output directory
   output_dir=${output_base}/${i}
   mkdir -p ${output_dir}
@@ -116,10 +131,11 @@ for ((i = 0; i < ${#commands[@]}; i++)); do
   idx=$((i + 1));
   if [[ $(($idx % ${processors})) == 0 ]]; then
     wait
-    # Tidy up last <however many!>
-    rm -rf ${output_base}/*
+    # Tidy up last however many!
+    clear_files "${del_files[@]}"
+    del_files=()
   fi
 done
 # Tidy up any dangling
 wait
-rm -rf ${output_base}/*
+clear_files "${del_files[@]}"
