@@ -4,9 +4,9 @@ FROM cardiacmodelling/appredict-chaste-libs:0.0.3
 # Modifiable (e.g. via command line) args.                                     #
 ################################################################################
 
-ARG appredict_hash=f34b928
+ARG appredict_hash=5311f5f
 ARG appredict_branch=master
-ARG chaste_hash=c4f5695
+ARG chaste_hash=9c205f0
 ARG chaste_branch=develop
 ARG build_processors=1
 
@@ -96,7 +96,11 @@ RUN cd ${dir_build} && \
     cd .. && \
     rm default.py.patch
 
-RUN mkdir -p ${dir_appredict}/libs
+# Make the script directory writable so as to allow ApPredict to potentially
+# download a lookup table manifest and table.
+
+RUN mkdir -p ${dir_appredict}/libs && \
+    chmod o+rwx ${dir_appredict}
 
 COPY --chown=appredict:appredict ApPredict.sh ${dir_appredict}/ApPredict.sh
 
