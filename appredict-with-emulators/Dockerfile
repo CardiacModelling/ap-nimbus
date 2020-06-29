@@ -1,4 +1,4 @@
-FROM cardiacmodelling/appredict-no-emulators:0.0.4
+FROM cardiacmodelling/appredict-no-emulators:0.0.5
 
 ################################################################################
 # Modifiable (e.g. via command line) args.                                     #
