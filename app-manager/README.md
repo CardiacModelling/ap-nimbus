@@ -8,12 +8,11 @@ simulation engine.
 ## Prerequisites.
 
  1. If you want to run non-containerised:
-
-  1. Install `node.js`, `ApPredict`, and whatever packages are
-     `apk add`ed in the `Dockerfile`, e.g. `jq`, `inotify-tools`.
-  1. Check the `run_me.sh` script for guidance regarding expected location of `ApPredict.sh`!
-  1. You may need to increase the value of `/proc/sys/fs/inotify/max_user_watches`.  
-     By default on Fedora 30 it was '8192', which I increased to arbitrary '524288'.
+    1. Install `node.js`, `ApPredict`, and whatever packages are
+       `apk add`ed in the `Dockerfile`, e.g. `jq`, `inotify-tools`.
+    1. Check the `run_me.sh` script for guidance regarding expected location of `ApPredict.sh`!
+    1. You may need to increase the value of `/proc/sys/fs/inotify/max_user_watches`.  
+       By default on Fedora 30 it was '8192', which I increased to arbitrary '524288'.
 
 
  1. If you want to run containerised: Install `docker` or similar e.g. `Podman`/`CRI-O`.  
