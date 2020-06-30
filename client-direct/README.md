@@ -11,13 +11,13 @@ deals with browser presentation.
  1. If you want to run non-containerised: Install the [Angular CLI](https://angular.io/guide/setup-local)
     to give you access to `ng serve`.  
     For me this involved the following ...  
-   1. Install `node` to provide `npm` (e.g. download from [nodejs.org](https://nodejs.org/en/blog/release/v10.13.0/))
-   1. `npm install -g @angular/cli@7.0.5 ng`  
-      This installs `ng` somewhere (could be alongside the `npm` binary!)  
-      `-g` means "install globally", rather than in local dir.
-   1. `cd <this client-direct dir> && npm install`  
-      This should use `package-lock.json` to create a local git-ignored `node_modules` subdir
-      with all the required packages therein.
+    1. Install `node` to provide `npm` (e.g. download from [nodejs.org](https://nodejs.org/en/blog/release/v10.13.0/))
+    1. `npm install -g @angular/cli@7.0.5 ng`  
+       This installs `ng` somewhere (could be alongside the `npm` binary!)  
+       `-g` means "install globally", rather than in local dir.
+    1. `cd <this client-direct dir> && npm install`  
+       This should use `package-lock.json` to create a local git-ignored `node_modules` subdir
+       with all the required packages therein.
 
  1. If you want to run containerised: Install `docker` or similar, e.g. `Podman`/`CRI-O`  
     (No need to install Angular CLI as it's within the `client-direct` docker container).
