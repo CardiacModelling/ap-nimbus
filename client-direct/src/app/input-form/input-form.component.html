@@ -289,9 +289,13 @@
                             type="text" />
           </mat-form-field>
         </td>
-        <td *ngIf="!showMoreOptions" colspan="5">
-          Data not available
+        <td *ngIf="!showMoreOptions">
+          <mat-form-field>
+            <input matInput formControlName="fcIK1PIC50Spread"
+                            type="text" />
+          </mat-form-field>
         </td>
+        <td *ngIf="!showMoreOptions" colspan="5">(0.18)</td>
       </tr>
       <tr>
         <td>Ito</td>
@@ -319,9 +323,13 @@
                             type="text" />
           </mat-form-field>
         </td>
-        <td *ngIf="!showMoreOptions" colspan="5">
-          Data not available
+        <td *ngIf="!showMoreOptions">
+          <mat-form-field>
+            <input matInput formControlName="fcItoPIC50Spread"
+                            type="text" />
+          </mat-form-field>
         </td>
+        <td *ngIf="!showMoreOptions" colspan="5">(0.15)</td>
       </tr>
       <tr>
         <td>INaL</td>
@@ -349,9 +357,13 @@
                             type="text" />
           </mat-form-field>
         </td>
-        <td *ngIf="!showMoreOptions" colspan="5">
-          Data not available
+        <td *ngIf="!showMoreOptions">
+          <mat-form-field>
+            <input matInput formControlName="fcINaLPIC50Spread"
+                            type="text" />
+          </mat-form-field>
         </td>
+        <td *ngIf="!showMoreOptions" colspan="5">(0.2)</td>
       </tr>
       <tr>
         <td class="input-division rounded-5"

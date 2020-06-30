@@ -245,10 +245,10 @@ export class InputFormComponent implements OnInit {
                                                         form_values.fcSpreadsEnabled && form_values.fcItoPIC50Spread ? form_values.fcItoPIC50Spread : '',
                                                         form_values.fcSpreadsEnabled && form_values.fcItoHillSpread ? form_values.fcItoHillSpread : '');
     this.apPredictInput.INaL = this.assignAssociatedItem(form_values.fcINaLPIC50,
-                                                        form_values.fcINaLHill,
-                                                        form_values.fcINaLSaturation,
-                                                        form_values.fcSpreadsEnabled && form_values.fcINaLPIC50Spread ? form_values.fcINaLPIC50Spread : '',
-                                                        form_values.fcSpreadsEnabled && form_values.fcINaLHillSpread ? form_values.fcINaLHillSpread : '');
+                                                         form_values.fcINaLHill,
+                                                         form_values.fcINaLSaturation,
+                                                         form_values.fcSpreadsEnabled && form_values.fcINaLPIC50Spread ? form_values.fcINaLPIC50Spread : '',
+                                                         form_values.fcSpreadsEnabled && form_values.fcINaLHillSpread ? form_values.fcINaLHillSpread : '');
 
     this.apPredictInput.plasmaMaximum = form_values.fcPlasmaMaximum;
     this.apPredictInput.plasmaMinimum = form_values.fcPlasmaMinimum;

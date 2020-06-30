@@ -8,9 +8,16 @@ deals with browser presentation.
 
 ## Prerequisites.
 
- 1. If you want to run non-containerised: Install the [Angular CLI](https://angular.io/guide/quickstart)
-    to give you access to `ng serve`.
-
+ 1. If you want to run non-containerised: Install the [Angular CLI](https://angular.io/guide/setup-local)
+    to give you access to `ng serve`.  
+    For me this involved the following ...  
+   1. Install `node` to provide `npm` (e.g. download from [nodejs.org](https://nodejs.org/en/blog/release/v10.13.0/))
+   1. `npm install -g @angular/cli@7.0.5 ng`  
+      This installs `ng` somewhere (could be alongside the `npm` binary!)  
+      `-g` means "install globally", rather than in local dir.
+   1. `cd <this client-direct dir> && npm install`  
+      This should use `package-lock.json` to create a local git-ignored `node_modules` subdir
+      with all the required packages therein.
 
  1. If you want to run containerised: Install `docker` or similar, e.g. `Podman`/`CRI-O`  
     (No need to install Angular CLI as it's within the `client-direct` docker container).
@@ -30,9 +37,9 @@ deals with browser presentation.
 
 ## User Documentation.
 
- 1. See the 'about' page, which refers to the legacy `AP-Portal` implementation.
+ 1. See the started application's "about" page, which refers to the legacy `AP-Portal` implementation.
  1. Simulations and simulation results are stored in browser memory based on current session, so it
-    all disappears when browser (or the browser tab) closes.
+    all disappears when the browser (or the browser tab) closes.
 
 ## Initial configuration.
 
@@ -50,7 +57,7 @@ deals with browser presentation.
 
 ## TODO.
 
- 1. i18n (Deferred to whenever Angular devs think it's important enough to provide a good solution!)
+ 1. Switch to react.js or something other than Angular!
 
 ## Useful commands.
 
@@ -68,6 +75,8 @@ deals with browser presentation.
  1. `docker push 127.0.0.1:5000/client-direct:0.0.x`
 
 ### Starting (non-containerised from source code).
+
+Perhaps take a look at the "Prerequisites" above before trying these commands!
 
  1. `cd <client-direct dir>`  
  1. By default `app-manager` and the optional intermediary data store URLs default to
