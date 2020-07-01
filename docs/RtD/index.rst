@@ -34,6 +34,36 @@ Preamble
    standalone (Docker or Singularity) container, or alternatively, orchestrated
    in a microservice architecture (e.g. Kubernetes or docker-compose).
 
+Diagrammatic Representation
+---------------------------
+
+ApPredict
+^^^^^^^^^
+
+`ApPredict <https://github.com/Chaste/ApPredict>`_ is the underlying cardiac 
+simulation engine.
+
+Building or installing |ApPredict| is a complex and time-consuming
+process and by distributing in container form it's possible to have it installed
+in a fraction of the time [#f1]_.
+
+.. figure:: _static/images/appredict-in-containers.png
+   :width: 700px
+   :alt: ApPredict in Containers.
+
+Orchestration
+^^^^^^^^^^^^^
+
+The following illustrates a microservice-based solution to potentially running many
+|ApPredict|\s concurrently.
+
+It is equally feasible to ``docker run ..`` a single |ap-nimbus-app-manager| container
+and call it with |HTTP| ``POST`` and ``GET`` requests, or ``docker run ..`` either of the
+|appredict-with-emulators| or |appredict-no-emulators| containers directly from a |CLI|.
+
+.. figure:: _static/images/apnimbus-container-orchestration.png
+   :alt: ApPredict container orchestration.
+
 Installation
 ------------
 
@@ -42,4 +72,6 @@ Installation
 
    installation/index
 
+.. rubric:: Footnotes
 
+.. [#f1] So long as there's a container runtime, e.g. Docker, running somewhere!
