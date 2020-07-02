@@ -3,6 +3,7 @@
 .. |CLI| replace:: :abbr:`CLI (Command-line Interface)`
 .. |CSRF| replace:: :abbr:`CSRF (Cross-Site Request Forgery)`
 .. |CSS| replace:: :abbr:`CSS (Cascading Style Sheet)`
+.. |DCOS| replace:: :abbr:`DC/OS (Distributed Cloud Operating System)`
 .. |FAQ| replace:: :abbr:`FAQ (Frequently Asked Question)`
 .. |GUI| replace:: :abbr:`GUI (Graphical User Interface)`
 .. |HTS| replace:: :abbr:`HTS` (High Throughput Screening)`
@@ -57,6 +58,7 @@
 .. |AP-Portal| replace:: ``AP-Portal``
 .. |ApPredict| replace:: ``ApPredict``
 .. |CHASTE| replace:: ``CHASTE``
+.. |Singularity| replace:: ``Singularity``
 
 .. |app-manager| replace:: ``app-manager``
 .. |business-manager| replace:: ``business-manager``
