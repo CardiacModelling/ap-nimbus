@@ -1,5 +1,7 @@
 .. |AMQ| replace:: :abbr:`AMQ (ActiveMQ)`
 .. |API| replace:: :abbr:`API (Application Programming Interface)`
+.. |AuthN| replace:: :abbr:`AuthN (Authentication)`
+.. |AuthZ| replace:: :abbr:`AuthZ (Authorisation)`
 .. |CLI| replace:: :abbr:`CLI (Command-line Interface)`
 .. |CSRF| replace:: :abbr:`CSRF (Cross-Site Request Forgery)`
 .. |CSS| replace:: :abbr:`CSS (Cascading Style Sheet)`
@@ -22,12 +24,15 @@
 .. |NTLM| replace:: :abbr:`NTLM (NT LAN Manager)`
 .. |PII| replace:: :abbr:`PII (Personally Identifiable Information)`
 .. |PK| replace:: :abbr:`PK (Pharmacokinetic)`
+.. |PKPD| replace:: :abbr:`PKPD (Pharmacokinetic-Pharmacodynamic)`
 .. |QSAR| replace:: :abbr:`QSAR (Quantitative structure–activity relationship)`
 .. |RAM| replace:: :abbr:`RAM (Random Access Memory)`
+.. |RBAC| replace:: :abbr:`RBAC (Role-Based Access Control)`
 .. |RTFM| replace:: :abbr:`RTFM (Read The F!!!ing Manual)`
 .. |SPA| replace:: :abbr:`SPA (Single-Page Application)`
 .. |SMTP| replace:: :abbr:`SMTP (Simple Mail Transfer Protocol)`
 .. |SQL| replace:: :abbr:`SQL (Structured Query Language)`
+.. |TLDR| replace:: :abbr:`TL;DR (Too Long; Didn't Read)`
 .. |TLS| replace:: :abbr:`TLS (Transport Level Security)`
 .. |UI| replace:: :abbr:`UI (User Interface)`
 .. |URI| replace:: :abbr:`URI (Uniform Resource Identifier)`
@@ -58,7 +63,11 @@
 .. |AP-Portal| replace:: ``AP-Portal``
 .. |ApPredict| replace:: ``ApPredict``
 .. |CHASTE| replace:: ``CHASTE``
-.. |Singularity| replace:: ``Singularity``
+.. |docker| replace:: ``Docker``
+.. |docker_compose| replace:: ``Docker Compose``
+.. |docker_swarm| replace:: ``Docker Swarm``
+.. |kubernetes| replace:: ``Kubernetes``
+.. |singularity| replace:: ``Singularity``
 
 .. |app-manager| replace:: ``app-manager``
 .. |business-manager| replace:: ``business-manager``

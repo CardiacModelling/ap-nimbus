@@ -31,16 +31,16 @@ Preamble
  * Also unlike |AP-Portal|, this work, by nature of containerisation, means that
    |AP-Nimbus| work does not embody a single application, it is instead a
    collection of containers where each can operate in isolation, e.g. as a
-   standalone (Docker or Singularity) container, or alternatively, orchestrated
-   in a microservice architecture (e.g. Kubernetes or docker-compose).
+   standalone |docker| or |singularity| container, or alternatively, orchestrated
+   in a microservice architecture (e.g. |kubernetes| or |docker_compose|).
 
 Singularity
 -----------
 
-This documentation predominantly covers ``Docker`` container environments, however
+This documentation predominantly covers |docker| container environments, however
 it has been relatively straightforward to create `Singularity <https://sylabs.io/>`_
 containers (e.g. ``singularity build app-manager.img docker://cardiacmodelling/ap-nimbus-app-manager:0.0.10``)
-and use those [#f3]_.
+and use those [#f1]_.
 
 Sample invocation scripts can be found at `ap-predict-online <https://bitbucket.org/gef_work/ap_predict_online>`_\'s
 `app-manager --> tools <https://bitbucket.org/gef_work/ap_predict_online/src/master/app-manager/tools/>`_  section.
@@ -56,11 +56,15 @@ simulation engine.
 
 Building or installing |ApPredict| is a complex and time-consuming
 process and by distributing in container form it's possible to have it installed
-in a fraction of the time [#f1]_.
+in a fraction of the time [#f2]_.
 
 .. figure:: _static/images/appredict-in-containers.png
    :width: 700px
    :alt: ApPredict in Containers.
+
+.. warning:: |ap-nimbus-app-manager| does not currently handle either of |PKPD| or
+             Dynamic CellML operations. These activities can only take place when
+             using the |CLI| |appredict-no-emulators| or |appredict-with-emulators|.
 
 Orchestration
 ^^^^^^^^^^^^^
@@ -71,16 +75,26 @@ The following illustrates a microservice-based solution to potentially running m
 .. figure:: _static/images/apnimbus-container-orchestration.png
    :alt: ApPredict container orchestration.
 
-It is equally feasible to :
+It is equally feasible to run as .. :
 
- #. [**Containerised**] ``docker run ..`` a single |ap-nimbus-app-manager| container and
-    call it with |HTTP| ``POST`` and ``GET``  requests, or;
- #. [**Containerised**] ``docker run ..`` either of the |appredict-with-emulators| or
-    |appredict-no-emulators| containers directly from a |CLI| to run their internal
-    |ApPredict|\s, or;
- #. [**Non-containerised**] Run |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct|
-    locally as a non-containerised development environment, e.g. by running their 
-    :file:`./kick_off.sh` scripts manually [#f2]_
+ * Containerised
+
+   * ``docker run ..`` a single |ap-nimbus-app-manager| container and
+     call it with |HTTP| ``POST`` and ``GET``  requests, or;
+
+   * ``docker run ..`` either of the |appredict-with-emulators| or
+     |appredict-no-emulators| containers directly from a |CLI| to run their internal
+     |ApPredict|\s, or;
+
+ * Non-containerised
+
+   *  Run |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct|
+      locally as a non-containerised development environment, e.g. by running their 
+      :file:`./kick_off.sh` scripts manually [#f3]_ |br|
+      This is covered in :ref:`developer`.
+
+.. seealso:: For instructions on how to run containers, see the more detailed section on
+             :ref:`Running <running>`.
 
 Installation
 ------------
@@ -89,6 +103,14 @@ Installation
    :maxdepth: 2
 
    installation/index
+
+Security
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   security/index
 
 Running
 -------
@@ -108,9 +130,10 @@ Developer Section
 
 .. rubric:: Footnotes
 
-.. [#f1] So long as there's a container runtime, e.g. Docker, running somewhere!
-.. [#f2] Running |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct| in a non-container
+.. [#f1] |singularity| containers (or rather, a |singularity| version of just
+         |ap-nimbus-app-manager| so far) have been trialled operating in isolation,
+         not in an orchestrated environment. 
+.. [#f2] So long as there's a container runtime, e.g. |docker|, running somewhere!
+.. [#f3] Running |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct| in a non-container
          form requires a local installation of |ApPredict| and other software,
          e.g. ``Node.js``, ``inotify``, ``jq``.
-.. [#f3] |Singularity| containers (or rather, only |ap-nimbus-app-manager|) have only been
-         trialled operating in isolation, not in an orchestrated environment. 

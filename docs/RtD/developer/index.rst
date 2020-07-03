@@ -1,3 +1,7 @@
+.. include:: ../global.rst
+
+.. _developer:
+
 Developer Section
 =================
 
@@ -5,3 +9,4 @@ Developer Section
    :maxdepth: 2
 
    building/index
+   non-container/index

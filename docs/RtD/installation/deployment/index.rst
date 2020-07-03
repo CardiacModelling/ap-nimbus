@@ -49,7 +49,7 @@ Install
 -------
 
 .. seealso:: For instructions on how to run containers, see the more detailed section on
-             :ref:`Running <running>`.
+             :ref:`running`.
 
 Containers generally, when attempting to run them for the first time, will be installed
 locally by being auto-downloaded from `DockerHub <https://hub.docker.com/>`_ and deployed
@@ -64,13 +64,13 @@ Install |ap-nimbus-app-manager|
     for available version numbers.) |br| |br|
     This command will automatically download the container from the ``cardiacmodelling``
     `DockerHub <https://hub.docker.com/u/cardiacmodelling>`_ repository
-    if it is not already available in the local docker image collection, and by default will
+    if it is not already available in the local |docker| image collection, and by default will
     listen on ``http://0.0.0.0:8080/`` (``Cntl-C`` to exit). |br|
     For further instructions on running, see the section on :ref:`Running <running>`.
 
  #. Install remotely : |br|
     Depending on the remote container management/orchestration system you're using (e.g.
-    kubernetes, docker swarm, docker-compose, |DCOS|), you will need to adapt the
+    |kubernetes|, |docker_swarm|, |docker_compose|, |DCOS|), you will need to adapt the
     necessary config file, e.g. `docker-compose <https://github.com/CardiacModelling/ap-nimbus/blob/master/deploy/docker-compose/docker-compose-minimum.yml>`_,
     or specify the |ap-nimbus-app-manager| container and version, and deploy as per your 
     environment's instructions.
@@ -85,7 +85,7 @@ Install |appredict-no-emulators| or |appredict-with-emulators|
     for available version numbers.) |br| |br|
     This command will automatically download the container from the ``cardiacmodelling``
     `DockerHub <https://hub.docker.com/u/cardiacmodelling>`_ repository
-    if it is not already available in the local docker image collection, and by default will
+    if it is not already available in the local |docker| image collection, and by default will
     run |ApPredict| with no args (and therefore display the 'help' information). |br|
     For further instructions on running, see the section on :ref:`Running <running>`.
 
@@ -98,6 +98,6 @@ Install using an orchestration template
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
  #. Depending on the container management/orchestration system you're using (e.g.
-    kubernetes, docker swarm, docker-compose, |DCOS|), you will need to adapt the necessary config
-    file(s), e.g. `deploy to kubernetes cluster <https://github.com/CardiacModelling/ap-nimbus/tree/master/deploy/o11n/k8s/cluster>`_,
-    or `deploy to docker swarm <https://github.com/CardiacModelling/ap-nimbus/tree/master/deploy/o11n/swarm>`_.
+    |kubernetes|, |docker_swarm|, |docker_compose|, |DCOS|), you will need to adapt the necessary config
+    file(s), e.g. `deploy to Kubernetes cluster <https://github.com/CardiacModelling/ap-nimbus/tree/master/deploy/o11n/k8s/cluster>`_,
+    or `deploy to Docker Swarm <https://github.com/CardiacModelling/ap-nimbus/tree/master/deploy/o11n/swarm>`_.
