@@ -5,6 +5,11 @@
 Running
 =======
 
+.. toctree::
+   :maxdepth: 2
+
+   app-manager/index
+
 ::
 
    user@host:~/tmp> mkdir testoutput

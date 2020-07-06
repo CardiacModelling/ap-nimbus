@@ -26,8 +26,8 @@ kubectl ${cmd} -f coredns/coredns.yaml
 ################################################################################
 # MetalLB (standard layer 2 load balancing)                                    #
 ################################################################################
-#kubectl ${cmd} -f metallb/metallb.yaml
-#kubectl ${cmd} -f metallb/metallb.configmap.yaml
+kubectl ${cmd} -f metallb/metallb.yaml
+kubectl ${cmd} -f metallb/metallb.configmap.yaml
 
 ################################################################################
 # Ingress                                                                      #
@@ -35,8 +35,8 @@ kubectl ${cmd} -f coredns/coredns.yaml
 # configmaps, RBAC rules, deployment manifest
 kubectl ${cmd} -f ingress/dep-nginx-ingress-controller.yaml
 # load balancer service type
-#kubectl ${cmd} -f ingress/svc-ingress.yaml
-kubectl ${cmd} -f ingress/svc-ingress-nodeport.yaml
+kubectl ${cmd} -f ingress/svc-ingress.yaml
+#kubectl ${cmd} -f ingress/svc-ingress-nodeport.yaml
 
 if [[ "${cmd}" == "delete" ]]; then
   kubectl ${cmd} configmap ingress-controller-leader-nginx

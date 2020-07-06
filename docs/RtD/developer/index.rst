@@ -9,4 +9,6 @@ Developer Section
    :maxdepth: 2
 
    building/index
+   tagging/index
    non-container/index
+   how-they-work/index

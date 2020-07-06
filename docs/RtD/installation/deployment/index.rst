@@ -55,6 +55,8 @@ Containers generally, when attempting to run them for the first time, will be in
 locally by being auto-downloaded from `DockerHub <https://hub.docker.com/>`_ and deployed
 to the local image collection by the container runtime.
 
+.. _installation-app-manager:
+
 Install |ap-nimbus-app-manager|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

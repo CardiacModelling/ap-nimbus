@@ -1,9 +1,9 @@
 .. include:: ../global.rst
 
+.. _installation:
+
 Installation
 ============
-
-.. _installation:
 
 .. toctree::
    :maxdepth: 2

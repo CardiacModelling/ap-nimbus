@@ -1,10 +1,10 @@
 .. include:: ../../global.rst
 
-Non-container
-=============
+Running Uncontainerised
+=======================
 
-This section covers running the container scripts in a non-container environment for development
-purposes.
+This section covers running the container's scripts in a non-container environment for
+development purposes.
 
 |ap-nimbus-app-manager|
 -----------------------
@@ -22,14 +22,16 @@ You'll need to have available :
  * ``/proc/sys/fs/inotify/max_user_watches`` increased to, for example, ``65536``, or ideally, 
    something much greater, e.g. ``524288``.
  * Port 8080, otherwise you'll need to specify an alternative value in the env var 
-   ``REST_API_PORT``
+   ``REST_API_PORT`` (Similarly, if you need to specify a non-default ``REST_API_URL_DATA``
+   |datastore| value you'll need to run :file:`kick_off.sh` as
+   ``REST_API_URL_DATA=http://127.0.0.1:8118/ ./kick_off.sh``)
  * |ApPredict| installed locally, if you actually want to run a simulation. Sorry!
 
 .. warning:: If you use a port other than 8080 then it will not be possible to use 
              `ap-nimbus-client-direct`_ in non-container mode as it will be expecting
              the default 8080 to be available. |br|
              Note: When in container mode, any port can be used (on assignment of the
-             appropriate args and/or env vars.
+             appropriate args and/or env vars).
 
 ::
 

@@ -48,6 +48,9 @@ Sample invocation scripts can be found at `ap-predict-online <https://bitbucket.
 Diagrammatic Representation
 ---------------------------
 
+For the role each of the containers has in the overall |AP-Nimbus| activity please
+see :ref:`activity-overview`.
+
 ApPredict
 ^^^^^^^^^
 
@@ -94,7 +97,15 @@ It is equally feasible to run as .. :
       This is covered in :ref:`developer`.
 
 .. seealso:: For instructions on how to run containers, see the more detailed section on
-             :ref:`Running <running>`.
+             :ref:`running`.
+
+Activity Overview
+-----------------
+
+.. toctree::
+   :maxdepth: 2
+
+   activity-overview/index
 
 Installation
 ------------
@@ -119,6 +130,14 @@ Running
    :maxdepth: 2
 
    running/index
+
+Troubleshooting
+---------------
+
+.. toctree::
+   :maxdepth: 2
+
+   troubleshooting/index
 
 Developer Section
 -----------------

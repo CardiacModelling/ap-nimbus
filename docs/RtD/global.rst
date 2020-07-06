@@ -21,6 +21,7 @@
 .. |JDBC| replace:: :abbr:`JDBC (Java DataBase Connectivity)`
 .. |JDK| replace:: :abbr:`JDK (Java Development Kit)`
 .. |JNI| replace:: :abbr:`JNI (Java Native Interface)`
+.. |JSON| replace:: :abbr:`JSON (Javascript Object Notation)`
 .. |NTLM| replace:: :abbr:`NTLM (NT LAN Manager)`
 .. |PII| replace:: :abbr:`PII (Personally Identifiable Information)`
 .. |PK| replace:: :abbr:`PK (Pharmacokinetic)`
@@ -28,6 +29,7 @@
 .. |QSAR| replace:: :abbr:`QSAR (Quantitative structure–activity relationship)`
 .. |RAM| replace:: :abbr:`RAM (Random Access Memory)`
 .. |RBAC| replace:: :abbr:`RBAC (Role-Based Access Control)`
+.. |REST| replace:: :abbr:`REST (Representational State Transfer)`
 .. |RTFM| replace:: :abbr:`RTFM (Read The F!!!ing Manual)`
 .. |SPA| replace:: :abbr:`SPA (Single-Page Application)`
 .. |SMTP| replace:: :abbr:`SMTP (Simple Mail Transfer Protocol)`
@@ -44,14 +46,6 @@
 .. |WSS| replace:: :abbr:`WSS (Web Services Security)`
 .. |XML| replace:: :abbr:`XML (eXtensible Markup Language)`
 .. |XSD| replace:: :abbr:`XSD (XML Schema Definition)`
-
-.. |S| replace:: :abbr:`[ S ] (Scientific content)`
-.. |T| replace:: :abbr:`[ T ] (Technical content)`
-.. |V| replace:: :abbr:`[ V ] (Visualisation content)`
-
-.. |_A| replace:: :abbr:`A (Added)`
-.. |_M| replace:: :abbr:`M (Modified)`
-.. |_D| replace:: :abbr:`D (Deleted)`
 
 .. |ap-nimbus-app-manager| replace:: ``cardiacmodelling/ap-nimbus-app-manager``
 .. |ap-nimbus-client-direct| replace:: ``cardiacmodelling/ap-nimbus-client-direct``
@@ -70,18 +64,9 @@
 .. |singularity| replace:: ``Singularity``
 
 .. |app-manager| replace:: ``app-manager``
-.. |business-manager| replace:: ``business-manager``
-.. |business-manager-api| replace:: ``business-manager-api``
-.. |client| replace:: ``client``
 .. |client-direct| replace:: ``client-direct``
-.. |client-parent| replace:: ``client-parent``
-.. |client-shared| replace:: ``client-shared``
-.. |dose-response-jni| replace:: ``dose-response-jni``
-.. |dose-response-manager| replace:: ``dose-response-manager``
-.. |site-business| replace:: ``site-business``
+.. |datastore| replace:: ``datastore``
 
-.. |clients-bespoke| replace:: "*bespoke user authentication*"
-.. |clients-prepopulated| replace:: "*prepopulated user authentication*"
 .. |role| replace:: "*Role*"
 
 .. This role directive permits the use of :underline:`some text` ..
