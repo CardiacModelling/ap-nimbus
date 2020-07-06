@@ -41,7 +41,6 @@ mkdir -p ${run_dir}
 pushd ${run_dir}
 
 appredict_home="/home/appredict/apps/ApPredict"
-appredict_home="/home/geoff/apps/appredict/200622"
 appredict="${appredict_home}/ApPredict.sh"
 
 if [ ! -e "${appredict}" ]; then
