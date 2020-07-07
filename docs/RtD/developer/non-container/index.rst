@@ -6,6 +6,8 @@ Running Uncontainerised
 This section covers running the container's scripts in a non-container environment for
 development purposes.
 
+.. _developer-non-container-app-manager:
+
 |ap-nimbus-app-manager|
 -----------------------
 
@@ -105,7 +107,10 @@ Which means that we're almost there! ..
 
   user@host:~/git/ap-nimbus/app-manager> npm install
   
-So try again ..
+``npm install`` should see what's defined in :file:`package-lock.json` and install
+everything therein locally to the :file:`node_modules` directory.
+
+Trying again ..
 
 ::
 
@@ -156,6 +161,8 @@ Oh Dear! We need to increase the value of ``/proc/sys/fs/inotify/max_user_watche
   
 All done.. except for the fact that you need to have a local version of |ApPredict|
 installed!?!!  
+
+.. _developer-non-container-client-direct:
 
 |ap-nimbus-client-direct|
 -------------------------
@@ -230,7 +237,8 @@ Glancing in ``Dockerfile`` you'll see that the following packages need to be ins
  * Node.js, i.e. ``node`` and ``npm``
 
 You'll need to install ``Node.js`` on your platform, so you can do that either
-as a package-install or a binary/source download and install.
+as a package-install or a binary/source download (e.g. from 
+`nodejs.org <https://nodejs.org/en/blog/release/v10.13.0/>`_) and install.
 
 Once that's done ...
 
@@ -239,5 +247,37 @@ Once that's done ...
   user@host:~/git/ap-nimbus/client-direct> npm install
   user@host:~/git/ap-nimbus/client-direct> PATH=${PATH}:./node_modules/@angular/cli/bin ./kick_off.sh
 
+The first of the above, ``npm install``, seems to install ``ng`` (which
+:file:`kick_off.sh` requires) to the :file:`node_modules` directory it creates.
+
 .. warning:: |ap-nimbus-client-direct| in non-container mode expects `ap-nimbus-app-manager`_ to
              be listening on the default port 8080.
+
+Configuration Options
+^^^^^^^^^^^^^^^^^^^^^
+
+|ap-nimbus-client-direct| as has some configuration options which can be modified,
+although it requires version-controlled files to be changed, so please be aware of
+the consequences.
+
+ * Calls to |app-manager| by default are to ``http://127.0.0.1:8080/``, but if that's
+   not convenient, modify :file:`src/env.js`, changing the ``__api_url_appmgr`` to
+   the desired endpoint URL, e.g. ``http://127.0.0.2:8082/``.
+ * By default simulation results are not sent to |datastore|, however if you do with
+   that to happen then modify :file:`src/env.js`, changing the ``__api_url_data``
+   to the desired endpoing URL, e.g. ``http://127.0.0.2:8118/api/collection/``
+ * A quick way to achieve the above two is to run : |br|
+   ``user@host:~/git/ap-nimbus/client-direct> REST_API_URL_APPMGR=http://127.0.0.1:8888/ REST_API_URL_DATA=http://127.0.0.1:8118/api/collection/ ./entry_point.sh``
+ * In Angular developer mode *I think* it's possible to adjust :file:`src/env.js` during
+   runtime and Angular will detect changes and reload.
+
+If you want |ap-nimbus-client-direct| to run non-containerised and listen on non-default
+host and port numbers, then try for example :
+
+::
+
+  user@host:~/git/ap-nimbus/client-direct> ./kick_off 127.0.0.2 4201
+
+If you want to adjust the values sent to |app-manager|, such as the CellML model numbers, or
+the default compound concentration value, then directly modify the file 
+:file:`src/assets/config/appredict.json`.

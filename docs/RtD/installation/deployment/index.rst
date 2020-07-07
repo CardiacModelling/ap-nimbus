@@ -61,14 +61,14 @@ Install |ap-nimbus-app-manager|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
  #. Install on a local filesystem : |br|
-    ``docker run -it --rm cardiacmodelling/ap-nimbus-app-manager:<version>`` |br|
+    ``docker run -it --rm -p 8080:8080 cardiacmodelling/ap-nimbus-app-manager:<version>`` |br|
     (See `ap-nimbus-app-manager tags <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-app-manager/tags>`_
     for available version numbers.) |br| |br|
     This command will automatically download the container from the ``cardiacmodelling``
     `DockerHub <https://hub.docker.com/u/cardiacmodelling>`_ repository
     if it is not already available in the local |docker| image collection, and by default will
     listen on ``http://0.0.0.0:8080/`` (``Cntl-C`` to exit). |br|
-    For further instructions on running, see the section on :ref:`Running <running>`.
+    For further instructions on running, see the section on :ref:`running-app-manager`.
 
  #. Install remotely : |br|
     Depending on the remote container management/orchestration system you're using (e.g.
@@ -76,6 +76,8 @@ Install |ap-nimbus-app-manager|
     necessary config file, e.g. `docker-compose <https://github.com/CardiacModelling/ap-nimbus/blob/master/deploy/docker-compose/docker-compose-minimum.yml>`_,
     or specify the |ap-nimbus-app-manager| container and version, and deploy as per your 
     environment's instructions.
+
+.. _installation-appredict:
 
 Install |appredict-no-emulators| or |appredict-with-emulators|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -89,12 +91,31 @@ Install |appredict-no-emulators| or |appredict-with-emulators|
     `DockerHub <https://hub.docker.com/u/cardiacmodelling>`_ repository
     if it is not already available in the local |docker| image collection, and by default will
     run |ApPredict| with no args (and therefore display the 'help' information). |br|
-    For further instructions on running, see the section on :ref:`Running <running>`.
+    For further instructions on running, see the section on :ref:`running-appredict`.
 
  #. Install remotely : |br|
     It does not make sense to install these containers remotely as |appredict-no-emulators|
     and |appredict-with-emulators| are not remotely accessible, i.e. they only respond
     to command-line invocation.
+
+.. _installation-client-direct:
+
+Install |ap-nimbus-client-direct|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ #. Install on a local filesystem : |br|
+    ``docker run -it --rm -p 4200:4200 cardiacmodelling/ap-nimbus-client-direct:<version>`` |br|
+    (See `ap-nimbus-client-direct tags <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct/tags>`_
+    for available version numbers.) |br| |br|
+    This command will automatically download the container from the ``cardiacmodelling``
+    `DockerHub <https://hub.docker.com/u/cardiacmodelling>`_ repository
+    if it is not already available in the local |docker| image collection, and by default will
+    listen on ``http://0.0.0.0:4200/`` and expect to call |ap-nimbus-app-manager| on
+    ``http://127.0.0.1:8080``. |br|
+    (``Cntl-C`` to exit). |br|
+    For further instructions on running, see the section on :ref:`running-client-direct`.
+
+.. _install-orchestration:
 
 Install using an orchestration template
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

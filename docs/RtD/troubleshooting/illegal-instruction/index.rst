@@ -5,9 +5,10 @@
 Illegal Instruction
 ===================
 
-When running |ap-nimbus-app-manager|, |appredict-with-emulators| or
-|appredict-no-emulators| there is a rare possibility that |ApPredict|
-will fail to run with the message indicating "illegal instruction".
+When running |ap-nimbus-app-manager|, |appredict-with-emulators| or |appredict-no-emulators|
+there is a possibility that |ApPredict| will fail to run with the message indicating 
+"illegal instruction", e.g. "PETSC ERROR: Caught signal number 4 Illegal instruction:
+Likely due to memory corruption".
 
 This was encountered in early builds (i.e. builds before May 2020, or more specifically,
 since `commit e560e78 <https://bitbucket.org/gef_work/ap_nimbus/commits/e560e783e5a966cfac7823f6e4ed69857dcc761b>`_),
