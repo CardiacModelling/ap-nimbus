@@ -34,6 +34,8 @@
 .. |SPA| replace:: :abbr:`SPA (Single-Page Application)`
 .. |SMTP| replace:: :abbr:`SMTP (Simple Mail Transfer Protocol)`
 .. |SQL| replace:: :abbr:`SQL (Structured Query Language)`
+.. |SSD| replace:: :abbr:`SSD (Solid State Drive)`
+.. |TCP| replace:: :abbr:`TCP (Transmission Control Protocol)`
 .. |TLDR| replace:: :abbr:`TL;DR (Too Long; Didn't Read)`
 .. |TLS| replace:: :abbr:`TLS (Transport Level Security)`
 .. |UI| replace:: :abbr:`UI (User Interface)`

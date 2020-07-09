@@ -1,7 +1,7 @@
 .. include:: ../../global.rst
 
-|appredict-chaste-libs|
-=======================
+``appredict-chaste-libs``
+=========================
 
 |appredict-chaste-libs| is a container which contains all of |ApPredict|\ 's library dependencies.
 

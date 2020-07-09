@@ -13,3 +13,4 @@ Developer Section
    container/index
    non-container/index
    how-they-work/index
+   further-info/index

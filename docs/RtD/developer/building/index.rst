@@ -69,5 +69,19 @@ This section refers to :
  #. `ap-nimbus-app-manager <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-app-manager>`_
  #. `ap-nimbus-datastore <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-datastore>`_
 
+.. _installation-build-datastore:
 
-TODO
+|ap-nimbus-datastore|
+^^^^^^^^^^^^^^^^^^^^^
+
+This component will only run containerised and requires :
+
+ #. A separate MongoDB database image (which will be auto-downloaded at build time).
+
+Initial configuration :
+
+ #. ``cd datastore``
+ #. ``cp example.env .env`` |br|
+    By default though it listens on ``8118`` and expects the database to be listening on
+    , for example ``database:27017`` or ``swarm_database:27017``.
+ #. ``docker-compose -f docker/docker-compose.yml build``
