@@ -4,7 +4,7 @@ FROM cardiacmodelling/appredict-chaste-libs:0.0.3
 # Modifiable (e.g. via command line) args.                                     #
 ################################################################################
 
-ARG appredict_hash=5311f5f
+ARG appredict_hash=b9883eaeebd3886744dc2f830336988a3c1c1c3b
 ARG appredict_branch=master
 ARG chaste_hash=9c205f0
 ARG chaste_branch=develop
