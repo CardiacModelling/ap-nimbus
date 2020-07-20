@@ -15,6 +15,9 @@
     As of Mar. 2020 I couldn't use [Azurite 3](https://github.com/Azure/Azurite#azurite-v3) because
     it doesn't have *Table* storage which durable functions need, and while Azurite 2 does, I
     couldn't get it to work.
+ 1. If you see a message like `OCI runtime create failed: this version of runc doesn't work on cgroups v2` 
+    (which happened on a Fedora 31) then you may need to downgrade to `cgroups v1`. See
+    [How To Install Docker On Fedora 32 Or 31 (And Alternatives)](https://www.linuxuprising.com/2019/11/how-to-install-and-use-docker-on-fedora.html).
  1. Your own `local.settings.json` file containing ...   
 
 ```
