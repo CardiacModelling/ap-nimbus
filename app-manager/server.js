@@ -26,7 +26,7 @@ const RUNME_SCRIPT = './run_me.sh';
 
 /**************************** OPTIONS help texts    ***************************/
 
-const HELP_APPREDICT = `Copyright (c) 2005-2019, University of Oxford.
+const HELP_APPREDICT = `Copyright (c) 2005-2020, University of Oxford.
 All rights reserved.
 
 University of Oxford means the Chancellor, Masters and Scholars of the
@@ -56,8 +56,8 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 This version of Chaste was compiled on:
-Wed, 18 Dec 2019 20:39:10 +0000 by Linux e29626c1fd94 4.14.16-200.fc26.x86_64 #1 SMP Wed Jan 31 19:34:52 UTC 2018 x86_64 (uname)
-from revision number 3adb96d with build type GccOptNative, shared libraries.
+Thu, 16 Jul 2020 08:55:38 +0000 by Linux a35b77f7ac32 4.15.0-55-generic #60-Ubuntu SMP Tue Jul 2 18:22:20 UTC 2019 x86_64 (uname)
+from revision number 9c205f0 with build type GccOpt, shared libraries.
 
 # 0 arguments supplied.
 
@@ -141,13 +141,29 @@ from revision number 3adb96d with build type GccOptNative, shared libraries.
 `;
 
 const HELP_LOOKUP_TABLE_MANIFEST = `grandi_pasqualini_bers_2010_1d_hERG_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_1d_ICaL_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_1d_IK1_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_1d_IKs_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_1d_INa_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_2d_hERG_ICaL_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_3d_hERG_IKs_ICaL_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+grandi_pasqualini_bers_2010_4d_hERG_IKs_INa_ICaL_1Hz_generator.arch.tgz
 HundRudy2004_units_1d_hERG_1Hz_generator.arch.tgz
 HundRudy2004_units_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
 MahajanShiferaw2008_units_1d_hERG_1Hz_generator.arch.tgz
 MahajanShiferaw2008_units_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
 ohara_rudy_2011_1d_hERG_1Hz_generator.arch.tgz
-ohara_rudy_2011_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
-ohara_rudy_cipa_v1_2017_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+ohara_rudy_2011_endo_1d_hERG_1Hz_generator.arch.tgz
+ohara_rudy_2011_endo_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_1d_hERG_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_1d_ICaL_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_1d_INa_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_2d_hERG_ICaL_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_3d_hERG_IKs_ICaL_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_3d_hERG_IKs_ICaL_1Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_3d_hERG_INa_ICaL_0.5Hz_generator.arch.tgz
+ohara_rudy_cipa_v1_2017_4d_hERG_INa_ICaL_INaL_0.5Hz_generator.arch.tgz
 paci_hyttinen_aaltosetala_severi_ventricularVersion_1d_hERG_1Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_1d_hERG_0.5Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_1d_hERG_1Hz_generator.arch.tgz
@@ -161,6 +177,7 @@ shannon_wang_puglisi_weber_bers_2004_model_updated_1d_INa_0.5Hz_generator.arch.t
 shannon_wang_puglisi_weber_bers_2004_model_updated_1d_INa_1Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_1d_Ito_0.5Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_1d_Ito_1Hz_generator.arch.tgz
+shannon_wang_puglisi_weber_bers_2004_model_updated_3d_hERG_IKs_ICaL_1Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_3d_hERG_INa_ICaL_1Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_4d_hERG_IKs_INa_ICaL_0.5Hz_generator.arch.tgz
 shannon_wang_puglisi_weber_bers_2004_model_updated_4d_hERG_IKs_INa_ICaL_1Hz_generator.arch.tgz
@@ -680,6 +697,7 @@ function on_file_change(file_path) {
       } else if (/^conc_.*_voltage_trace$/i.test(file_name_no_ext)) {
       } else if (/^voltage_traces$/i.test(file_name_no_ext)) {
       } else if (/^q_net$/i.test(file_name_no_ext)) {
+      } else if (/^messages$/i.test(file_name_no_ext)) {
       } else {
         send_data = false;
         console.log('WARN3 : Unrecognised .json file title of ' + file_name_no_ext + ' for id ' + uuid + '!');
@@ -968,6 +986,7 @@ const server = http.createServer((request, response) => {
           case 'voltage_traces':
           case 'progress_status':
           case 'q_net':
+          case 'messages':
             var json_file_path = results_pfx += operation + '.json';
             try {
               // Try parsing first to make sure that it's valid JSON.
@@ -985,7 +1004,7 @@ const server = http.createServer((request, response) => {
             break;
           default:
             return_obj = {
-              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status" and "q_net"'
+              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net" and "messages"'
             }
             break;
         }

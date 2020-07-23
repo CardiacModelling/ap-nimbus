@@ -75,6 +75,23 @@ function process_qnet {
   fi
 }
 
+function process_messages {
+  in_dir=$1
+  in_file=$2
+
+  file_read=${in_dir}${in_file}
+  out_dir=$(mk_out_dir ${in_dir})
+  file_tmp=${out_dir}messages.tmp
+  file_write=${out_dir}messages.json
+
+  if [ -f ${file_read} ]; then
+    # https://stackoverflow.com/questions/26287130/converting-lines-to-json-in-bash
+    jq -nR [inputs] <${file_read} >${file_tmp}
+    # Ensure a single file action which node (i.e. chokidar) can watch and act on!
+    mv ${file_tmp} ${file_write}
+  fi
+}
+
 function process_voltage_results {
   in_dir=$1
   in_file=$2
@@ -156,6 +173,8 @@ inotifywait -m -r -e close_write -e modify -e delete ${run_dir} | \
           process_voltage_results ${dir} ${file}
         elif [[ "${file}" == 'q_net.txt' ]]; then
           process_qnet ${dir} ${file}
+        elif [[ "${file}" == 'messages.txt' ]]; then
+          process_messages ${dir} ${file}
         fi
       else
         [[ "${event}" == 'CLOSE_WRITE,CLOSE' && "${file}" == conc_*_voltage_trace.dat ]] && \
