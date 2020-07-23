@@ -27,8 +27,8 @@ Start a Simulation
 In the response will be a simulation identifier for subsequent querying of simulation status and
 results.
 
-Example ``request.json`` for |ap-nimbus-app-manager|:0.0.10+
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Example :file:`request.json` for |ap-nimbus-app-manager|:0.0.10+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -61,8 +61,8 @@ Example ``request.json`` for |ap-nimbus-app-manager|:0.0.10+
     "plasmaIntermediatePointLogScale":true
   }
 
-Example ``request.json`` for |ap-nimbus-app-manager|:0.0.6-0.0.9
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Example :file:`request.json` for |ap-nimbus-app-manager|:0.0.6-0.0.9
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -95,8 +95,8 @@ Example ``request.json`` for |ap-nimbus-app-manager|:0.0.6-0.0.9
   }
 
 
-Example ``request.json`` for |ap-nimbus-app-manager|:0.0.5 and earlier
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Example :file:`request.json` for |ap-nimbus-app-manager|:0.0.5 and earlier
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -119,6 +119,16 @@ Example ``request.json`` for |ap-nimbus-app-manager|:0.0.5 and earlier
 
 Query a Simulation
 ------------------
+
+Generally, if you have a valid simulation identifier available from a prior ``POST`` request, you
+will see the query "help" by submitting :
+
+::
+
+  user@host:~> curl http://0.0.0.0:8080/api/collection/8c0b04cc-6e2f-4307-ae17-605cf81e0707/
+  {"error":"Valid data query options are: \"STOP\", \"voltage_traces\", \"voltage_results\", \"progress_status\", \"q_net\" and \"messages\""}
+
+To retrieve voltage results data :
 
 ::
 

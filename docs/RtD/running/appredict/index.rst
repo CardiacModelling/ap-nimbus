@@ -25,8 +25,8 @@ Without dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
 With dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
 --------------------------------------------------------------
 
-For simplicity, the `annotated` [#f1]_ CellML file is called ``this.cellml``, the |PKPD| file is
-called ``this.pkpd``, and both are in the directory where docker is being run.
+For simplicity, the `annotated` [#f1]_ CellML file is called :file:`this.cellml`, the |PKPD| file is
+called :file:`this.pkpd`, and both are in the directory where docker is being run.
 
 ::
 

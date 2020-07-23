@@ -63,12 +63,12 @@ However, this is probably what will happen initially ...
   ./kick_off.sh: line 4: node: command not found
   user@host:~/git/ap-nimbus/app-manager> ./convert.sh: line 149: inotifywait: command not found
 
-The reason being that ``kick_off.sh`` is the script that would normally expect to be
+The reason being that :file:`kick_off.sh` is the script that would normally expect to be
 running inside a container, not outside a container! We therefore need to install on the
 local fs all the scripts and programs that are built into the container using the 
-``Dockerfile`` at ``docker build ..`` time.
+:file:`Dockerfile` at ``docker build ..`` time.
 
-Glancing in ``Dockerfile`` you'll see that the following packages need to be installed :
+Glancing in :file:`Dockerfile` you'll see that the following packages need to be installed :
 
  * ``inotify-tools``
  * ``jq``
@@ -149,7 +149,7 @@ Hmm! Looks like there's something already listening on port 8080!
   INFO2 : REST_API_URL_DATA not defined in ENV vars. Assuming client-direct querying directly.
   INFO3 : app-manager listening at http://0.0.0.0:9999
 
-Oh Dear! We need to increase the value of ``/proc/sys/fs/inotify/max_user_watches``
+Oh Dear! We need to increase the value of :file:`/proc/sys/fs/inotify/max_user_watches`
 
 ::
 
@@ -160,7 +160,8 @@ Oh Dear! We need to increase the value of ``/proc/sys/fs/inotify/max_user_watche
   INFO3 : app-manager listening at http://0.0.0.0:9999
   
 All done.. except for the fact that you need to have a local version of |ApPredict|
-installed!?!!  
+installed!?!! Once that's done, temporarily change the reference to :file:`ApPredict.sh`
+in :file:`run_me.sh`.
 
 .. _developer-non-container-client-direct:
 
@@ -227,12 +228,12 @@ However, this is probably what will happen initially ...
 
   ./kick_off.sh: 17: ./kick_off.sh: ng: not found
 
-The reason being that ``kick_off.sh`` is the script that would normally expect to be
+The reason being that :file:`kick_off.sh` is the script that would normally expect to be
 running inside a container, not outside a container! We therefore need to install on the
 local fs all the scripts and programs that are built into the container using the
-``Dockerfile`` at ``docker build ..`` time.
+:file:`Dockerfile` at ``docker build ..`` time.
 
-Glancing in ``Dockerfile`` you'll see that the following packages need to be installed :
+Glancing in :file:`Dockerfile` you'll see that the following packages need to be installed :
 
  * Node.js, i.e. ``node`` and ``npm``
 
