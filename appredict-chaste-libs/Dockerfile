@@ -1,4 +1,4 @@
-ARG alpine_version=3.9
+ARG alpine_version=3.12
 FROM "alpine:${alpine_version}"
 
 ################################################################################
@@ -24,9 +24,9 @@ ARG dir_downloads="${home_dir}/downloads"
 ################################################################################
 
 USER root
-# See http://nl.alpinelinux.org/alpine/v3.9/main/x86_64/   <-- Note: v3.9!
+# See http://nl.alpinelinux.org/alpine/v3.12/main/x86_64/   <-- Note: v3.12!
 # Note need to set up /usr/bin/python symlink to point to python3
-RUN apk add --no-cache bash cmake g++ libxslt-dev make python3-dev wget && rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+RUN apk add --no-cache bash cmake g++ libxslt-dev make patch python3-dev wget && rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
 
 RUN addgroup -g 10101 appredict && \
     adduser -D -u 10101 -s /bin/bash -h /home/appredict -G appredict appredict
