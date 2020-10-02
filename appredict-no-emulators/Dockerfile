@@ -4,9 +4,9 @@ FROM cardiacmodelling/appredict-chaste-libs:0.0.3
 # Modifiable (e.g. via command line) args.                                     #
 ################################################################################
 
-ARG appredict_hash=b9883eaeebd3886744dc2f830336988a3c1c1c3b
+ARG appredict_hash=8d02ac1be04d03f7ac27f6777dc6a704bfd117de
 ARG appredict_branch=master
-ARG chaste_hash=9c205f0
+ARG chaste_hash=8261429191484b5ea2d5fc02548d08512008d1ae
 ARG chaste_branch=develop
 ARG build_processors=1
 
@@ -25,7 +25,7 @@ ARG dir_chaste_libs="${home_dir}/chaste-libs"
 
 USER root
 # See http://nl.alpinelinux.org/alpine/v3.8/main/x86_64/   <-- Note: v3.8!
-RUN apk add --no-cache git libexecinfo-dev nano scons
+RUN apk add --no-cache git libexecinfo-dev nano scons && rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
 
 USER appredict
 
@@ -37,7 +37,7 @@ COPY --chown=appredict:appredict default.py.patch ${dir_build}/default.py.patch
 # 1.1. Download Chaste & ApPredict source                                      #
 #------------------------------------------------------------------------------#
 RUN cd ${dir_build} && \
-    git clone -b ${chaste_branch} https://github.com/Chaste/Chaste.git && \
+    git clone -b ${chaste_branch} https://github.com/Chaste/Chaste.git Chaste && \
     cd Chaste && \
     git checkout ${chaste_hash} && \
     git submodule update --init && \
@@ -90,7 +90,6 @@ RUN cd ${dir_build} && \
     export CHASTE_LIBS=${dir_chaste_libs} && \
     export LD_LIBRARY_PATH=${CHASTE_LIBS}/lib && \
     export PATH=${CHASTE_LIBS}/bin:${PATH} && \
-    export PYTHONPATH=${CHASTE_LIBS}/lib/python2.7/site-packages:${CHASTE_LIBS}/lib64/python2.7/site-packages && \
     cd Chaste && \
     scons -j${build_processors} cl=1 b=GccOpt exe=1 projects/ApPredict/apps/src && \
     cd .. && \
