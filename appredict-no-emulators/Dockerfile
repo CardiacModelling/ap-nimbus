@@ -45,32 +45,20 @@ RUN cd ${dir_build} && \
     git clone -b ${appredict_branch} --recursive https://github.com/Chaste/ApPredict.git && \
     cd ApPredict && \
     git checkout ${appredict_hash} && \
-    rm -f src/cellml/cellml/*.cellml
+    cd src/cellml/cellml/ &&
+    rm * -v !("shannon_wang_puglisi_weber_bers_2004.cellml" | "ten_tusscher_model_2006_epi.cellml" | "mahajan_shiferaw_2008.cellml" | "hund_rudy_2004.cellml" | "grandi_pasqualini_bers_2010_ss.cellml" | "ohara_rudy_2011_endo.cellml" | "paci_hyttinen_aaltosetala_severi_ventricularVersion.cellml" | "ohara_rudy_cipa_v1_2017.cellml")
 
 #------------------------------------------------------------------------------#
-# 1.2. Download default models                                                 #
-#------------------------------------------------------------------------------#
-RUN cd ${dir_build} && \
-    git checkout src/cellml/cellml/shannon_wang_puglisi_weber_bers_2004.cellml && \
-    git checkout src/cellml/cellml/ten_tusscher_model_2006_epi.cellml && \
-    git checkout src/cellml/cellml/mahajan_shiferaw_2008.cellml && \
-    git checkout src/cellml/cellml/hund_rudy_2004.cellml && \
-    git checkout src/cellml/cellml/grandi_pasqualini_bers_2010_ss.cellml && \
-    git checkout src/cellml/cellml/ohara_rudy_2011_endo.cellml && \
-    git checkout src/cellml/cellml/paci_hyttinen_aaltosetala_severi_ventricularVersion.cellml && \
-    git checkout src/cellml/cellml/ohara_rudy_cipa_v1_2017.cellml
-
-#------------------------------------------------------------------------------#
-# 1.3. Download additional models                                              #
+# 1.2. Download additional models                                              #
 #------------------------------------------------------------------------------#
 
 # Bring in your own additional models here.
-# Please note: cellml file names must be different from those in section 1.2.
+# Please note: cellml file names must be different from those in section 1.1.
 # For example:
 # RUN cd ${dir_build}\ApPredict\src\extra_models && wget http://.... (location to your own models)
 
 #------------------------------------------------------------------------------#
-# 1.4. Build ApPredict and deploy                                              #
+# 1.3. Build ApPredict and deploy                                              #
 #------------------------------------------------------------------------------#
 RUN cd ${dir_build} && \
     sed -i -- "s|<chaste-libs-dir>|${dir_chaste_libs}/|g" default.py.patch && \
