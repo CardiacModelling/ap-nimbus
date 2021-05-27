@@ -46,6 +46,7 @@ RUN cd ${dir_build} && \
     cd ApPredict && \
     git checkout ${appredict_hash} && \
     cd src/cellml/cellml/ &&
+    shopt -s extglob &&
     rm !(shannon_wang_puglisi_weber_bers_2004.cellml|ten_tusscher_model_2006_epi.cellml|mahajan_shiferaw_2008.cellml|hund_rudy_2004.cellml|grandi_pasqualini_bers_2010_ss.cellml|ohara_rudy_2011_endo.cellml|paci_hyttinen_aaltosetala_severi_ventricularVersion.cellml|ohara_rudy_cipa_v1_2017.cellml)
 
 #------------------------------------------------------------------------------#
