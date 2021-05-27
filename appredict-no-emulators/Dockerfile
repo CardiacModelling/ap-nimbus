@@ -71,6 +71,7 @@ RUN cd ${dir_build} && \
     export LD_LIBRARY_PATH=${CHASTE_LIBS}/lib && \
     export PATH=${CHASTE_LIBS}/bin:${PATH} && \
     ${home_dir}/rebuild.sh && \
+    cd ${dir_build} && \
     rm default.py.patch
 
 # Make the script directory writable so as to allow ApPredict to potentially
