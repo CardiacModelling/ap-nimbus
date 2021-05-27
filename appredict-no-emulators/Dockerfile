@@ -8,7 +8,6 @@ ARG appredict_hash=8d02ac1be04d03f7ac27f6777dc6a704bfd117de
 ARG appredict_branch=master
 ARG chaste_hash=8261429191484b5ea2d5fc02548d08512008d1ae
 ARG chaste_branch=develop
-ARG build_processors=1
 
 ################################################################################
 # Local vars (not for modification!)                                           #
@@ -90,9 +89,10 @@ RUN cd ${dir_build} && \
     export CHASTE_LIBS=${dir_chaste_libs} && \
     export LD_LIBRARY_PATH=${CHASTE_LIBS}/lib && \
     export PATH=${CHASTE_LIBS}/bin:${PATH} && \
-    cd Chaste && \
-    scons -j${build_processors} cl=1 b=GccOpt exe=1 projects/ApPredict/apps/src && \
-    cd .. && \
+    cd ${home_dir} &&
+    chmod +x rebuild.sh\
+    ./rebuild.sh .. && \
+    cd ${dir_build} && \
     rm default.py.patch
 
 # Make the script directory writable so as to allow ApPredict to potentially
