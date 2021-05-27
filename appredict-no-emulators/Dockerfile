@@ -32,6 +32,7 @@ USER appredict
 RUN mkdir -p ${dir_build}
 
 COPY --chown=appredict:appredict default.py.patch ${dir_build}/default.py.patch
+COPY --chown=appredict:appredict rebuild.sh ${home_dir}/rebuild.sh
 
 #------------------------------------------------------------------------------#
 # 1.1. Download Chaste & ApPredict source                                      #
@@ -68,9 +69,7 @@ RUN cd ${dir_build} && \
     export CHASTE_LIBS=${dir_chaste_libs} && \
     export LD_LIBRARY_PATH=${CHASTE_LIBS}/lib && \
     export PATH=${CHASTE_LIBS}/bin:${PATH} && \
-    cd Chaste && \
-    scons -j${build_processors} cl=1 b=GccOpt exe=1 projects/ApPredict/apps/src && \
-    cd .. && \
+    ${home_dir}/rebuild.sh && \
     rm default.py.patch
 
 # Make the script directory writable so as to allow ApPredict to potentially
