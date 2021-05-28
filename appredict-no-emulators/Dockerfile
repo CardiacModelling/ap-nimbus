@@ -32,8 +32,6 @@ USER appredict
 RUN mkdir -p ${dir_build}
 
 COPY --chown=appredict:appredict default.py.patch ${dir_build}/default.py.patch
-COPY --chown=appredict:appredict rebuild.sh ${home_dir}/rebuild.sh
-RUN chmod o+rwX ${home_dir}/rebuild.sh
 
 #------------------------------------------------------------------------------#
 # 1.1. Download Chaste & ApPredict source                                      #
