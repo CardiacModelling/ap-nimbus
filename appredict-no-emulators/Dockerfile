@@ -54,8 +54,8 @@ RUN cd ${dir_build} && \
 
 # Bring in your own additional models here.
 # Please note: cellml file names must be different from those in section 1.1.
-# For example:
-# RUN cd ${dir_build}/ApPredict/src/extra_models && wget http://.... (location to your own models)
+# For example the following would pull in faber_rudy_2000.cellml from the chaste  cellml repository:
+# RUN cd ${dir_build}/ApPredict/src/extra_models && wget https://raw.githubusercontent.com/Chaste/cellml/master/cellml/faber_rudy_2000.cellml
 
 #------------------------------------------------------------------------------#
 # 1.3. Build ApPredict and deploy                                              #
