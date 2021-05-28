@@ -55,7 +55,7 @@ RUN cd ${dir_build} && \
 # Bring in your own additional models here.
 # Please note: cellml file names must be different from those in section 1.1.
 # For example:
-# RUN cd ${dir_build}\ApPredict\src\extra_models && wget http://.... (location to your own models)
+# RUN cd ${dir_build}/ApPredict/src/extra_models && wget http://.... (location to your own models)
 
 #------------------------------------------------------------------------------#
 # 1.3. Build ApPredict and deploy                                              #
