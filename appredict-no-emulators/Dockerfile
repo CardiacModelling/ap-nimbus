@@ -4,9 +4,9 @@ FROM cardiacmodelling/appredict-chaste-libs:0.0.4
 # Modifiable (e.g. via command line) args.                                     #
 ################################################################################
 
-ARG appredict_hash=8d02ac1be04d03f7ac27f6777dc6a704bfd117de
+ARG appredict_hash=9599e97929d8b684281771d916699a78e4bb6dca
 ARG appredict_branch=master
-ARG chaste_hash=8261429191484b5ea2d5fc02548d08512008d1ae
+ARG chaste_hash=682dce06c8274d86cbd3cba0e14afc3824687776
 ARG chaste_branch=develop
 ARG build_processors=1
 
@@ -45,42 +45,20 @@ RUN cd ${dir_build} && \
     git clone -b ${appredict_branch} --recursive https://github.com/Chaste/ApPredict.git && \
     cd ApPredict && \
     git checkout ${appredict_hash} && \
-    rm -f src/cellml/cellml/a*.cellml && \
-    rm -f src/cellml/cellml/b*.cellml && \
-    rm -f src/cellml/cellml/c*.cellml && \
-    rm -f src/cellml/cellml/d*.cellml && \
-    rm -f src/cellml/cellml/e*.cellml && \
-    rm -f src/cellml/cellml/f*.cellml && \
-    rm -f src/cellml/cellml/grandi_pasqualini_bers_2010_ss_endo.cellml && \
-    rm -f src/cellml/cellml/hilgemann_noble_model_1987.cellml && \
-    rm -f src/cellml/cellml/hodgkin_huxley_squid_axon_model_1952_modified.cellml && \
-    rm -f src/cellml/cellml/i*.cellml && \
-    rm -f src/cellml/cellml/j*.cellml && \
-    rm -f src/cellml/cellml/k*.cellml && \
-    rm -f src/cellml/cellml/l*.cellml && \
-    rm -f src/cellml/cellml/maleckar_model_2009.cellml && \
-    rm -f src/cellml/cellml/maltsev_2009.cellml && \
-    rm -f src/cellml/cellml/matsuoka_model_2003.cellml && \
-    rm -f src/cellml/cellml/mcallister_noble_tsien_1975_b.cellml && \
-    rm -f src/cellml/cellml/n*.cellml && \
-    rm -f src/cellml/cellml/ohara_rudy_2011_epi.cellml && \
-    rm -f src/cellml/cellml/paci_hyttinen_aaltosetala_severi_atrialVersion.cellml && \
-    rm -f src/cellml/cellml/pandit_clark_giles_demir_2001_*.cellml && \
-    rm -f src/cellml/cellml/pasek_simurda_*.cellml && \
-    rm -f src/cellml/cellml/priebe_beuckelmann_1998.cellml && \
-    rm -f src/cellml/cellml/r*.cellml && \
-    rm -f src/cellml/cellml/sachse_moreno_abildskov_2008_b.cellml && \
-    rm -f src/cellml/cellml/sakmann_model_2000_epi.cellml && \
-    rm -f src/cellml/cellml/stewart_zhang_model_2008_ss.cellml && \
-    rm -f src/cellml/cellml/ten_tusscher_model_2004*.cellml && \
-    rm -f src/cellml/cellml/ten_tusscher_model_2006_endo.cellml && \
-    rm -f src/cellml/cellml/ten_tusscher_model_2006_M.cellml && \
-    rm -f src/cellml/cellml/v*.cellml && \
-    rm -f src/cellml/cellml/w*.cellml && \
-    rm -f src/cellml/cellml/z*.cellml
+    cd src/cellml/cellml/ && \
+    find . ! -name shannon_wang_puglisi_weber_bers_2004.cellml ! -name ten_tusscher_model_2006_epi.cellml ! -name mahajan_shiferaw_2008.cellml ! -name hund_rudy_2004.cellml ! -name grandi_pasqualini_bers_2010_ss.cellml ! -name ohara_rudy_2011_endo.cellml ! -name paci_hyttinen_aaltosetala_severi_ventricularVersion.cellml ! -name ohara_rudy_cipa_v1_2017.cellml -delete
 
 #------------------------------------------------------------------------------#
-# 1.2. Build ApPredict and deploy                                              #
+# 1.2. Download additional models                                              #
+#------------------------------------------------------------------------------#
+
+# Bring in your own additional models here.
+# Please note: cellml file names must be different from those in section 1.1.
+# For example the following would pull in faber_rudy_2000.cellml from the chaste  cellml repository:
+# RUN cd ${dir_build}/ApPredict/src/extra_models && wget https://raw.githubusercontent.com/Chaste/cellml/master/cellml/faber_rudy_2000.cellml
+
+#------------------------------------------------------------------------------#
+# 1.3. Build ApPredict and deploy                                              #
 #------------------------------------------------------------------------------#
 RUN cd ${dir_build} && \
     sed -i -- "s|<chaste-libs-dir>|${dir_chaste_libs}/|g" default.py.patch && \
