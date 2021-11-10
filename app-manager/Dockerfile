@@ -16,14 +16,14 @@ RUN mkdir -p /home/appredict/apps/app-manager/node_modules/ /home/appredict/apps
 ################################################################################
 
 RUN cd /home/appredict/apps/node/ && \
-    wget https://nodejs.org/dist/v10.13.0/node-v10.13.0.tar.gz && \
-    tar -zxvf node-v10.13.0.tar.gz
+    wget https://nodejs.org/dist/v16.13.0/node-v16.13.0.tar.gz && \
+    tar -zxvf node-v16.13.0.tar.gz
 
-RUN cd /home/appredict/apps/node/node-v10.13.0 && \
-    ./configure --prefix=/home/appredict/apps/node/v10.13.0 && \
+RUN cd /home/appredict/apps/node/node-v16.13.0 && \
+    ./configure --prefix=/home/appredict/apps/node/v16.13.0 && \
     make -j${build_processors} && \
     make install && \
-    rm -rf /home/appredict/apps/node/node-v10.13.0* && \
+    rm -rf /home/appredict/apps/node/node-v16.13.0* && \
     chown -R appredict:appredict /home/appredict/apps/node && \
     chmod o+rX /home/appredict/apps/node
 
@@ -39,7 +39,7 @@ WORKDIR /home/appredict/apps/app-manager
 
 USER appredict
 
-ENV PATH=/home/appredict/apps/node/v10.13.0/bin:${PATH}
+ENV PATH=/home/appredict/apps/node/v16.13.0/bin:${PATH}
 
 RUN npm ci
 
