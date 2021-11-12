@@ -114,7 +114,7 @@ pipeline {
           }
           steps {
             dir('deploy/o11n/k8s/microk8s') {
-              // Todo: On first run this will fail on trying to delete so added || true
+              // Todo: On first run this will fail on trying to delete. I added || true
               sh "./run.sh delete || true"
               sh "cd admin && ./run.sh delete || true"
               sh "cd admin && ./run.sh create"
