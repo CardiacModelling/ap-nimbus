@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-apiserver=http://127.0.0.1:16443
+apiserver=http://127.0.0.1:8081
 cluster="dev-cluster"
 clusterrolebinding="dev-clusterrolebinding"
 context="dev-context"
