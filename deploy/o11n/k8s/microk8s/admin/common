@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-apiserver=http://127.0.0.1:16443/apportal
+apiserver=https://127.0.0.1:16443/apportal
 cluster="dev-cluster"
 clusterrolebinding="dev-clusterrolebinding"
 context="dev-context"
