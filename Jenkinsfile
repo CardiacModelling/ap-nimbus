@@ -126,11 +126,11 @@ pipeline {
         stage('Pause on microk8s') {
           steps {
             // Wait 30 seconds - although on first deploy this will need increasing!
-            // So increased to 60s let's see if that is enough (hopefully).
+            // So increased to 90s let's see if that is enough (hopefully).
             script {
-              echo "Waiting 60 seconds for containers to start!!!"
+              echo "Waiting 90 seconds for containers to start!!!"
               // https://jenkins.io/doc/pipeline/steps/workflow-basic-steps/#sleep-sleep
-              sleep(time: 60, unit: "SECONDS")
+              sleep(time: 90, unit: "SECONDS")
             }
           }
         }
