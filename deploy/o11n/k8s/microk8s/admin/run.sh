@@ -33,7 +33,7 @@ elif [ "${cmd}" == "create" ]; then
   #microk8s.kubectl create -f ./namespace-dev.json
   microk8s.kubectl create serviceaccount ${serviceaccount}
   microk8s.kubectl create clusterrolebinding ${clusterrolebinding} --clusterrole=edit --serviceaccount=default:${serviceaccount}
-  microk8s.kubectl create secret generic ${secret} --namespace=${namespace} --from-file=username=./username.txt --from-file=username=./password.txt
+  microk8s.kubectl create secret generic ${secret} --namespace=${namespace} --from-file=username=/var/lib/jenkins/username.txt --from-file=username=/var/lib/jenkins/password.txt
 fi
 
 echo ""
