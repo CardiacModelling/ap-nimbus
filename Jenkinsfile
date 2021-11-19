@@ -115,7 +115,7 @@ pipeline {
           steps {
             dir('deploy/o11n/k8s/microk8s') {
               // Todo: On first run this will fail on trying to delete. I added || true
-              // try port 16443
+              // try port 16443.
               sh "./run.sh delete || true"
               sh "cd admin && ./run.sh delete || true"
               sh "cd admin && ./run.sh create"
