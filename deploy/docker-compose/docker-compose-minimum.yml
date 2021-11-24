@@ -2,7 +2,7 @@
 version: '2'
 services:
   appmanager:
-    image: cardiacmodelling/ap-nimbus-app-manager:0.0.11
+    image: cardiacmodelling/ap-nimbus-app-manager:0.0.12
     expose:
       - 8080
     ports:
