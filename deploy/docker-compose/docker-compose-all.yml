@@ -22,7 +22,7 @@ services:
       MONGO_LOG_FILE: /var/log/mongodb/mongodb.log
     command: "mongod --smallfiles --logpath=/var/log/mongodb/mongodb.log"
   appmanager:
-    image: cardiacmodelling/ap-nimbus-app-manager:0.0.11
+    image: cardiacmodelling/ap-nimbus-app-manager:0.0.12
     # "deploy" is available `docker-compose version` 3+. Can be commented out. 
     deploy:
       mode: replicated
