@@ -16,6 +16,11 @@ const ip = require('ip');
 // These directory names are also referenced in other scripts!
 const DIR_APPREDICT_RESULTS = concatenator([ __dirname, 'res'], false);
 const DIR_APPREDICT_RUN = concatenator([ __dirname, 'run'], false);
+const DIR_UPLOADED_FILES = concatenator([ __dirname, 'uploaded_files'], false); 
+
+if (!fs.existsSync(DIR_UPLOADED_FILES)){  // make sure dir for uploaded files exist
+    fs.mkdirSync(DIR_UPLOADED_FILES);
+}
 
 // It is assumed that the REST_API_URL_DATA value (if defined) ends with a '/'!
 var rest_api_url_data;
@@ -325,8 +330,8 @@ function call_invoke(appredict_input, config) {
 
   return new Promise((resolve, reject) => {
     var input_verification_errors = [];
+    var model_id = '';  //defined below in the checks
 
-    var model_id = appredict_input.modelId;
     var pacing_frequency = appredict_input.pacingFrequency;
     var pacing_max_time = appredict_input.pacingMaxTime;
 
@@ -368,22 +373,45 @@ function call_invoke(appredict_input, config) {
       }
     }
 
-    if (!has_data(model_id)) {
-      input_verification_errors.push('A model id must be defined via modelId');
+
+    if (has_data(appredict_input.modelId)) {
+        model_id = `${appredict_input.modelId}`;
+    }else{
+      if(has_data(appredict_input.cellml_file)){
+        const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id}.cellml`], false);
+        fs.writeFile(uploaded_path, appredict_input.cellml_file, function (err) {
+          if (err){
+            input_verification_errors.push(err);
+          }else{
+            console.log(`INFO: uploaded cellml file saved: ${uploaded_path}`);
+            console.log(model_id);
+            model_id = `${uploaded_path}`;
+            console.log(`model id: ${model_id}`);
+          }
+        });
+      }else{
+          input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
+      }
     }
     if (!has_data(pacing_frequency)) {
       input_verification_errors.push('A pacing frequency must be defined via metaData.pacingFrequency');
     }
     // These values must be numeric (if defined).
-    if (![model_id, pacing_frequency, pacing_max_time].every((element) => {
+    if (![pacing_frequency, pacing_max_time].every((element) => {
             return (!has_data(element) || (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element)));
           }) ) {
       input_verification_errors.push('Non-numeric encountered! : ' + JSON.stringify(appredict_input));
     }
+    // --model can now take model name or cellml file
+
+    if(has_data(model_id) && !isNaN(parseFloat(model_id)) && isFinite(model_id)){
+      console.log(`INFO : using non-numeric --model ${model_id}`);
+    }
+
     if (!has_plasma_points && typeof plasma_intermediate_log_scale !== 'boolean') {
       input_verification_errors.push('Expected boolean primitive for plasma_intermediate_log_scale! : ' + JSON.stringify(appredict_input));
     }
-
+console.log(`model id outside: ${model_id}`)
     var args = '--model ' + model_id + ' ';
     if (pacing_frequency !== undefined) {
       args += '--pacing-freq ' + pacing_frequency + ' ';
