@@ -374,25 +374,30 @@ function call_invoke(appredict_input, config) {
     }
 
 
-    if (has_data(appredict_input.modelId)) {
-        model_id = `${appredict_input.modelId}`;
-    }else{
-      if(has_data(appredict_input.cellml_file)){
-        const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id}.cellml`], false);
-        fs.writeFile(uploaded_path, appredict_input.cellml_file, function (err) {
-          if (err){
-            input_verification_errors.push(err);
-          }else{
-            console.log(`INFO: uploaded cellml file saved: ${uploaded_path}`);
-            console.log(model_id);
-            model_id = `${uploaded_path}`;
-            console.log(`model id: ${model_id}`);
-          }
-        });
+    var setModelId = new Promise(function(resolve, reject) {
+      if (has_data(appredict_input.modelId)) {
+          model_id = `${appredict_input.modelId}`;
+          resolve(model_id);
       }else{
-          input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
+        if(has_data(appredict_input.cellml_file)){
+          const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id.replaceAll('-', '_')}.cellml`], false);
+          fs.writeFile(uploaded_path, appredict_input.cellml_file, function (err) {
+            if (err){
+              input_verification_errors.push(err);
+              reject(err);
+            }else{
+              console.log(`INFO: uploaded cellml file saved: ${uploaded_path}`);
+              model_id = `${uploaded_path}`;
+              resolve(model_id);
+            }
+          });
+        }else{
+            input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
+            resolve('');
+        }
       }
-    }
+    });
+
     if (!has_data(pacing_frequency)) {
       input_verification_errors.push('A pacing frequency must be defined via metaData.pacingFrequency');
     }
@@ -411,8 +416,8 @@ function call_invoke(appredict_input, config) {
     if (!has_plasma_points && typeof plasma_intermediate_log_scale !== 'boolean') {
       input_verification_errors.push('Expected boolean primitive for plasma_intermediate_log_scale! : ' + JSON.stringify(appredict_input));
     }
-console.log(`model id outside: ${model_id}`)
-    var args = '--model ' + model_id + ' ';
+
+    var args = '';
     if (pacing_frequency !== undefined) {
       args += '--pacing-freq ' + pacing_frequency + ' ';
     }
@@ -504,44 +509,49 @@ console.log(`model id outside: ${model_id}`)
       return;
     }
 
-    console.log('DEBUG : ApPredict args : ' + args);
+    setModelId.then(function(mid){
+      console.log(`mid: ${mid} model id outside: ${model_id}`);
+      args += '--model ' + model_id + ' ';
 
-    exec(RUNME_SCRIPT + ' ' + run_dir
-                      + ' ' + res_dir
-                      + ' ' + APPREDICT_OUTPUT_DIR
-                      + ' ' + args,
-                      (error, stdout, stderr) => {
-          if (stdout) {
-            console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
-            console.log(stdout);
-            console.log('********************************************************************************');
-            var to_stdout = '\nHTTP Request : ' + JSON.stringify(appredict_input) + '\n\n' + stdout + '\n';
-            fs.appendFile(stdout_file, to_stdout, function (err) {
-              if (err != null) {
-                console.log('stdout ' + err);
-              }
-            });
-          }
-          if (stderr) {
-            // Possible causes:
-            //   1. Can't find ApPredict.sh (maybe app-manager not started in container)
-            //   2. Simulation crashed during processing.
-            //   3. ApPredict invoking wget (which writes download info to stderr!)
-            console.log('ERR01 : ** ' + simulation_id + ' : ApPredict stderr follows *****');
-            console.log(stderr);
-            console.log('********************************************************************************');
-            fs.appendFile(stderr_file, stderr, function (err) {
-              if (err != null) {
-                console.log('stderr ' + err);
-              }
-            });
-          }
-          if (error !== null) {
-            console.log('ERR02 : ' + error);
-            reject(error);
-          }
-          resolve(stdout || stderr);
-        });
+      console.log('DEBUG : ApPredict args : ' + args);
+
+      exec(RUNME_SCRIPT + ' ' + run_dir
+                        + ' ' + res_dir
+                        + ' ' + APPREDICT_OUTPUT_DIR
+                        + ' ' + args,
+                        (error, stdout, stderr) => {
+            if (stdout) {
+              console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
+              console.log(stdout);
+              console.log('********************************************************************************');
+              var to_stdout = '\nHTTP Request : ' + JSON.stringify(appredict_input) + '\n\n' + stdout + '\n';
+              fs.appendFile(stdout_file, to_stdout, function (err) {
+                if (err != null) {
+                  console.log('stdout ' + err);
+                }
+              });
+            }
+            if (stderr) {
+              // Possible causes:
+              //   1. Can't find ApPredict.sh (maybe app-manager not started in container)
+              //   2. Simulation crashed during processing.
+              //   3. ApPredict invoking wget (which writes download info to stderr!)
+              console.log('ERR01 : ** ' + simulation_id + ' : ApPredict stderr follows *****');
+              console.log(stderr);
+              console.log('********************************************************************************');
+              fs.appendFile(stderr_file, stderr, function (err) {
+                if (err != null) {
+                  console.log('stderr ' + err);
+                }
+              });
+            }
+            if (error !== null) {
+              console.log('ERR02 : ' + error);
+              reject(error);
+            }
+            resolve(stdout || stderr);
+          });
+    });
   });
 };
 
