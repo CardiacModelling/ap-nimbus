@@ -331,60 +331,61 @@ function call_invoke(appredict_input, config) {
   return new Promise((resolve, reject) => {
     var input_verification_errors = [];
     var model_id = '';  //defined below in the checks
+    var PK_data_file = ''; //defined below in the checks
 
-    var pacing_frequency = appredict_input.pacingFrequency;
-    var pacing_max_time = appredict_input.pacingMaxTime;
-
-    var plasma_max = appredict_input.plasmaMaximum;
-    var plasma_min = appredict_input.plasmaMinimum;
-    var plasma_intermediate_point_count = appredict_input.plasmaIntermediatePointCount;
-    var plasma_intermediate_log_scale = appredict_input.plasmaIntermediatePointLogScale;
-
-    var input_credible_interval_pctiles = appredict_input.credibleIntervalPctiles;
-
-    var input_plasma_points = appredict_input.plasmaPoints;
-
-    var plasma_points;
-    if (typeof input_plasma_points !== 'undefined' && Array.isArray(input_plasma_points)) {
-      // These values must be numeric.
-      if (!numbers(input_plasma_points)) {
-        input_verification_errors.push('Non-numeric in plasma points ' + JSON.stringify(input_plasma_points));
-      } else {
-        plasma_points = input_plasma_points.join(' ');
+    var plasma_args = '';
+    var setPlasmaArgs = new Promise(function(resolve, reject) {
+      if (typeof appredict_input.plasmaPoints !== 'undefined' && Array.isArray(appredict_input.plasmaPoints)){
+        if (!numbers(appredict_input.plasmaPoints)) {
+          input_verification_errors.push('Non-numeric in plasma points ' + JSON.stringify(input_plasma_points));
+          resolve();
+        }else {
+          plasma_args = `--plasma-concs ${appredict_input.plasmaPoints.join(' ')} `;
+          resolve();
+        }
+      }else if(typeof appredict_input.PK_data_file !== 'undefined'){
+        const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id.replaceAll('-', '_')}.tsv`], false);
+        fs.writeFile(uploaded_path, appredict_input.PK_data_file, function (err) {
+          if (err){
+            input_verification_errors.push(err);
+            resolve();
+          }else{
+            plasma_args = `--pkpd-file ${uploaded_path} `;
+            console.log(`INFO: uploaded PK data file saved: ${model_id}`);
+            resolve();
+          }
+        });
+      }else {
+        // These required values must be numeric if no plasma points defined.
+        var plasma_vals = [ appredict_input.plasmaMaximum, appredict_input.plasmaMinimum, appredict_input.plasmaIntermediatePointCount ];
+        // https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+        if (!plasma_vals.every((element) => {
+                return (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element));
+              }) ) {
+                     input_verification_errors.push('Invalid plasma max/min/points data! : ' + JSON.stringify(plasma_vals));
+                     resolve();
+                   }
+        if (typeof appredict_input.plasmaIntermediatePointLogScale !== 'boolean') {
+          input_verification_errors.push('Expected boolean primitive for appredict_input.plasmaIntermediatePointLogScale! : ' + JSON.stringify(appredict_input));
+          resolve();
+        }
+        plasma_args += ` --plasma-conc-high ${appredict_input.plasmaMaximum} --plasma-conc-low ${appredict_input.plasmaMinimum} --plasma-conc-count ${appredict_input.plasmaIntermediatePointCount} --plasma-conc-logscale ${appredict_input.plasmaIntermediatePointLogScale} `;
+        resolve();
       }
-    }
-
-    var has_plasma_points = false;
-    if (typeof plasma_points !== 'undefined') {
-      has_plasma_points = true;
-
-      plasma_max = null;
-      plasma_min = null;
-      plasma_intermediate_point_count = null;
-      plasma_intermediate_log_scale = null;
-    } else {
-      // These required values must be numeric if no plasma points defined.
-      var plasma_vals = [ plasma_max, plasma_min, plasma_intermediate_point_count ];
-      // https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
-      if (!plasma_vals.every((element) => {
-              return (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element));
-            }) ) {
-        input_verification_errors.push('Invalid plasma max/min/points data! : ' + JSON.stringify(plasma_vals));
-      }
-    }
+    });
 
 
     var setModelId = new Promise(function(resolve, reject) {
       if (has_data(appredict_input.modelId)) {
           model_id = `${appredict_input.modelId}`;
-          resolve(model_id);
+          resolve();
       }else{
         if(has_data(appredict_input.cellml_file)){
           const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id.replaceAll('-', '_')}.cellml`], false);
           fs.writeFile(uploaded_path, appredict_input.cellml_file, function (err) {
             if (err){
               input_verification_errors.push(err);
-              reject(err);
+              resolve();
             }else{
               model_id = `${uploaded_path}`
               console.log(`INFO: uploaded cellml file saved: ${model_id}`);
@@ -394,16 +395,16 @@ function call_invoke(appredict_input, config) {
           });
         }else{
             input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
-            reject();
+            resolve();
         }
       }
     });
 
-    if (!has_data(pacing_frequency)) {
+    if (!has_data(appredict_input.pacingFrequency)) {
       input_verification_errors.push('A pacing frequency must be defined via metaData.pacingFrequency');
     }
     // These values must be numeric (if defined).
-    if (![pacing_frequency, pacing_max_time].every((element) => {
+    if (![appredict_input.pacingFrequency, appredict_input.pacingMaxTime].every((element) => {
             return (!has_data(element) || (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element)));
           }) ) {
       input_verification_errors.push('Non-numeric encountered! : ' + JSON.stringify(appredict_input));
@@ -414,33 +415,8 @@ function call_invoke(appredict_input, config) {
       console.log(`INFO : using non-numeric --model ${model_id}`);
     }
 
-    if (!has_plasma_points && typeof plasma_intermediate_log_scale !== 'boolean') {
-      input_verification_errors.push('Expected boolean primitive for plasma_intermediate_log_scale! : ' + JSON.stringify(appredict_input));
-    }
 
-    var args = '';
-    if (pacing_frequency !== undefined) {
-      args += '--pacing-freq ' + pacing_frequency + ' ';
-    }
-    if (pacing_max_time !== undefined) {
-      args += '--pacing-max-time ' + pacing_max_time + ' ';
-    }
-    if (has_plasma_points) {
-        args += '--plasma-concs ' + plasma_points + ' ';
-    } else {
-      if (plasma_max !== undefined) {
-        args += '--plasma-conc-high ' + plasma_max + ' ';
-      }
-      if (plasma_min !== undefined) {
-        args += '--plasma-conc-low ' + plasma_min + ' ';
-      }
-      if (plasma_intermediate_point_count !== undefined) {
-        args += '--plasma-conc-count ' + plasma_intermediate_point_count + ' ';
-      }
-      if (plasma_intermediate_log_scale !== undefined) {
-        args += '--plasma-conc-logscale ' + plasma_intermediate_log_scale + ' ';
-      }
-    }
+    var args = `--pacing-freq ${appredict_input.pacingFrequency} --pacing-max-time ${appredict_input.pacingMaxTime} `;
 
     var spreads_detected = false;
 
@@ -489,11 +465,11 @@ function call_invoke(appredict_input, config) {
 
     if (spreads_detected) {
       var credible_interval_pctiles;
-      if (typeof input_credible_interval_pctiles !== 'undefined') {
-        if (numbers(input_credible_interval_pctiles) && input_credible_interval_pctiles.length > 0) {
-          credible_interval_pctiles = input_credible_interval_pctiles.join(' ');
+      if (typeof appredict_input.credibleIntervalPctiles !== 'undefined') {
+        if (numbers(appredict_input.credibleIntervalPctiles) && appredict_input.credibleIntervalPctiles.length > 0) {
+          credible_interval_pctiles = appredict_input.credibleIntervalPctiles.join(' ');
         } else {
-          input_verification_errors.push('Invalid value in credible interval pctiles : ' + JSON.stringify(input_credible_interval_pctiles));
+          input_verification_errors.push('Invalid value in credible interval pctiles : ' + JSON.stringify(appredict_input.credibleIntervalPctiles));
         }
       } else {
         console.log('DEBUG : Using default credible interval pctiles values of ' + DEFAULT_CREDIBLE_INTERVAL_PCTILES);
@@ -502,16 +478,14 @@ function call_invoke(appredict_input, config) {
       args += '--credible-intervals ' + credible_interval_pctiles;
     }
 
-    if (input_verification_errors.length > 0) {
-      var messages = input_verification_errors.join('\n');
-
-      write_stderr(std_file_prefix, stderr_file, stop_file, messages);
-
-      return;
-    }
-
-    setModelId.then(function(){
-      args += '--model ' + model_id + ' ';
+    Promise.all([setModelId, setPlasmaArgs]).then(function(){
+      if (input_verification_errors.length > 0) {
+        var messages = input_verification_errors.join('\n');
+        write_stderr(std_file_prefix, stderr_file, stop_file, messages);
+        return;
+      }
+      
+      args += ` ${plasma_args} --model ${model_id} `;
 
       console.log('DEBUG : ApPredict args : ' + args);
 
@@ -520,10 +494,16 @@ function call_invoke(appredict_input, config) {
                         + ' ' + APPREDICT_OUTPUT_DIR
                         + ' ' + args,
                         (error, stdout, stderr) => {
-            // cleanup: remove cellml file if it exists
+                            
+            // cleanup: remove cellml and pk data file if it exists
             fs.access(model_id, (err) => {
               if(!err){
                 fs.unlink(model_id, () => console.log(`INFO: deleted ${model_id}`));
+              }
+            });
+            fs.access(PK_data_file, (err) => {
+              if(!err){
+                fs.unlink(PK_data_file, () => console.log(`INFO: deleted ${PK_data_file}`));
               }
             });
 
