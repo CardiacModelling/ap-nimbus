@@ -386,14 +386,15 @@ function call_invoke(appredict_input, config) {
               input_verification_errors.push(err);
               reject(err);
             }else{
-              console.log(`INFO: uploaded cellml file saved: ${uploaded_path}`);
+              model_id = `${uploaded_path}`
+              console.log(`INFO: uploaded cellml file saved: ${model_id}`);
               model_id = `${uploaded_path}`;
-              resolve(model_id);
+              resolve();
             }
           });
         }else{
             input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
-            resolve('');
+            reject();
         }
       }
     });
@@ -509,8 +510,7 @@ function call_invoke(appredict_input, config) {
       return;
     }
 
-    setModelId.then(function(mid){
-      console.log(`mid: ${mid} model id outside: ${model_id}`);
+    setModelId.then(function(){
       args += '--model ' + model_id + ' ';
 
       console.log('DEBUG : ApPredict args : ' + args);
@@ -520,6 +520,13 @@ function call_invoke(appredict_input, config) {
                         + ' ' + APPREDICT_OUTPUT_DIR
                         + ' ' + args,
                         (error, stdout, stderr) => {
+            // cleanup: remove cellml file if it exists
+            fs.access(model_id, (err) => {
+              if(!err){
+                fs.unlink(model_id, () => console.log(`INFO: deleted ${model_id}`));
+              }
+            });
+
             if (stdout) {
               console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
               console.log(stdout);
