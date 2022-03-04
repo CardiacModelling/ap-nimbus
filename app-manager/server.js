@@ -350,8 +350,9 @@ function call_invoke(appredict_input, config) {
             input_verification_errors.push(err);
             resolve();
           }else{
-            plasma_args = `--pkpd-file ${uploaded_path} `;
-            console.log(`INFO: uploaded PK data file saved: ${model_id}`);
+            PK_data_file = `${uploaded_path}`;
+            plasma_args = `--pkpd-file ${PK_data_file} `;
+            console.log(`INFO: uploaded PK data file saved: ${PK_data_file}`);
             resolve();
           }
         });
@@ -389,7 +390,6 @@ function call_invoke(appredict_input, config) {
             }else{
               model_id = `${uploaded_path}`
               console.log(`INFO: uploaded cellml file saved: ${model_id}`);
-              model_id = `${uploaded_path}`;
               resolve();
             }
           });
@@ -1011,6 +1011,7 @@ const server = http.createServer((request, response) => {
           case 'voltage_traces':
           case 'progress_status':
           case 'q_net':
+          case 'pkpd_results':
           case 'messages':
             var json_file_path = results_pfx += operation + '.json';
             try {
@@ -1029,7 +1030,7 @@ const server = http.createServer((request, response) => {
             break;
           default:
             return_obj = {
-              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net" and "messages"'
+              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net", "pkpd_results" and "messages"'
             }
             break;
         }

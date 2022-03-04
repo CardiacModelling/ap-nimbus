@@ -59,6 +59,22 @@ function process_progress {
   fi
 }
 
+function process_pkpd_results {
+  in_dir=$1
+  in_file=$2
+
+  file_read=${in_dir}${in_file}
+  out_dir=$(mk_out_dir ${in_dir})
+  file_tmp=${out_dir}pkpd_results.tmp
+  file_write=${out_dir}pkpd_results.json
+
+  if [ -f ${file_read} ]; then
+    jq -R -c '[inputs | split("\t") | {timepoint: .[0], apd90: .[1]}]' <${file_read} >${file_tmp}
+    # Ensure a single file action which node (i.e. chokidar) can watch and act on!
+    mv ${file_tmp} ${file_write}
+  fi
+}
+
 function process_qnet {
   in_dir=$1
   in_file=$2
@@ -74,6 +90,7 @@ function process_qnet {
     mv ${file_tmp} ${file_write}
   fi
 }
+
 
 function process_messages {
   in_dir=$1
@@ -175,6 +192,8 @@ inotifywait -m -r -e close_write -e modify -e delete ${run_dir} | \
           process_qnet ${dir} ${file}
         elif [[ "${file}" == 'messages.txt' ]]; then
           process_messages ${dir} ${file}
+        elif [[ "${file}" == 'pkpd_results.txt' ]]; then
+          process_pkpd_results ${dir} ${file}
         fi
       else
         [[ "${event}" == 'CLOSE_WRITE,CLOSE' && "${file}" == conc_*_voltage_trace.dat ]] && \
