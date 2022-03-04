@@ -1079,7 +1079,7 @@ const server = http.createServer((request, response) => {
     });
     // We're returning text!
     response.end(JSON.stringify(return_obj));
-    response.setTimeout(5);
+//    response.setTimeout(5);
   } else if (request.method == 'OPTIONS') {
     /*
      * In the CORS world there are certain client request combos (e.g. a POST with some data)
