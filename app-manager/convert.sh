@@ -69,7 +69,7 @@ function process_pkpd_results {
   file_write=${out_dir}pkpd_results.json
 
   if [ -f ${file_read} ]; then
-    jq -R -c '[inputs | split("\t") | {timepoint: .[0], apd90: .[1]}]' <${file_read} >${file_tmp}
+    jq -R -c '[inputs | split("\t") | {timepoint: .[0], apd90: .[1:]}]' <${file_read} >${file_tmp}
     # Ensure a single file action which node (i.e. chokidar) can watch and act on!
     mv ${file_tmp} ${file_write}
   fi
