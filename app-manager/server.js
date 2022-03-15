@@ -1028,6 +1028,11 @@ const server = http.createServer((request, response) => {
               }
             }
             break;
+          case 'done_reading':
+            // done reading results, clean up results folder
+            var dir = concatenator([ DIR_APPREDICT_RESULTS, simulation_id], false);
+            fs.rmdir(dir, {recursive: true}, () => console.log(`INFO: results received, deleted results for ${model_id}`));
+            break;
           default:
             return_obj = {
               'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net", "pkpd_results" and "messages"'
