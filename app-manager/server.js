@@ -1028,10 +1028,13 @@ const server = http.createServer((request, response) => {
               }
             }
             break;
-          case 'done_reading':
-            // done reading results, clean up results folder
-            var dir = concatenator([ DIR_APPREDICT_RESULTS, simulation_id], false);
-            fs.rmdir(dir, {recursive: true}, () => console.log(`INFO: results received, deleted results for ${model_id}`));
+          case 'received':
+            // done reading results, clean up run and results folders
+            fs.rm(concatenator([DIR_APPREDICT_RUN, simulation_id], false), {recursive: true}, () => {
+              console.log(`INFO: results received, deleted run files for ${simulation_id}`);
+              // wait before deleting the results folder, since deleting the run folder triggers the watches to add a STOP file to the results folder
+              setTimeout(()=>fs.rm(concatenator([DIR_APPREDICT_RESULTS, simulation_id], false), {recursive: true}, () => console.log(`INFO: results received, deleted results for ${simulation_id}`)), 5000);
+            });
             break;
           default:
             return_obj = {
