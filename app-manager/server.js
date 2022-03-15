@@ -1035,6 +1035,7 @@ const server = http.createServer((request, response) => {
               // wait before deleting the results folder, since deleting the run folder triggers the watches to add a STOP file to the results folder
               setTimeout(()=>fs.rm(concatenator([DIR_APPREDICT_RESULTS, simulation_id], false), {recursive: true}, () => console.log(`INFO: results received, deleted results for ${simulation_id}`)), 5000);
             });
+            return_obj = {'success': true};
             break;
           default:
             return_obj = {
