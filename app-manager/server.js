@@ -1035,17 +1035,18 @@ const server = http.createServer((request, response) => {
               // wait before deleting the results folder, since deleting the run folder triggers the watches to add a STOP file to the results folder
               setTimeout(()=>fs.rm(concatenator([DIR_APPREDICT_RESULTS, simulation_id], false), {recursive: true}, () => console.log(`INFO: results received, deleted results for ${simulation_id}`)), 5000);
             });
+            // we don't wait for the deleting to be finished, we want the client to continue
             return_obj = {'success': true};
             break;
           default:
             return_obj = {
-              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net", "pkpd_results" and "messages"'
+              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net", "pkpd_results", "messages" and "received"'
             }
             break;
         }
       } else {
         return_obj = {
-          'error': 'No data query option (e.g. "voltage_traces", "progress_status") found in ' + pathname_data
+          'error': 'No data query option (e.g. "voltage_traces", "progress_status", "received") found in ' + pathname_data
         }
       }
     } else {
