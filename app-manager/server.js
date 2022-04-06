@@ -16,6 +16,11 @@ const ip = require('ip');
 // These directory names are also referenced in other scripts!
 const DIR_APPREDICT_RESULTS = concatenator([ __dirname, 'res'], false);
 const DIR_APPREDICT_RUN = concatenator([ __dirname, 'run'], false);
+const DIR_UPLOADED_FILES = concatenator([ __dirname, 'uploaded_files'], false); 
+
+if (!fs.existsSync(DIR_UPLOADED_FILES)){  // make sure dir for uploaded files exist
+    fs.mkdirSync(DIR_UPLOADED_FILES);
+}
 
 // It is assumed that the REST_API_URL_DATA value (if defined) ends with a '/'!
 var rest_api_url_data;
@@ -325,88 +330,93 @@ function call_invoke(appredict_input, config) {
 
   return new Promise((resolve, reject) => {
     var input_verification_errors = [];
+    var model_id = '';  //defined below in the checks
+    var PK_data_file = ''; //defined below in the checks
 
-    var model_id = appredict_input.modelId;
-    var pacing_frequency = appredict_input.pacingFrequency;
-    var pacing_max_time = appredict_input.pacingMaxTime;
-
-    var plasma_max = appredict_input.plasmaMaximum;
-    var plasma_min = appredict_input.plasmaMinimum;
-    var plasma_intermediate_point_count = appredict_input.plasmaIntermediatePointCount;
-    var plasma_intermediate_log_scale = appredict_input.plasmaIntermediatePointLogScale;
-
-    var input_credible_interval_pctiles = appredict_input.credibleIntervalPctiles;
-
-    var input_plasma_points = appredict_input.plasmaPoints;
-
-    var plasma_points;
-    if (typeof input_plasma_points !== 'undefined' && Array.isArray(input_plasma_points)) {
-      // These values must be numeric.
-      if (!numbers(input_plasma_points)) {
-        input_verification_errors.push('Non-numeric in plasma points ' + JSON.stringify(input_plasma_points));
-      } else {
-        plasma_points = input_plasma_points.join(' ');
+    var plasma_args = '';
+    var setPlasmaArgs = new Promise(function(resolve, reject) {
+      if (typeof appredict_input.plasmaPoints !== 'undefined' && Array.isArray(appredict_input.plasmaPoints)){
+        if (!numbers(appredict_input.plasmaPoints)) {
+          input_verification_errors.push('Non-numeric in plasma points ' + JSON.stringify(input_plasma_points));
+          resolve();
+        }else {
+          plasma_args = `--plasma-concs ${appredict_input.plasmaPoints.join(' ')} `;
+          resolve();
+        }
+      }else if(typeof appredict_input.PK_data_file !== 'undefined'){
+        const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id.replaceAll('-', '_')}.tsv`], false);
+        fs.writeFile(uploaded_path, appredict_input.PK_data_file, function (err) {
+          if (err){
+            input_verification_errors.push(err);
+            resolve();
+          }else{
+            PK_data_file = `${uploaded_path}`;
+            plasma_args = `--pkpd-file ${PK_data_file} `;
+            console.log(`INFO: uploaded PK data file saved: ${PK_data_file}`);
+            resolve();
+          }
+        });
+      }else {
+        // These required values must be numeric if no plasma points defined.
+        var plasma_vals = [ appredict_input.plasmaMaximum, appredict_input.plasmaMinimum, appredict_input.plasmaIntermediatePointCount ];
+        // https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+        if (!plasma_vals.every((element) => {
+                return (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element));
+              }) ) {
+                     input_verification_errors.push('Invalid plasma max/min/points data! : ' + JSON.stringify(plasma_vals));
+                     resolve();
+                   }
+        if (typeof appredict_input.plasmaIntermediatePointLogScale !== 'boolean') {
+          input_verification_errors.push('Expected boolean primitive for appredict_input.plasmaIntermediatePointLogScale! : ' + JSON.stringify(appredict_input));
+          resolve();
+        }
+        plasma_args += ` --plasma-conc-high ${appredict_input.plasmaMaximum} --plasma-conc-low ${appredict_input.plasmaMinimum} --plasma-conc-count ${appredict_input.plasmaIntermediatePointCount} --plasma-conc-logscale ${appredict_input.plasmaIntermediatePointLogScale} `;
+        resolve();
       }
-    }
+    });
 
-    var has_plasma_points = false;
-    if (typeof plasma_points !== 'undefined') {
-      has_plasma_points = true;
 
-      plasma_max = null;
-      plasma_min = null;
-      plasma_intermediate_point_count = null;
-      plasma_intermediate_log_scale = null;
-    } else {
-      // These required values must be numeric if no plasma points defined.
-      var plasma_vals = [ plasma_max, plasma_min, plasma_intermediate_point_count ];
-      // https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
-      if (!plasma_vals.every((element) => {
-              return (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element));
-            }) ) {
-        input_verification_errors.push('Invalid plasma max/min/points data! : ' + JSON.stringify(plasma_vals));
+    var setModelId = new Promise(function(resolve, reject) {
+      if (has_data(appredict_input.modelId)) {
+          model_id = `${appredict_input.modelId}`;
+          resolve();
+      }else{
+        if(has_data(appredict_input.cellml_file)){
+          const uploaded_path = concatenator([DIR_UPLOADED_FILES, `${simulation_id.replaceAll('-', '_')}.cellml`], false);
+          fs.writeFile(uploaded_path, appredict_input.cellml_file, function (err) {
+            if (err){
+              input_verification_errors.push(err);
+              resolve();
+            }else{
+              model_id = `${uploaded_path}`
+              console.log(`INFO: uploaded cellml file saved: ${model_id}`);
+              resolve();
+            }
+          });
+        }else{
+            input_verification_errors.push('A model call (id) or uploaded cellml file must be defined via modelId or cellml_file');
+            resolve();
+        }
       }
-    }
+    });
 
-    if (!has_data(model_id)) {
-      input_verification_errors.push('A model id must be defined via modelId');
-    }
-    if (!has_data(pacing_frequency)) {
+    if (!has_data(appredict_input.pacingFrequency)) {
       input_verification_errors.push('A pacing frequency must be defined via metaData.pacingFrequency');
     }
     // These values must be numeric (if defined).
-    if (![model_id, pacing_frequency, pacing_max_time].every((element) => {
+    if (![appredict_input.pacingFrequency, appredict_input.pacingMaxTime].every((element) => {
             return (!has_data(element) || (has_data(element) && !isNaN(parseFloat(element)) && isFinite(element)));
           }) ) {
       input_verification_errors.push('Non-numeric encountered! : ' + JSON.stringify(appredict_input));
     }
-    if (!has_plasma_points && typeof plasma_intermediate_log_scale !== 'boolean') {
-      input_verification_errors.push('Expected boolean primitive for plasma_intermediate_log_scale! : ' + JSON.stringify(appredict_input));
+    // --model can now take model name or cellml file
+
+    if(has_data(model_id) && !isNaN(parseFloat(model_id)) && isFinite(model_id)){
+      console.log(`INFO : using non-numeric --model ${model_id}`);
     }
 
-    var args = '--model ' + model_id + ' ';
-    if (pacing_frequency !== undefined) {
-      args += '--pacing-freq ' + pacing_frequency + ' ';
-    }
-    if (pacing_max_time !== undefined) {
-      args += '--pacing-max-time ' + pacing_max_time + ' ';
-    }
-    if (has_plasma_points) {
-        args += '--plasma-concs ' + plasma_points + ' ';
-    } else {
-      if (plasma_max !== undefined) {
-        args += '--plasma-conc-high ' + plasma_max + ' ';
-      }
-      if (plasma_min !== undefined) {
-        args += '--plasma-conc-low ' + plasma_min + ' ';
-      }
-      if (plasma_intermediate_point_count !== undefined) {
-        args += '--plasma-conc-count ' + plasma_intermediate_point_count + ' ';
-      }
-      if (plasma_intermediate_log_scale !== undefined) {
-        args += '--plasma-conc-logscale ' + plasma_intermediate_log_scale + ' ';
-      }
-    }
+
+    var args = `--pacing-freq ${appredict_input.pacingFrequency} --pacing-max-time ${appredict_input.pacingMaxTime} `;
 
     var spreads_detected = false;
 
@@ -455,11 +465,11 @@ function call_invoke(appredict_input, config) {
 
     if (spreads_detected) {
       var credible_interval_pctiles;
-      if (typeof input_credible_interval_pctiles !== 'undefined') {
-        if (numbers(input_credible_interval_pctiles) && input_credible_interval_pctiles.length > 0) {
-          credible_interval_pctiles = input_credible_interval_pctiles.join(' ');
+      if (typeof appredict_input.credibleIntervalPctiles !== 'undefined') {
+        if (numbers(appredict_input.credibleIntervalPctiles) && appredict_input.credibleIntervalPctiles.length > 0) {
+          credible_interval_pctiles = appredict_input.credibleIntervalPctiles.join(' ');
         } else {
-          input_verification_errors.push('Invalid value in credible interval pctiles : ' + JSON.stringify(input_credible_interval_pctiles));
+          input_verification_errors.push('Invalid value in credible interval pctiles : ' + JSON.stringify(appredict_input.credibleIntervalPctiles));
         }
       } else {
         console.log('DEBUG : Using default credible interval pctiles values of ' + DEFAULT_CREDIBLE_INTERVAL_PCTILES);
@@ -468,52 +478,67 @@ function call_invoke(appredict_input, config) {
       args += '--credible-intervals ' + credible_interval_pctiles;
     }
 
-    if (input_verification_errors.length > 0) {
-      var messages = input_verification_errors.join('\n');
+    Promise.all([setModelId, setPlasmaArgs]).then(function(){
+      if (input_verification_errors.length > 0) {
+        var messages = input_verification_errors.join('\n');
+        write_stderr(std_file_prefix, stderr_file, stop_file, messages);
+        return;
+      }
+      
+      args += ` ${plasma_args} --model ${model_id} `;
 
-      write_stderr(std_file_prefix, stderr_file, stop_file, messages);
+      console.log('DEBUG : ApPredict args : ' + args);
 
-      return;
-    }
-
-    console.log('DEBUG : ApPredict args : ' + args);
-
-    exec(RUNME_SCRIPT + ' ' + run_dir
-                      + ' ' + res_dir
-                      + ' ' + APPREDICT_OUTPUT_DIR
-                      + ' ' + args,
-                      (error, stdout, stderr) => {
-          if (stdout) {
-            console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
-            console.log(stdout);
-            console.log('********************************************************************************');
-            var to_stdout = '\nHTTP Request : ' + JSON.stringify(appredict_input) + '\n\n' + stdout + '\n';
-            fs.appendFile(stdout_file, to_stdout, function (err) {
-              if (err != null) {
-                console.log('stdout ' + err);
+      exec(RUNME_SCRIPT + ' ' + run_dir
+                        + ' ' + res_dir
+                        + ' ' + APPREDICT_OUTPUT_DIR
+                        + ' ' + args,
+                        (error, stdout, stderr) => {
+                            
+            // cleanup: remove cellml and pk data file if it exists
+            fs.access(model_id, (err) => {
+              if(!err){
+                fs.unlink(model_id, () => console.log(`INFO: deleted ${model_id}`));
               }
             });
-          }
-          if (stderr) {
-            // Possible causes:
-            //   1. Can't find ApPredict.sh (maybe app-manager not started in container)
-            //   2. Simulation crashed during processing.
-            //   3. ApPredict invoking wget (which writes download info to stderr!)
-            console.log('ERR01 : ** ' + simulation_id + ' : ApPredict stderr follows *****');
-            console.log(stderr);
-            console.log('********************************************************************************');
-            fs.appendFile(stderr_file, stderr, function (err) {
-              if (err != null) {
-                console.log('stderr ' + err);
+            fs.access(PK_data_file, (err) => {
+              if(!err){
+                fs.unlink(PK_data_file, () => console.log(`INFO: deleted ${PK_data_file}`));
               }
             });
-          }
-          if (error !== null) {
-            console.log('ERR02 : ' + error);
-            reject(error);
-          }
-          resolve(stdout || stderr);
-        });
+
+            if (stdout) {
+              console.log('DEBUG : ** ' + simulation_id + ' : ApPredict stdout follows *****');
+              console.log(stdout);
+              console.log('********************************************************************************');
+              var to_stdout = '\nHTTP Request : ' + JSON.stringify(appredict_input) + '\n\n' + stdout + '\n';
+              fs.appendFile(stdout_file, to_stdout, function (err) {
+                if (err != null) {
+                  console.log('stdout ' + err);
+                }
+              });
+            }
+            if (stderr) {
+              // Possible causes:
+              //   1. Can't find ApPredict.sh (maybe app-manager not started in container)
+              //   2. Simulation crashed during processing.
+              //   3. ApPredict invoking wget (which writes download info to stderr!)
+              console.log('ERR01 : ** ' + simulation_id + ' : ApPredict stderr follows *****');
+              console.log(stderr);
+              console.log('********************************************************************************');
+              fs.appendFile(stderr_file, stderr, function (err) {
+                if (err != null) {
+                  console.log('stderr ' + err);
+                }
+              });
+            }
+            if (error !== null) {
+              console.log('ERR02 : ' + error);
+              reject(error);
+            }
+            resolve(stdout || stderr);
+          });
+    });
   });
 };
 
@@ -986,6 +1011,7 @@ const server = http.createServer((request, response) => {
           case 'voltage_traces':
           case 'progress_status':
           case 'q_net':
+          case 'pkpd_results':
           case 'messages':
             var json_file_path = results_pfx += operation + '.json';
             try {
@@ -1002,15 +1028,25 @@ const server = http.createServer((request, response) => {
               }
             }
             break;
+          case 'received':
+            // done reading results, clean up run and results folders
+            fs.rm(concatenator([DIR_APPREDICT_RUN, simulation_id], false), {recursive: true}, () => {
+              console.log(`INFO: results received, deleted run files for ${simulation_id}`);
+              // wait before deleting the results folder, since deleting the run folder triggers the watches to add a STOP file to the results folder
+              setTimeout(()=>fs.rm(concatenator([DIR_APPREDICT_RESULTS, simulation_id], false), {recursive: true}, () => console.log(`INFO: results received, deleted results for ${simulation_id}`)), 5000);
+            });
+            // we don't wait for the deleting to be finished, we want the client to continue
+            return_obj = {'success': true};
+            break;
           default:
             return_obj = {
-              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net" and "messages"'
+              'error': 'Valid data query options are: "STOP", "voltage_traces", "voltage_results", "progress_status", "q_net", "pkpd_results", "messages" and "received"'
             }
             break;
         }
       } else {
         return_obj = {
-          'error': 'No data query option (e.g. "voltage_traces", "progress_status") found in ' + pathname_data
+          'error': 'No data query option (e.g. "voltage_traces", "progress_status", "received") found in ' + pathname_data
         }
       }
     } else {
@@ -1053,7 +1089,7 @@ const server = http.createServer((request, response) => {
     });
     // We're returning text!
     response.end(JSON.stringify(return_obj));
-    response.setTimeout(5);
+//    response.setTimeout(5);
   } else if (request.method == 'OPTIONS') {
     /*
      * In the CORS world there are certain client request combos (e.g. a POST with some data)
