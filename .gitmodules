@@ -1,0 +1,3 @@
+[submodule "client-direct"]
+	path = client-direct
+	url = https://github.com/CardiacModelling/ap-nimbus-client.git
