@@ -7,3 +7,4 @@ Troubleshooting
    :maxdepth: 2
 
    illegal-instruction/index
+   troubleshooting-client-direct/index

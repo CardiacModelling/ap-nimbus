@@ -46,7 +46,7 @@ Test application for Azure durable function invocation of `ApPredict`.
 
 ### `client-direct` web interface
 
-Angular UI.
+sub module containing re-developed Django UI
 
 See: https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct
 

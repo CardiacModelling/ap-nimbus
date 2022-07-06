@@ -18,4 +18,3 @@ The information below relates to the work being done in the project's
    azure-durable-functions/index
    client-direct/index
    datastore/index
-   deploy/index

@@ -1,5 +1,0 @@
-.. include:: ../../global.rst
-
-Deploy
-======
-
