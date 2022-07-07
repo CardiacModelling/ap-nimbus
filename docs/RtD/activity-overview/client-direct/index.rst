@@ -1,6 +1,6 @@
 .. include:: ../../global.rst
 
-|client-direct|
+client-direct
 ===============
 
 |client-direct| is a `Django 4 <https://www.djangoproject.com/>`_ component of |AP-Nimbus|.

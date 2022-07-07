@@ -1,6 +1,6 @@
 .. include:: ../../global.rst
 
-``appredict-no-emulators``
+appredict-no-emulators
 ==========================
 
 |appredict-no-emulators| is a container which has |appredict-chaste-libs| as its

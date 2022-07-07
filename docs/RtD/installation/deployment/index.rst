@@ -61,7 +61,7 @@ Install |ap-nimbus-app-manager|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
  #. Install on a local filesystem : |br|
-    ``docker run -it --rm -p 8080:8080 cardiacmodelling/ap-nimbus-app-manager:<version>`` |br|
+    ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>`` |br|
     (See `ap-nimbus-app-manager tags <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-app-manager/tags>`_
     for available version numbers.) |br| |br|
     This command will automatically download the container from the ``cardiacmodelling``
@@ -103,19 +103,18 @@ Install |appredict-no-emulators| or |appredict-with-emulators|
 Install |ap-nimbus-client-direct|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
- #. Install on a local filesystem : |br|
      In order for the client-direct to work you at least need:
-     - the app-manager  (see above)
-     - the client direct
-     - a postgres database
+     * the app-manager  (see above)
+     * the client direct
+     * a postgres database
      
-     **Communication: networking**
+ #. Communication: networking
      These components need to be able to communicate. There are two main ways of achieving this: you can refer to components by their docker IP address. To find this it needs to be started first, so you will have to start the database and app-manager first and find ther IPs to use in the client-direct configuration.
      An easier way is to create a docker network and add the database, app-manager and client-direct components to it and give each component a name **please note** DO NOT use underscores in these names as underscores in hostnames is not universally supported. You can then use that name as hostname in the client-direct settings.
 
      to create a docker network called ap_nimbus_network the command is as follows: `docker network create ap_nimbus_network`
      
- ##. Data persistence
+ #. Data persistence
      By default data does not persist. This means that if you restart the client-direct any uploaded files (cellml models and PK data files) will be gone and if you restart the database all data will be gone, i.e. all accounts, simulations, cellml models etc. Data volumes can be used to make sure data persists
      
      the following command creates a docker data volume called ap_nimbus_data `docker volume create ap_nimbus_data`
@@ -123,24 +122,24 @@ Install |ap-nimbus-client-direct|
      
      the following command lists information about the ap_nimbus_file_upload volume, including the mount point (the actual location where the data is stored). This mountpoint can be backed up if desired. `docker volume inspect ap_nimbus_file_upload`
 
- ##. Database
+ #. Database
      The following starts a postgres 14.1 database using the official debian-bullsey postgres docker image.
-     `docker run -d --name ap-nimbus-postgres --net ap_nimbus_network --restart always --user postgres -v ap_nimbus_data:/var/lib/postgresql/data --env-file env postgres:14.1-bullseye`
+     ``docker run -d --name ap-nimbus-postgres --net ap_nimbus_network --restart always --user postgres -v ap_nimbus_data:/var/lib/postgresql/data --env-file env postgres:14.1-bullseye``
      The parameters are as follows:
-     - -d detached mode. You could start with -it if you want to see output. However don't forget to leave the component running (detach rather than close).
-     - --name ap-nimbus-postgres this is the name given to the component, it can be seen when doing `docker ps` and is the hostname we use in settings for client-direct
-     - --net ap_nimbus_network make sure the component is part of our docker network
-     - --restart always should the component stop for whatever reason we want it to try and restart
-     - -v ap_nimbus_data:/var/lib/postgresql/data link the data volume created above to the path inside the container where the database data is stored
-     - --env-file env use the environment variable in env **please note** a template env file is provided in the repository
+     * -d detached mode. You could start with -it if you want to see output. However don't forget to leave the component running (detach rather than close).
+     * --name ap-nimbus-postgres this is the name given to the component, it can be seen when doing `docker ps` and is the hostname we use in settings for client-direct
+     * --net ap_nimbus_network make sure the component is part of our docker network
+     * --restart always should the component stop for whatever reason we want it to try and restart
+     * -v ap_nimbus_data:/var/lib/postgresql/data link the data volume created above to the path inside the container where the database data is stored
+     * --env-file env use the environment variable in env **please note** a template env file is provided in the repository
      
- ##. App manager
+ #. App manager
      to start the app manager with additional name and network parameters locally:
-     `docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>`
+     ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
      If this is run on cardiac.nottingham.ac.uk, we need to make that hostname available, otherwise it wpould resolve incorrectly so add `--add-host=cardiac.nottingham.ac.uk=cardiac.nottingham.ac.uk:128.243.44.16`
      
- ##. client-direct
-     `docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>`   
+ #. client-direct
+     ``docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>``   
     (See `ap-nimbus-client-direct tags <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct/tags>`_
     for available version numbers.) |br| |br|
     This command will automatically download the container from the ``cardiacmodelling``

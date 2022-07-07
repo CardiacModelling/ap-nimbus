@@ -91,10 +91,7 @@ It is equally feasible to run as .. :
 
  * Non-containerised
 
-   *  Run |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct|
-      locally as a non-containerised development environment, e.g. by running their 
-      :file:`./kick_off.sh` scripts manually [#f3]_ |br|
-      This is covered in :ref:`developer`.
+   *  Running the various components without using containers is technically possible, but not reccomended or supported. See :ref:`developer` for suggestions on how to develop the components using containers.
 
 .. seealso:: For instructions on how to run containers, see the more detailed section on
              :ref:`running`.
@@ -153,6 +150,3 @@ Developer Section
          |ap-nimbus-app-manager| so far) have been trialled operating in isolation,
          not in an orchestrated environment. 
 .. [#f2] So long as there's a container runtime, e.g. |docker|, running somewhere!
-.. [#f3] Running |ap-nimbus-app-manager| and/or |ap-nimbus-client-direct| in a non-container
-         form requires a local installation of |ApPredict| and other software,
-         e.g. ``Node.js``, ``inotify``, ``jq``.

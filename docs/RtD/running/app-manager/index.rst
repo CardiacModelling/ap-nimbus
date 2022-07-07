@@ -11,7 +11,7 @@ To run |ap-nimbus-app-manager| from |CLI| do :
 
 ::
   
-  docker run -it --rm -p 8080:8080 cardiacmodelling/ap-nimbus-app-manager:<version>
+  ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
 
 In Docker parlance, the ``-p`` will "publish" or "expose" the container port 8080 to port
 8080 on the host machine by means of fiddling with the firewall (see 

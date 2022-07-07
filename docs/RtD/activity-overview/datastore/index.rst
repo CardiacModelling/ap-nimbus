@@ -1,6 +1,6 @@
 .. include:: ../../global.rst
 
-|datastore|
+datastore
 ===========
 
 |datastore| is a `Node.js <https://nodejs.org/>`_ (v10.12.0) "REST" endpoint to a separate

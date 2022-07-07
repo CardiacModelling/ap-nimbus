@@ -1,6 +1,6 @@
 .. include:: ../../global.rst
 
-``appredict-with-emulators``
+appredict-with-emulators
 ============================
 
 |appredict-with-emulators| is a container which has |appredict-no-emulators| as its

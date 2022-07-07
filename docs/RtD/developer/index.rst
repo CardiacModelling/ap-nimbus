@@ -11,6 +11,6 @@ Developer Section
    building/index
    tagging/index
    container/index
-   non-container/index
    how-they-work/index
    further-info/index
+   networking-persistence/index   
