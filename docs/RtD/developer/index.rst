@@ -13,4 +13,6 @@ Developer Section
    container/index
    how-they-work/index
    further-info/index
-   networking-persistence/index   
+   networking-persistence/index
+   backup/index
+   command-line/index

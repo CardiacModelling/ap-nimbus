@@ -117,8 +117,8 @@ Install |ap-nimbus-client-direct|
  #. Data persistence
      By default data does not persist. This means that if you restart the client-direct any uploaded files (cellml models and PK data files) will be gone and if you restart the database all data will be gone, i.e. all accounts, simulations, cellml models etc. Data volumes can be used to make sure data persists
      
-     the following command creates a docker data volume called ap_nimbus_data `docker volume create ap_nimbus_data`
-     the following command creates a docker data volume called ap_nimbus_file_upload `docker volume create ap_nimbus_file_upload`
+     the following command creates a docker data volume called ap_nimbus_data ``docker volume create ap_nimbus_data`` |br|
+     the following command creates a docker data volume called ap_nimbus_file_upload ``docker volume create ap_nimbus_file_upload``|br|
      
      the following command lists information about the ap_nimbus_file_upload volume, including the mount point (the actual location where the data is stored). This mountpoint can be backed up if desired. `docker volume inspect ap_nimbus_file_upload`
 
