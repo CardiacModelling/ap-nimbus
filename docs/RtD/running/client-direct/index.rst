@@ -11,7 +11,49 @@ Running |ap-nimbus-client-direct|
 
   docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>
 
-Where ap_nimbus_network is a docker network created,  ap_nimbus_file_upload a created docker volume and env e file with environment variables.
+Where ap_nimbus_network is a docker network created, ap_nimbus_file_upload a created docker volume and env file with environment variables (which could also be passed as commind line switches):
+```
+# The environment variable used by the docker components for AP Nimbus (claudified AP predict) are listed below. They are listed as VAR=VALUE pairs (without any spaces)
+
+# please pick a secret key a long random string is ideal
+DJANGO_SECRET_KEY=
+
+# please replace the email by the address of your first superuser, which will be able to long into django as admin
+DJANGO_SUPERUSER_EMAIL=
+
+# please pick a secure password for the superuser
+DJANGO_SUPERUSER_PASSWORD=
+
+# this is intended for situations where the client is running behind a proxy and a subfolder is forwarded to it. This variable will ensure the urls used will correctly contain the relevant subfolder
+subfolder=
+
+# allowd hosts django should be allowed to serve web pages for (comma separated). In production this should probably be set to the public facing hostnae of your webpage to prevent security issues wuch as web cache poisoning. If left empty any host will be allowed ('*')
+ALLOWED_HOSTS=
+
+# set the smtp server used to send emails from
+smtp_server=
+
+# this email address is used as the from address in any emails sent by the client
+django_email_from_addr=
+
+# port to run django on
+DJANGO_PORT=8000
+
+# Database variable, values below assume you are running a postgres container with name ap_nimbus_postgres in the docker network
+#PYTHONUNBUFFERED=1
+PGPASSWORD=
+PGDATABASE=django_ap_nimbus_client
+PGPORT=5432
+PGHOST=ap-nimbus-postgres
+PGUSER=postgres
+
+# Location of the AP predict endpoint (usually in your docker network, but could be set to be elsewhere)
+AP_PREDICT_ENDPOINT=http://ap-nimbus-network:8080
+
+#Supply a brief sentence about where this instance is hosted
+HOSTING_INFO=""
+```
+
 See :ref:`installation-client-direct`.
 
 
