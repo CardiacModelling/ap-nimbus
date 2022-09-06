@@ -1,8 +1,0 @@
-node_modules/
-data/
-.gitignore
-.git/
-example.env
-docker/
-wait
-Jenkinsfile
