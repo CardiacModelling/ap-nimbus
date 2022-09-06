@@ -1,1 +1,0 @@
-# Testing Azure Durable Functions.
