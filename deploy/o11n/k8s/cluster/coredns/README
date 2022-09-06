@@ -1,7 +1,0 @@
-nano /etc/kubernetes/kubelet (on master and minion - add "--cluster-dns=10.254.0.2")
-systemctl restart kubelet (on master and minion)
-
-# 1. Verified with busybox (kubectl exec -ti busybox -- nslookup database.default.svc.cluster.local 10.254.0.2)
-# 2. Seems to expect yaml's to be re-created before DNSs are found
-
-

@@ -7,3 +7,6 @@
 [submodule "ap-nimbus-datastore"]
 	path = ap-nimbus-datastore
 	url = https://github.com/CardiacModelling/ap-nimbus-datastore
+[submodule "ap-nimbus-deploy"]
+	path = ap-nimbus-deploy
+	url = https://github.com/CardiacModelling/ap-nimbus-deploy
