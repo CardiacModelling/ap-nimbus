@@ -27,14 +27,14 @@ This section refers to :
 ::
 
    user@host:~> mkdir tmp && cd tmp
-   user@host:~/tmp> git clone https://github.com/CardiacModelling/ap-nimbus
-   user@host:~/tmp> cd ap-nimbus/appredict-no-emulators
-   user@host:~/tmp/ap-nimbus/appredict-no-emulators> 
+   user@host:~/tmp> git clone --recursive https://github.com/CardiacModelling/ap-nimbus
+   user@host:~/tmp> cd ap-nimbus/appredict-docker/appredict-no-emulators
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> 
 
              Edit the Dockerfile to a new appredict_hash (and branch) value
 
-   user@host:~/tmp/ap-nimbus/appredict-no-emulators> docker build --build-arg build_processors=<processors> -t appredict-no-emulators:<new version, e.g. mytest1> .
-   user@host:~/tmp/ap-nimbus/appredict-no-emulators> docker run -it --rm appredict-no-emulators:<new version, e.g. mytest1>
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> docker build --build-arg build_processors=<processors> -t appredict-no-emulators:<new version, e.g. mytest1> .
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> docker run -it --rm appredict-no-emulators:<new version, e.g. mytest1>
 
    bash-4.4$ cd build/ApPredict
    bash-4.4$ git status
@@ -44,12 +44,12 @@ This section refers to :
    bash-4.4$ git branch
    bash-4.4$ exit
 
-   user@host:~/tmp/ap-nimbus/appredict-no-emulators> cd ../appredict-with-emulators
-   user@host:~/tmp/ap-nimbus/appredict-with-emulators>
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> cd ../appredict-with-emulators
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-with-emulators>
 
              Edit the Dockerfile `FROM` clause to appredict-no-emulators:<new version, e.g. mytest1>
 
-   user@host:~/tmp/ap-nimbus/appredict-with-emulators> docker build --build-arg build_processors=<processors> -t appredict-with-emulators:<new version, e.g. mytest1> .
+   user@host:~/tmp/ap-nimbus/appredict-docker/appredict-with-emulators> docker build --build-arg build_processors=<processors> -t appredict-with-emulators:<new version, e.g. mytest1> .
 
 Why not use `Chaste/chaste-docker <https://github.com/Chaste/chaste-docker>`_?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

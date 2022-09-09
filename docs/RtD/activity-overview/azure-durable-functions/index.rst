@@ -20,6 +20,8 @@ requests (e.g. as per `simulationInput.json <https://raw.githubusercontent.com/C
 and would spin up the corresponding number of |ap-nimbus-app-manager|\s and return
 the generated results.
 
+ * Azure Durable Functions is available in the ap-nimbus git repository via the ap-nimbus-azure-durable-functions submodule
+
 Developers may be interested to read about some of the issues faced :
 
  * :ref:`further-info-durable-functions`.

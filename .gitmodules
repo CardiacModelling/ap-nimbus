@@ -10,3 +10,6 @@
 [submodule "ap-nimbus-deploy"]
 	path = ap-nimbus-deploy
 	url = https://github.com/CardiacModelling/ap-nimbus-deploy
+[submodule "appredict-docker"]
+	path = appredict-docker
+	url = https://github.com/CardiacModelling/appredict-docker

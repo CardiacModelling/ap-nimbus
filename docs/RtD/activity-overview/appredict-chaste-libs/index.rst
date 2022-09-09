@@ -9,4 +9,5 @@ appredict-chaste-libs
    |ApPredict| dependencies compiled from source code and as such just the foundation for
    |appredict-no-emulators| to build on.
  * There's no "running" of |appredict-chaste-libs|.
+ * appredict-chaste-libs is available in the ap-nimbus git repository via the appredict-docker submodule
 
