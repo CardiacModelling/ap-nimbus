@@ -13,3 +13,6 @@
 [submodule "appredict-docker"]
 	path = appredict-docker
 	url = https://github.com/CardiacModelling/appredict-docker
+[submodule "app-manager"]
+	path = app-manager
+	url = https://github.com/CardiacModelling/ap-nimbus-app-manager
