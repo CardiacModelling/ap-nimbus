@@ -1,18 +1,24 @@
 [submodule "client-direct"]
 	path = client-direct
 	url = https://github.com/CardiacModelling/ap-nimbus-client.git
+	branch = master
 [submodule "ap-nimbus-azure-durable-functions"]
 	path = ap-nimbus-azure-durable-functions
 	url = https://github.com/CardiacModelling/ap-nimbus-azure-durable-functions
+	branch = master
 [submodule "ap-nimbus-datastore"]
 	path = ap-nimbus-datastore
 	url = https://github.com/CardiacModelling/ap-nimbus-datastore
+	branch = master
 [submodule "ap-nimbus-deploy"]
 	path = ap-nimbus-deploy
 	url = https://github.com/CardiacModelling/ap-nimbus-deploy
+	branch = master
 [submodule "appredict-docker"]
 	path = appredict-docker
 	url = https://github.com/CardiacModelling/appredict-docker
+	branch = master
 [submodule "app-manager"]
 	path = app-manager
 	url = https://github.com/CardiacModelling/ap-nimbus-app-manager
+	branch = master
