@@ -3,6 +3,8 @@
 Container Operations
 ====================
 
+.. _developer-htw-app-manager:
+
 |ap-nimbus-app-manager|
 -----------------------
 
@@ -18,13 +20,6 @@ Container Operations
 
  #. :file:`kick_off.sh` secondly sets off :file:`server.js` listening on whichever
     host/port (e.g. ``0.0.0.0:8080``).
-
-    * If an intermediary data repository, e.g. |datastore|, is being used (i.e. if the
-      ``REST_API_URL_DATA`` environment variable is assigned a value) then
-      :file:`server.js` starts watching file creation/modification in a :file:`res`
-      directory. If a creation/modification event of interest takes place in this 
-      :file:`res` directory then the content is read in and sent (via |HTTP|) to the 
-      intermediary data repository.
 
  #. |app-manager| (or rather :file:`server.js`,) receives a ``POST`` request from |client-direct|
     to run |ApPredict|

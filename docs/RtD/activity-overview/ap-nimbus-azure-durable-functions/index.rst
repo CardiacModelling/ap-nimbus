@@ -1,16 +1,17 @@
 .. include:: ../../global.rst
 
-Azure Durable Functions
-=======================
+ap-nimbus-azure-durable-functions
+=================================
 
-This is a test activity to determine the viability of using 
+This was a test activity to determine the viability of using
 `Azure Durable Functions <https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview?tabs=javascript#async-http>`_
 as a solution to enabling high-concurrency cardiac simulations.
 
-Whereas with the orchestrated container option, e.g. |kubernetes|, which manages the
-|ap-nimbus-client-direct|, |ap-nimbus-app-manager| and |ap-nimbus-datastore| container
-deployment and intercommunication on an "always-on" basis, the Azure Durable Functions
-are supposed to rapidly spin up and down containers "on demand".
+Whereas with the orchestrated container option, e.g. |kubernetes|, which managed the
+legacy |client-direct| (superceded by |ap-nimbus-client-direct|), |ap-nimbus-app-manager|
+and legacy "ap-nimbus-datastore" container deployment and intercommunication
+on an "always-on" basis, the Azure Durable Functions are supposed to rapidly spin up
+and down containers "on demand".
 
 For our purposes therefore we were only investigating the ability of Azure Durable
 Functions to rapidly scale up and down |ap-nimbus-app-manager|. The expectation being

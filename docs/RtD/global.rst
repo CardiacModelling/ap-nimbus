@@ -49,12 +49,14 @@
 .. |XML| replace:: :abbr:`XML (eXtensible Markup Language)`
 .. |XSD| replace:: :abbr:`XSD (XML Schema Definition)`
 
+.. The following are https://hub.docker.com/u/cardiacmodelling repository references
+
 .. |ap-nimbus-app-manager| replace:: ``cardiacmodelling/ap-nimbus-app-manager``
 .. |ap-nimbus-client-direct| replace:: ``cardiacmodelling/ap-nimbus-client-direct``
-.. |ap-nimbus-datastore| replace:: ``cardiacmodelling/ap-nimbus-datastore``
 .. |appredict-with-emulators| replace:: ``cardiacmodelling/appredict-with-emulators``
 .. |appredict-no-emulators| replace:: ``cardiacmodelling/appredict-no-emulators``
 .. |appredict-chaste-libs| replace:: ``cardiacmodelling/appredict-chaste-libs``
+
 .. |AP-Nimbus| replace:: ``AP-Nimbus``
 .. |AP-Portal| replace:: ``AP-Portal``
 .. |ApPredict| replace:: ``ApPredict``
@@ -67,7 +69,6 @@
 
 .. |app-manager| replace:: ``app-manager``
 .. |client-direct| replace:: ``client-direct``
-.. |datastore| replace:: ``datastore``
 
 .. |role| replace:: "*Role*"
 

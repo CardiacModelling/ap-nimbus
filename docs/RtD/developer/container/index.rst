@@ -9,7 +9,11 @@ Running Containerised
 -----------------------
 
 If you start |ap-nimbus-app-manager| using the conventional ``docker run`` command, e.g.
-``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``,
+
+:: 
+
+   docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>
+
 the instruction is to "publish" or "expose" the container ports (see 
 `Publish or expose port (-p, --expose) <https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose>`_
 for more information). |br|
@@ -35,14 +39,21 @@ What this does on an ``iptables``-based system is adjust the firewall such as :
 
   :
 
-|br|
-## developing in container
-if you start a container as follows
-``docker run -it --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version> bash``
-you will get a command bash shell inside the conatiner. You can make changes and manually start the app-manager by running ``/home/appredict/apps/app-manager/kickoff.sh``. |br|
-In order to try out changes, you can stop the app-manager by stopping kickoff.sh and killing conver.sh and manually restart it after changed have been applied. |br|
-**Please note:** if you quite the container it will stop and it will loose changes made. Instead of exiting the container you can detach with **CTRL+P+Q** and re-attach with ``docker attach <ap-nimbus-app-manager container name>``.
 
+Developing in container
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If you start a container as follows:
+
+::
+
+   docker run -it --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version> bash
+
+You will get a command bash shell inside the container. You can make changes and manually start the |app-manager| by running ``/home/appredict/apps/app-manager/kickoff.sh``. |br|
+In order to try out changes, you can stop the |app-manager| by stopping :file:`kick_off.sh` and killing :file:`convert.sh` and manually restart it after changes have been applied. |br|
+
+.. note:: If you quite the container it will stop and it will loose changes made. Instead of exiting the container you can detach
+          with ``CTRL+P+Q`` and re-attach with ``docker attach <ap-nimbus-app-manager container name>``.
 
 .. _developer-container-client-direct:
 
@@ -50,9 +61,12 @@ In order to try out changes, you can stop the app-manager by stopping kickoff.sh
 -------------------------
 
 If you start |ap-nimbus-client-direct| using the conventional ``docker run`` command, e.g.
-``docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>``,
-the instruction is to "publish" or "expose" the container ports (see 
-`Publish or expose port (-p, --expose) <https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose>`_
+
+::
+
+   docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>
+
+The instruction is to "publish" or "expose" the container ports (see `Publish or expose port (-p, --expose) <https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose>`_
 for more information). |br|
 What this does on an ``iptables``-based system is adjust the firewall such as :
 
@@ -75,9 +89,18 @@ What this does on an ``iptables``-based system is adjust the firewall such as :
   2    DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:4200 to:10.254.93.2:4200
 
   :
-## developing in container
-if you start a container as follows
-``docker run -it --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version> bash``
-you will get a command bash shell inside the conatiner. You can make changes and manually start the client-direct ``/opt/django/Weblab/weblab/docker/kickoff.sh``. |br|
-In order to try out changes, you can stop the kick-off script and manually restart it after changed have been applied. |br|
-**Please note:** if you quite the container it will stop and it will loose changes made. Instead of exiting the container you can detach with **CTRL+P+Q** and re-attach with ``docker attach <ap-nimbus-client-direct container name>``.
+
+Developing in container
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If you start a container as follows
+
+::
+
+   docker run -it --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version> bash
+
+You will get a command bash shell inside the conatiner. You can make changes and manually start the client-direct ``/opt/django/Weblab/weblab/docker/kickoff.sh``. |br|
+In order to try out changes, you can stop the :file:`kick-off.sh` script and manually restart it after changed have been applied. |br|
+
+.. note:: If you quite the container it will stop and it will loose changes made. Instead of exiting the container you can detach
+          with ``CTRL+P+Q`` and re-attach with ``docker attach <ap-nimbus-client-direct container name>``.

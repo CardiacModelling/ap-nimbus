@@ -7,15 +7,30 @@ Running |ap-nimbus-app-manager|
 
 .. seealso:: Offical ``docker run`` `documentation <https://docs.docker.com/engine/reference/commandline/run/>`_.
 
-To run |ap-nimbus-app-manager| from |CLI| do :
+You have two options for running |ap-nimbus-app-manager|, either :
 
-::
-  
-  ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
+  #. As a standalone container to call using a |CLI|, e.g. ``curl`` (see later `Start a Simulation`_ and `Query a Simulation`_ sections).
+
+     ``docker run -it --rm -p 8080:8080 cardiacmodelling/ap-nimbus-app-manager:<version>`` |br|
+     (``Cntl-C`` to exit)
+
+  #. As part of |AP-Nimbus| (see also :ref:`running-client-direct`)
+
+     ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
+
+     If this is run on cardiac.nottingham.ac.uk, we need to make that hostname available, otherwise it would resolve incorrectly
+     so add
+
+     ``--add-host=cardiac.nottingham.ac.uk=cardiac.nottingham.ac.uk:128.243.44.16``
+
+     You can then use that name as hostname in the |client-direct| settings. |br|
+     **Please note**: DO NOT use underscores in these names as underscores in hostnames is not universally supported.
 
 In Docker parlance, the ``-p`` will "publish" or "expose" the container port 8080 to port
 8080 on the host machine by means of fiddling with the firewall (see 
 :ref:`developer-container-app-manager` for a bit more information).
+
+.. seealso:: For supplimentary developer information see :ref:`developer-htw-app-manager`.
 
 Start a Simulation 
 ------------------

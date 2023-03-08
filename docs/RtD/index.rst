@@ -51,8 +51,10 @@ Diagrammatic Representation
 For the role each of the containers has in the overall |AP-Nimbus| activity please
 see :ref:`activity-overview`.
 
-ApPredict
-^^^^^^^^^
+.. _appredict_containers:
+
+ApPredict containers
+^^^^^^^^^^^^^^^^^^^^
 
 `ApPredict <https://github.com/Chaste/ApPredict>`_ is the underlying cardiac 
 simulation engine.
@@ -65,18 +67,15 @@ in a fraction of the time [#f2]_.
    :width: 700px
    :alt: ApPredict in Containers.
 
-.. warning:: |ap-nimbus-app-manager| does not currently handle either of |PKPD| or
-             Dynamic CellML operations. These activities can only take place when
-             using the |CLI| |appredict-no-emulators| or |appredict-with-emulators|.
+.. _apnimbus_containers:
 
-Orchestration
-^^^^^^^^^^^^^
+|AP-Nimbus| containers
+^^^^^^^^^^^^^^^^^^^^^^
 
-The following illustrates a microservice-based solution to potentially running many
-|ApPredict|\s concurrently.
+The following illustrates a Docker container setup.
 
-.. figure:: _static/images/apnimbus-container-orchestration.png
-   :alt: ApPredict container orchestration.
+.. figure:: _static/images/apnimbus-containers.png
+   :alt: AP-Nimbus containers.
 
 It is equally feasible to run as .. :
 
