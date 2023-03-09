@@ -55,33 +55,6 @@ Why not use `Chaste/chaste-docker <https://github.com/Chaste/chaste-docker>`_?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It would be possible to use the "offical" Chaste-endorsed dependency container as a
-base image to build |appredict-no-emulators|, etc., on, however we're trying to
-create as lightweight as possible container and so for |AP-Nimbus| the
-`Alpine Linux <https://alpinelinux.org/>`_ distribution is used as a base image
-with only dependencies for |ApPredict| installed on top of that.
-
-Microservice-related Containers
--------------------------------
-
-This section refers to :
-
- #. `ap-nimbus-client-direct <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct>`_
- #. `ap-nimbus-app-manager <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-app-manager>`_
- #. `ap-nimbus-datastore <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-datastore>`_
-
-.. _installation-build-datastore:
-
-|ap-nimbus-datastore|
-^^^^^^^^^^^^^^^^^^^^^
-
-This component will only run containerised and requires :
-
- #. A separate MongoDB database image (which will be auto-downloaded at build time).
-
-Initial configuration :
-
- #. ``cd datastore``
- #. ``cp example.env .env`` |br|
-    By default though it listens on ``8118`` and expects the database to be listening on
-    , for example ``database:27017`` or ``swarm_database:27017``.
- #. ``docker-compose -f docker/docker-compose.yml build``
+base image to build |appredict-no-emulators|, etc., on -- and up to around 2021 we'd been
+using an `Alpine Linux <https://alpinelinux.org/>`_ distribution base. Now, however, we're
+using the preferred Debian container to enable easy install of dependency packages.

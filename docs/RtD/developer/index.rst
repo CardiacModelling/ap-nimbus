@@ -5,6 +5,9 @@
 Developer Section
 =================
 
+Please keep in mind that some of the content below refers to discontinued activities. See :ref:`activity-overview`
+for more information on the status of some activities.
+
 .. toctree::
    :maxdepth: 2
 

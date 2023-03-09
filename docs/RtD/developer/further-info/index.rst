@@ -3,16 +3,6 @@
 Further Information
 ===================
 
-.. _further-info-datastore:
-
-|datastore|
------------
-
-|ap-nimbus-datastore| is influenced/derived from the following sources (amongst others) :
-
- * `Build a CRUD API with MongoDB, Express, and Docker <https://hackernoon.com/build-a-crud-api-with-mongodb-express-and-docker-70510c6f706b>`_
- * `CRUD API built with MongoDB and Express <https://github.com/torchhound/mongo-crud>`_
-
 .. _further-info-durable-functions:
 
 Azure Durable Functions

@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'AP-Nimbus'
-copyright = u'2020, University of Nottingham'
+copyright = u'2023, University of Nottingham'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

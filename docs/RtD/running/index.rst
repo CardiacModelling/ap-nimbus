@@ -11,4 +11,3 @@ Running
    app-manager/index
    appredict/index
    client-direct/index
-   orchestrated/index
