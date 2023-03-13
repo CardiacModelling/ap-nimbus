@@ -16,7 +16,7 @@ You have two options for running |ap-nimbus-app-manager|, either :
 
   #. As part of |AP-Nimbus| (see also :ref:`running-client-direct`)
 
-     ``docker run -d --name ap-nimbus-ap-manager --hostname ap-nimbus-ap-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
+     ``docker run -d --name ap-nimbus-app-manager --hostname ap-nimbus-app-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
 
      If this is run on cardiac.nottingham.ac.uk, we need to make that hostname available, otherwise it would resolve incorrectly
      so add
