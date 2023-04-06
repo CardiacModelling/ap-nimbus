@@ -16,21 +16,25 @@ You have two options for running |ap-nimbus-app-manager|, either :
 
   #. As part of |AP-Nimbus| (see also :ref:`running-client-direct`)
 
-     ``docker run -d --name ap-nimbus-app-manager --hostname ap-nimbus-app-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
+     ``docker run -d --name ap-nimbus-app-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version>``
 
-     If this is run on cardiac.nottingham.ac.uk, we need to make that hostname available, otherwise it would resolve incorrectly
-     so add
+     .. note:: * You could also define a volume here, e.g. ``-v ap_nimbus_app_manager:/home/appredict/apps/app-manager`` if you wanted to
+                 see how simulations were being run and results stored ephemerally in the ``run`` and ``res`` folders at runtime.
 
-     ``--add-host=cardiac.nottingham.ac.uk=cardiac.nottingham.ac.uk:128.243.44.16``
+               * If this is run on cardiac.nottingham.ac.uk, we need to make that host name available (so that
+                 the container can retrieve the lookup tables from the server), otherwise it may resolve
+                 incorrectly (e.g. to ``127.0.0.1``) so add :
 
-     You can then use that name as hostname in the |client-direct| settings. |br|
-     **Please note**: DO NOT use underscores in these names as underscores in hostnames is not universally supported.
+                 ``--add-host=cardiac.nottingham.ac.uk:128.243.44.16``
+
+               * The value specified in ``--name`` can be used as the hostname in the |client-direct| :ref:`running-client-direct-envvars` settings. |br|
+                 **Please note**: DO NOT use underscores in these names as underscores in hostnames is not universally supported.
 
 In Docker parlance, the ``-p`` will "publish" or "expose" the container port 8080 to port
 8080 on the host machine by means of fiddling with the firewall (see 
 :ref:`developer-container-app-manager` for a bit more information).
 
-.. seealso:: For supplimentary developer information see :ref:`developer-htw-app-manager`.
+.. seealso:: For supplementary developer information see :ref:`developer-htw-app-manager`.
 
 Start a Simulation 
 ------------------
