@@ -7,6 +7,7 @@ This section explains what to do to get changed to ApPredict to trickle through 
 The way the containerised portal works, is that ApPredict runs inside the app-manager container. Therefore we do not need to worry about the client or database components.
 
 After a change to ApPredict has been made and pushed to the master branch the steps to use it with the portal are as follows:
+
 - Assign a tag to the ApPredict version as follows `gittag -a <name_of_tag> -m 'some messages for git history'` followed by `git push --tags`
 - Checkout the appredict-docker repository (https://github.com/CardiacModelling/)
 - Update the tag used for ApPredict at the top of the `Dockerfile` in appredict-no-emulators (to the one assigned earlier).
@@ -29,6 +30,7 @@ After a change to ApPredict has been made and pushed to the master branch the st
 - Optionally you can remove the old image with the `rmi` command, use docker image list to see the current images that you have.
 - Check out the ap-nimbus repository (https://github.com/CardiacModelling/ap-nimbus)
 - Update the changed components:
+
    - `git submodule update appredict-docker --remote`
    - `git submodule update app-manager --remote`
 - Git commit & push
