@@ -19,4 +19,4 @@ for more information on the status of some activities.
    networking-persistence/index
    backup/index
    command-line/index
-   updateing-appredict/index
+   updating-appredict/index
