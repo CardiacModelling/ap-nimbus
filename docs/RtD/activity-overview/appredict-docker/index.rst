@@ -16,7 +16,9 @@ appredict-chaste-libs
 
  * Conventionally |appredict-chaste-libs| isn't "installed" as it's just a Debian Docker image with all of
    |ApPredict|\ 's dependency packages installed, and as such just the foundation for
-   |appredict-no-emulators| to build on.
+   |appredict-no-emulators| to build on. |br|
+ * Historically (before ``cardiacmodelling/appredict-chaste-libs:0.0.5``) this container's contents were mostly
+   built from source packages of dependent libraries.
  * There's no "running" of |appredict-chaste-libs|.
 
 appredict-no-emulators

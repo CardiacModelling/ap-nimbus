@@ -16,9 +16,11 @@ Without dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
    user@host:~/tmp> docker run --rm \
                                -u `id -u`:`id -g` \
                                -v `pwd`/testoutput:/home/appredict/apps/ApPredict/testoutput:Z \
-                               -w /home/appredict/apps/ApPredict/ \
                                cardiacmodelling/appredict-no-emulators:<version> \
-                               /home/appredict/apps/ApPredict/ApPredict.sh --model 1 --plasma-conc-high 100
+                               apps/ApPredict/ApPredict.sh --model 1 --plasma-conc-high 100
+
+.. warning:: * **Don't** be tempted to ``Cntl-C`` to finish early, otherwise you may be left with a ``root``-owned directory to remove! |br|
+             * For ``cardiacmodelling/appredict-no-emulators:0.0.9`` **only**, the last line should be ``/bin/bash apps/ApPredict/ApPredict.sh <args>``
 
 .. seealso:: :ref:`sample-appredict-argument-input`
 
@@ -47,7 +49,7 @@ called :file:`this.pkpd`, and both are in the directory where docker is being ru
 Sample |ApPredict| argument input
 ---------------------------------
 
-The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.6`` (i.e. around July 2020)
+The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.9`` (i.e. around December 2022)
 
 ::
 
@@ -58,7 +60,8 @@ The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.6`` 
 *   options: 1 = Shannon, 2 = TenTusscher (06), 3 = Mahajan,
 *            4 = Hund-Rudy, 5 = Grandi, 6 = O'Hara-Rudy 2011 (endo),
 *            7 = Paci (ventricular), 8 = O'Hara-Rudy CiPA v1 2017 (endo)
-* OR --cellml <file>
+* OR --model <name of pre-compiled cellmlfile (without .cellml)>
+* OR --model <file> (a CellML file, relative to current working directory or an absolute path)
 *
 * SPECIFYING PACING:
 * --pacing-freq            Pacing frequency (Hz) (optional - defaults to 1Hz)
@@ -110,6 +113,15 @@ The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.6`` 
 *   Time(any units)<tab>Conc_trace_1(uM)<tab>Conc_trace_2(uM)<tab>...Conc_trace_N(uM)
 *   on each row.
 *
+* SECOND DRUG:
+* To run a second compound, with independent binding model
+* That is, total_block = block_drug_1 + block_drug_2 - block_drug_1*block_drug_2
+* Supply the following argument:
+* --drug-two-conc-factor  Factor to multiply the concentrations of drug 1 (specified as above)
+*                            to use when evaluating the block due to drug 2. 
+* To specify drug properties (and UQ below) use the same format, but just before the channel name
+* insert 'drug-two-' into the option names, for instance:  --pic50-drug-two-herg 
+*
 * UNCERTAINTY QUANTIFICATION:
 * --credible-intervals [x y z...] This flag must be present to do uncertainty calculations.
 *                      It can optionally be followed by a specific list of percentiles that are required
@@ -120,6 +132,9 @@ The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.6`` 
 *   (for details of what these spread parameters are see 'sigma' and '1/beta' in Table 1 of:
 *    Elkins et al. 2013  Journal of Pharmacological and Toxicological 
 *    Methods, 68(1), 112-122. doi: 10.1016/j.vascn.2013.04.007 )
+* --brute-force <N>  Make credible intervals with brute force forward simulations,
+*                    rather than using lookup tables, and do N samples each time.
+*
 *
 * OTHER OPTIONS:
 * --no-downsampling  By default, we print downsampled output to create small action potential
@@ -127,9 +142,9 @@ The following is derived from ``cardiacmodelling/appredict-no-emulators:0.0.6`` 
 * --output-dir       By default output goes into '$CHASTE_TEST_OUTPUT/ApPredict_output'
 *                    but you can redirect it (useful for parallel scripting)
 *                    with this argument.
-*
-
-
+* --version          Print out Chaste and ApPredict versions, along with dependency versions
+*                    and exit immediately (this info automatically goes to a 'provenance_info.txt' 
+*                    file on completion of a normal run without this flag).
 
 .. rubric:: Footnotes
 

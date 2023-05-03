@@ -23,8 +23,11 @@ Where:
      `Environment Variables`_ (which could also be passed as command line switches).
   #. ``<version>`` is a valid dockerhub tag (as available at https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct).
 
-In Docker parlance, the ``-p`` will "publish" or "expose" the container port 4200 to port
-4200 on the host machine by means of fiddling with the firewall (see
+.. note:: If you want to run |ap-nimbus-client-direct| in "developer" mode (e.g. using `client/config/develop_settings.py <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/client/config/develop_settings.py>`_)
+          then add the ``-d DJANGO_SETTINGS_MODULE=config.develop_settings`` to the ``docker run`` command.
+
+In Docker parlance, the ``-p 4240:80`` will "publish" or "expose" the container port 80 to port
+4240 on the host machine by means of fiddling with the firewall (see
 :ref:`developer-container-client-direct` for a bit more information).
 
 .. _running-client-direct-envvars:

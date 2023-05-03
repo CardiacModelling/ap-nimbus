@@ -27,10 +27,7 @@ Container Operations
  #. :file:`run_me.sh` starts |ApPredict| which writes output to the :file:`run` directory.
  #. :file:`convert.sh` sees results appearing in the :file:`run` directory and, on events of
     interest, processes the content and writes it to the :file:`res` directory.
- #. If an intermediary data repository is being used then :file:`server.js` sees
-    data files appearing/changing in the :file:`res` directory, reads them, then
-    sends them to the intermediary data repository ``REST API URL`` ...  
-    ... otherwise :file:`server.js` will be awaiting polling calls from |client-direct|
+ #. :file:`server.js` will be awaiting polling calls from |client-direct|
     requesting the results data and responding with content from files in the
     :file:`res` directory if/when available.
 

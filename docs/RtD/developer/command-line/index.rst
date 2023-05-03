@@ -8,10 +8,10 @@ Alternative Mechanisms
 
  #. Start |ap-nimbus-app-manager| and call its endpoint from the command line. |br|
     See :ref:`running-app-manager`.
- #. Run |appredict-with-emulators| or |appredict-no-emulators|. |br|
+ #. Run |appredict-with-emulators| or |appredict-no-emulators| in isolation/standalone. |br|
     See :ref:`running-appredict`.
  #. Start |ap-nimbus-app-manager| and a database as you normally would for |ap-nimbus-client-direct| (see
-    :ref:`running-client-direct-prerequisites`), but rather than use the |client-direct| UI, instead invoke
+    :ref:`running-client-direct-prerequisites`), but rather than use the |client-direct| |UI|, instead invoke
     |ap-nimbus-client-direct| from the command line as below.
 
 Invoking |ap-nimbus-client-direct| as a |CLI|
