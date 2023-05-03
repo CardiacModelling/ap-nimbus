@@ -12,7 +12,6 @@ for more information on the status of some activities.
    :maxdepth: 2
 
    building/index
-   tagging/index
    container/index
    how-they-work/index
    further-info/index
