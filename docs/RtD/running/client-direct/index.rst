@@ -151,6 +151,30 @@ The environment variables used by the docker components for |AP-Nimbus| are list
 
 ::
 
+  PRIVACY_NOTICE=""
+
+.. pull-quote::
+
+  A brief statement that will be shown at the start of the privacy notice
+
+::
+
+  CONTACT_MAILTO=mailto:
+
+.. pull-quote::
+
+  Mailto link for contacting maintiners
+
+::
+
+  CONTACT_TEXT=""
+
+.. pull-quote::
+
+  Contact text for contacting maintiners
+
+::
+
   AP_PREDICT_STATUS_TIMEOUT=1000
 
 .. pull-quote::
