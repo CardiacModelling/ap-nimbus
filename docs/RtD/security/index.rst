@@ -7,7 +7,7 @@ Security
 SQL injection, and Clickjacking protections.
 
 It is important that |client-direct| is provided with a strong secret key that is kept private. This can be done using the
-`DJANGO_SECRET_KEY` environment variable see :ref:`installation-client-direct`.
+`DJANGO_SECRET_KEY` environment variable see :ref:`running-client-direct`.
 
 .. note:: The docker component is not set-up to use https. Therefore it is strongly recommended that a webserver such
           as apache or nginx using https is used to proxy external requests to the |client-direct| component. |br| |br|

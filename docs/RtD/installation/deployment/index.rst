@@ -7,7 +7,7 @@ Deployment Options
 
                  +----------------------------+
                  | Do you intend to have only |
-                 | a "REST" API to ApPredict? |
+                 | an HTTP API to ApPredict?  |
                  +----------------------------+
                   |                          |
                  Yes                         No

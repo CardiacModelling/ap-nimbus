@@ -12,14 +12,13 @@ ApPredict-related Containers
 
 This section refers to :
 
- #. `appredict-chaste-libs <https://hub.docker.com/r/cardiacmodelling/appredict-chaste-libs>`_  
  #. `appredict-no-emulators <https://hub.docker.com/r/cardiacmodelling/appredict-no-emulators>`_  
  #. `appredict-with-emulators <https://hub.docker.com/r/cardiacmodelling/appredict-with-emulators>`_  
 
 .. _installation_build_local:
 
 .. warning:: It's important to note that even when using 32 processors it can
-             take an hour to build! |br|
+             30+ mins to build! |br|
              Equally, building appredict-with-emulators uses a lot of RAM as
              |ApPredict| loads files >1Gb into RAM. So better not to use all
              available processors for this step.
@@ -36,12 +35,9 @@ This section refers to :
    user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> docker build --build-arg build_processors=<processors> -t appredict-no-emulators:<new version, e.g. mytest1> .
    user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> docker run -it --rm appredict-no-emulators:<new version, e.g. mytest1>
 
-   bash-4.4$ cd build/ApPredict
-   bash-4.4$ git status
-             
-             Verify the ApPredict hash value is as earlier specified
+             Verify the ApPredict commit value against the commit hashes at https://github.com/Chaste/ApPredict/tags
 
-   bash-4.4$ git branch
+   bash-4.4$ apps/ApPredict/ApPredict 2> /dev/null | grep 'ApPredict is based on commit'
    bash-4.4$ exit
 
    user@host:~/tmp/ap-nimbus/appredict-docker/appredict-no-emulators> cd ../appredict-with-emulators

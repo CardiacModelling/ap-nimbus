@@ -7,9 +7,9 @@ Running |ap-nimbus-client-direct|
 
 .. seealso:: Offical ``docker run`` `documentation <https://docs.docker.com/engine/reference/commandline/run/>`_.
 
-.. warning:: |client-direct| requires a number of configuration property values / `Environment Variables`_ to be assigned
-             (e.g. for database connectivity) before it will start. |br| |br|
-             See `Prerequisites`_ for a more detailed running explanation.
+.. note:: |client-direct| requires a number of configuration property values / `Environment Variables`_ to be assigned
+          (e.g. for database connectivity) before it will start. |br| |br|
+          See later `Prerequisites`_ section for a more detailed running explanation.
 
 ::
 
@@ -23,73 +23,171 @@ Where:
      `Environment Variables`_ (which could also be passed as command line switches).
   #. ``<version>`` is a valid dockerhub tag (as available at https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct).
 
+.. note:: If you want to run |ap-nimbus-client-direct| in "developer" mode (e.g. using `client/config/develop_settings.py <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/client/config/develop_settings.py>`_)
+          then add the ``-d DJANGO_SETTINGS_MODULE=config.develop_settings`` to the ``docker run`` command.
+
+In Docker parlance, the ``-p 4240:80`` will "publish" or "expose" the container port 80 to port
+4240 on the host machine by means of fiddling with the firewall (see
+:ref:`developer-container-client-direct` for a bit more information).
+
+.. _running-client-direct-envvars:
+
 Environment Variables
 ---------------------
 
-The environment variables used by the docker components for AP Nimbus are listed below. They are listed as ``VAR=VALUE`` pairs (without any spaces).
+The environment variables used by the docker components for |AP-Nimbus| are listed below. They are listed as ``VAR=VALUE`` pairs (without any spaces).
 
-``DJANGO_SECRET_KEY=``
+.. note:: A template environment var file is provided in the repository, e.g. `docker/env <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/env>`_.
+
+::
+
+  DJANGO_SECRET_KEY=
+
+.. pull-quote::
 
   Please pick a secret key. A long random string is ideal.
 
-``DJANGO_SUPERUSER_EMAIL=``
+::
 
-  Please replace the email by the address of your first superuser, which will be able to long into django in an "admin" capacity.
+  DJANGO_SUPERUSER_EMAIL=
 
-``DJANGO_SUPERUSER_PASSWORD=``
+.. pull-quote::
+
+  Please assign the email of your first superuser, which will be able to long into Django in an "admin" capacity.
+
+::
+
+  DJANGO_SUPERUSER_PASSWORD=
+
+.. pull-quote::
 
   Please pick a secure password for the superuser.
 
-``subfolder=``
+::
 
-  This is intended for situations where the client is running behind a proxy and a subfolder is forwarded to it. |br|
-  This variable will ensure the urls used will correctly contain the relevant subfolder.
+  DJANGO_SUPERUSER_INSTITUTION=
 
-``ALLOWED_HOSTS=``
+.. pull-quote::
 
-  Allowed hosts django should be allowed to serve web pages for (comma separated). |br|
-  In production this should probably be set to the public facing hostnae of your webpage to prevent security issues wuch as web cache poisoning. |br|
+  Please assign the name of your institution, e.g. Nottingham
+
+::
+
+  subfolder=
+
+.. pull-quote::
+
+  This is intended for situations where the client is running behind a proxy, e.g. Apache, and a URL 
+  path is used to direct proxying requests, e.g. the ``ActionPotentialPortal`` in https://cardiac.nottingham.ac.uk/ActionPotentialPortal. |br|
+  This variable will ensure the urls used will correctly contain the relevant path.
+
+::
+
+  ALLOWED_HOSTS=
+
+.. pull-quote::
+
+  Allowed hosts Django should be allowed to serve web pages for (comma separated). |br|
+  In production this should probably be set to the public facing hostname of your webpage to prevent security issues such as web cache poisoning. |br|
   If left empty any host will be allowed (``'*'``)
 
-``smtp_server=``
+::
+
+  smtp_server=
+
+.. pull-quote::
   
   Set the |SMTP| server used to send emails from.
 
-``django_email_from_addr=``
+::
+
+  django_email_from_addr=
+
+.. pull-quote::
 
   This email address is used as the ``From:`` address in any emails sent by the client.
 
-``DJANGO_PORT=8000``
+::
 
-  Port to run django on.
+  DJANGO_PORT=8000
 
-``#PYTHONUNBUFFERED=1`` |br|
-``PGPASSWORD=`` |br|
-``PGDATABASE=django_ap_nimbus_client`` |br|
-``PGPORT=5432`` |br|
-``PGHOST=ap-nimbus-postgres`` |br|
-``PGUSER=postgres``
+.. pull-quote::
 
-  Database variables. Values above assume you are running a postgres container with name ``ap_nimbus_postgres`` in the docker network.
+  Port to run Django on.
 
-``AP_PREDICT_ENDPOINT=http://ap-nimbus-network:8080``
+::
 
-  Location of the AP predict endpoint (usually in your docker network, but could be set to be elsewhere).
+  #PYTHONUNBUFFERED=1
+  POSTGRES_PASSWORD=
+  PGPASSWORD=
+  PGDATABASE=django_ap_nimbus_client
+  PGPORT=5432
+  PGHOST=ap-nimbus-postgres
+  PGUSER=postgres
 
-``HOSTING_INFO=""``
+.. pull-quote::
+
+  Database variables. |br|
+  Values above assume you are running a postgres container with name ``ap-nimbus-postgres`` in the docker network. |br|
+  ``PGPASSWORD`` is used by Django whereas ``POSTGRES_PASSWORD`` is used by the Postgres database, so these should have the same value.
+
+::
+
+  AP_PREDICT_ENDPOINT=http://ap-nimbus-app-manager:8080
+
+.. pull-quote::
+
+  Location of the AP predict endpoint. |br|
+  Value above assumes you are running an app-manager container with the name ``ap-nimbus-app-manager``
+  in the docker network, but it could be set to be elsewhere.
+
+::
+
+  HOSTING_INFO=
+
+.. pull-quote::
   
   Supply a brief sentence about where this instance is hosted.
 
-In Docker parlance, the ``-p`` will "publish" or "expose" the container port 4200 to port
-4200 on the host machine by means of fiddling with the firewall (see
-:ref:`developer-container-client-direct` for a bit more information).
+::
+
+  PRIVACY_NOTICE=""
+
+.. pull-quote::
+
+  A brief statement that will be shown at the start of the privacy notice
+
+::
+
+  CONTACT_MAILTO=mailto:
+
+.. pull-quote::
+
+  Mailto link for contacting maintiners
+
+::
+
+  CONTACT_TEXT=""
+
+.. pull-quote::
+
+  Contact text for contacting maintiners
+
+::
+
+  AP_PREDICT_STATUS_TIMEOUT=1000
+
+.. pull-quote::
+
+  Status timeout (in ms). After this time the portal assumes something has gone wrong and stops trying to get a status update.
+
 
 .. _running-client-direct-prerequisites:
 
 Prerequisites
 -------------
 
-In order for the |ap-nimbus-client-direct| to perform and display simulations you at least need:
+In order for the |ap-nimbus-client-direct| to call |app-manager| and display simulation results you at least need:
 
  #. The |app-manager| (See :ref:`running-app-manager`).
  #. Communication: networking
@@ -119,7 +217,7 @@ In order for the |ap-nimbus-client-direct| to perform and display simulations yo
 
  #. Database
 
-    The following starts a postgres 14.1 database using the official debian-bullsey postgres docker image.
+    The following starts a postgres 14.1 database using the official debian-bullseye postgres docker image.
 
     ``docker run -d --name ap-nimbus-postgres --net ap_nimbus_network --restart always --user postgres -v ap_nimbus_data:/var/lib/postgresql/data --env-file env postgres:14.1-bullseye``
 
@@ -138,8 +236,7 @@ In order for the |ap-nimbus-client-direct| to perform and display simulations yo
       Should the component stop for whatever reason we want it to try and restart.
 
     ``-v ap_nimbus_data:/var/lib/postgresql/data`` |br|
-      Link the data volume created above to the path inside the container where the database data is stored.
+      Link the docker volume ``ap_nimbus_data`` to the path inside the container where the database data is stored.
 
     ``--env-file env`` |br|
-      Use the environment variable in :file:`env` |br|
-      **Note:** A template environment var file is provided in the repository, e.g. `docker/env <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/env>`_.
+      Use the `Environment Variables`_ in the :file:`env` file.
