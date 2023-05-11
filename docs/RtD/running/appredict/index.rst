@@ -7,8 +7,8 @@ Running |appredict-no-emulators| or |appredict-with-emulators|
 
 .. seealso:: Offical ``docker run`` `documentation <https://docs.docker.com/engine/reference/commandline/run/>`_.
 
-Without dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
------------------------------------------------------------------
+Without dynamic CellML (``--model <file>``) or |PKPD| (``--pkpd-file <file>``)
+------------------------------------------------------------------------------
 
 ::
 
@@ -24,11 +24,12 @@ Without dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
 
 .. seealso:: :ref:`sample-appredict-argument-input`
 
-With dynamic CellML (``--cellml``) or |PKPD| (``--pkpd-file``)
---------------------------------------------------------------
+With dynamic CellML (``--model <file>``) or |PKPD| (``--pkpd-file <file>``)
+---------------------------------------------------------------------------
 
 For simplicity, the `annotated` [#f1]_ CellML file is called :file:`this.cellml`, the |PKPD| file is
-called :file:`this.pkpd`, and both are in the directory where docker is being run.
+called :file:`this.pkpd`, and both are in the directory where the ``docker run ...`` command is 
+being run.
 
 ::
 
@@ -38,9 +39,11 @@ called :file:`this.pkpd`, and both are in the directory where docker is being ru
                                -v `pwd`/testoutput:/home/appredict/apps/ApPredict/testoutput:Z \
                                -v `pwd`/this.cellml:/home/appredict/apps/ApPredict/this.cellml:ro \
                                -v `pwd`/this.pkpd:/home/appredict/apps/ApPredict/this.pkpd:ro \
-                               -w /home/appredict/apps/ApPredict/ \
                                cardiacmodelling/appredict-no-emulators:<version> \
-                               /home/appredict/apps/ApPredict/ApPredict.sh --cellml this.cellml --pkpd-file this.pkpd
+                               apps/ApPredict/ApPredict.sh --model apps/ApPredict/this.cellml --pkpd-file apps/ApPredict/this.pkpd
+
+.. warning:: * **Don't** be tempted to ``Cntl-C`` to finish early, otherwise you may be left with a ``root``-owned directory to remove! |br|
+             * For ``cardiacmodelling/appredict-no-emulators:0.0.9`` **only**, the last line should be ``/bin/bash apps/ApPredict/ApPredict.sh <args>``
 
 .. seealso:: :ref:`sample-appredict-argument-input`
 
