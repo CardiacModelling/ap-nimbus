@@ -68,3 +68,23 @@ If you start a container using the ``docker run -d --name ap-nimbus-client ....`
 Therein you can access whichever parts of the application the user ``appredict`` has been granted access to (which would likely be
 determined by whatever has been assigned in the container's :file:`/etc/sudoers`, as determined by the container
 `Dockerfile <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/Dockerfile>`_).
+
+Fine-tuning Nginx logging
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is possible to do some small fine-tuning of Nginx logging configuration when building your own
+|client-direct|, by deploying a file :file:`docker/fragments/nginx/logexcludeaddr_nginx.conf` and
+then building and deploying a new container into a local repo, e.g. 
+
+::
+
+   pushd ~/git/ap-nimbus-client
+   cat docker/fragments/nginx/logexcludeaddr_nginx.conf 
+        # Don't log requests arriving from remote IP addr starting "192.168." or "172."
+        ~^192\.168\..*$ 0;
+        ~^172\..*$ 0;
+   docker build -f docker/Dockerfile -t ap-nimbus-client-direct:<ver> .
+   docker tag ap-nimbus-client-direct:<ver> localhost:5000/ap-nimbus-client-direct:<ver>
+   docker push localhost:5000/ap-nimbus-client-direct:<ver>
+   popd
+

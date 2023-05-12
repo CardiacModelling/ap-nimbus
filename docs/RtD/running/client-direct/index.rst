@@ -181,6 +181,17 @@ The environment variables used by the docker components for |AP-Nimbus| are list
 
   Status timeout (in ms). After this time the portal assumes something has gone wrong and stops trying to get a status update.
 
+::
+
+  LOGGING_FILE_DJANGO=
+  LOGGING_LEVEL_DJANGO=
+
+.. pull-quote::
+
+  (**Optional**) |br|
+  Django logs, as ingested by :file:`client/config/production_settings.py` |br|
+  Log file location : Defaults to ``/opt/django/media/django.log`` |br|
+  Log level : Values constrained to ``DEBUG/INFO/WARNING/ERROR/CRITICAL``. Defaults to ``INFO``
 
 .. _running-client-direct-prerequisites:
 
@@ -240,3 +251,8 @@ In order for the |ap-nimbus-client-direct| to call |app-manager| and display sim
 
     ``--env-file env`` |br|
       Use the `Environment Variables`_ in the :file:`env` file.
+
+Troubleshooting
+---------------
+
+See :ref:`troubleshooting-client-direct`
