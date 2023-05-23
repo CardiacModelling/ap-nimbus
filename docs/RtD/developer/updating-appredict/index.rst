@@ -104,7 +104,7 @@ Steps
         user@host:~/git> cd ap-nimbus/docs/RtD
         user@host:~/git/ap-nimbus/docs/RtD>
         # Edit .rst files (see https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
-        user@host:~/git/ap-nimbus/docs/RtD> rm -rf _build/*; make html           # <-- View content of _build/html/index.html in browser!
+        user@host:~/git/ap-nimbus/docs/RtD> make clean html           # <-- After this, view content of _build/html/index.html in browser!
     
     - :file:`README.md` files anywhere (e.g. ``appredict-docker``, ``ap-nimbus``).
 
