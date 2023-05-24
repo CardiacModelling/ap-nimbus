@@ -11,18 +11,25 @@ or output formats have changed!).
 Prerequisites
 -------------
 
- #. Write access to https://github.com/Chaste/ApPredict
+ #. Write access to https://github.com/Chaste/ApPredict |br|
+    If you have a GitHub `personal access token <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_,
+    you may need to run ``git clone https://<user>:<token>@github.com/repo/project`` or 
+    ``git remote set-url origin https://<user>:<token>@github.com/repo/project``
  #. Write access to https://github.com/CardiacModelling/ap-nimbus
  #. Write access to https://github.com/CardiacModelling/ap-nimbus-app-manager
  #. Write access to https://github.com/CardiacModelling/appredict-docker
- #. Write access to https://hub.docker.com/u/cardiacmodelling
+ #. Write access to https://hub.docker.com/u/cardiacmodelling |br|
+    You may need to run ``docker login -u <user> -p <pwd> docker.io`` at the command line to authenticate
  #. (Optional) https://readthedocs.org/ access (to rebuild https://ap-nimbus.readthedocs.io/)
+ #. A multicore server with good upload speeds as a build machine!
 
 Steps
 -----
 
-.. warning:: For brevity **only**, the cloning, updating and pushing to *master* branch is illustrated. |br|
-             New branches and Pull Requests are recommended.
+.. warning:: :underline:`For brevity only` the cloning, updating and pushing to *master* branch 
+             is illustrated - new branches and Pull Requests are recommended. |br| |br|
+             It would be better to **not** run the "build" instructions on servers hosting |ap-nimbus| -
+             to avoid inadvertently overwriting existing containers, or possibly ingesting cached layers.
 
 - Make changes to the underlying |ApPredict| and assign an annotated tag to the |ApPredict|
   default branch, e.g.
@@ -98,13 +105,15 @@ Steps
 
     - https://github.com/CardiacModelling/ap-nimbus/tree/master/docs/RtD
 
+      You may need to install (Ubuntu) ``sphinx``, ``sphinx_rtd_theme`` / (Fedora) ``python3-sphinx``, ``python3-sphinx_rtd_theme``.
+
       ::
 
         user@host:~/git> git clone https://github.com/CardiacModelling/ap-nimbus
         user@host:~/git> cd ap-nimbus/docs/RtD
         user@host:~/git/ap-nimbus/docs/RtD>
         # Edit .rst files (see https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
-        user@host:~/git/ap-nimbus/docs/RtD> make clean html           # <-- After this, view content of _build/html/index.html in browser!
+        user@host:~/git/ap-nimbus/docs/RtD> make clean html           # <-- After this, view content of _build/html/index.html in browser to verify!
     
     - :file:`README.md` files anywhere (e.g. ``appredict-docker``, ``ap-nimbus``).
 
@@ -119,7 +128,7 @@ Steps
      user@host:~/git/ap-nimbus> git commit -m "Commit message!"
      user@host:~/git/ap-nimbus> git push
 
-- Update |ap-nimbus-app-manager|
+- (Optional) Update |ap-nimbus-app-manager|
 
   ::
 
@@ -128,7 +137,7 @@ Steps
      user@host:~/git/ap-nimbus-app-manager>
      # In Dockerfile
      #   1. Update "FROM cardiacmodelling/appredict-with-emulators:<new_ap-nimbus-app-manager_tag>"
-     user@host:~/git/ap-nimbus-app-manager> docker build -t cardiacmodelling/ap-nimbus-app-manager:<new_ap-nimbus-app-manager_tag> .   # <-- Note trailing "."
+     user@host:~/git/ap-nimbus-app-manager> docker build --build-arg build_processors=<processors> -t cardiacmodelling/ap-nimbus-app-manager:<new_ap-nimbus-app-manager_tag> .   # <-- Note trailing "."
      user@host:~/git/ap-nimbus-app-manager> docker push cardiacmodelling/ap-nimbus-app-manager:<new_ap-nimbus-app-manager_tag>
 
   - Test the newly-uploaded Docker Hub containers.
@@ -144,6 +153,7 @@ Steps
     - GitHub/RtD - Make any relevant changes to :
 
       - https://github.com/CardiacModelling/ap-nimbus/tree/master/docs/RtD |br|
+        (See info above for how to verify changes locally)
       - :file:`README.md` files anywhere.
 
   - Commit and push GitHub changes
