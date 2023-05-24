@@ -23,6 +23,28 @@ Prerequisites
  #. (Optional) https://readthedocs.org/ access (to rebuild https://ap-nimbus.readthedocs.io/)
  #. A multicore server with good upload speeds as a build machine!
 
+Updating Git submodules
+-----------------------
+
+Easiest is updating all the submodules at once: 
+
+::
+
+  git clone --recursive https://github.com/cardiacModelling/ap-nimbus  
+  cd ap-nimbus  
+  git submodule update --remote 
+  git add -A 
+  git commit –m "Updated submodules" 
+  git push 
+
+ 
+If you want to update just 1 submodule then add the path in the update line. E.g. 
+
+::
+
+  git submodule update -–remote client-direct 
+
+
 Steps
 -----
 
