@@ -56,6 +56,42 @@ What this does on an ``iptables``-based system is adjust the firewall such as :
 
   :
 
+Django static file creation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Within `ap-nimbus-client/client/static <https://github.com/CardiacModelling/ap-nimbus-client/tree/master/client/static>`_ 
+there are the static files which the Django UI references, e.g. images, css, js.
+
+The following commands represent an example of how a new minified :file:`main-min.js` can be generated.
+
+**Note** : You need to have ``npm`` (so you probably need ``node.js`` installed - e.g. ``apt install nodejs npm``).
+
+.. warning:: 1. The commands below also modify the version-controlled file :file:`npm-shrinkwrap.json`, but don't
+             commit this change! |br|
+             2. They also fill up :file:`node_modules` with almost 100Mb of stuff which you **really**
+             don't want to be copied into a container! Better to delete the content of this
+             directory before building the container.
+
+::
+
+   user@host:~/git/ap-nimbus-client/client/static> npm install gulp
+   user@host:~/git/ap-nimbus-client/client/static> ./node_modules/gulp/bin/gulp.js      # <-- reads gulpfile.js
+   user@host:~/git/ap-nimbus-client/client/static> find ./ -mmin -1 -type f
+   ./css/style-min.css
+   ./build/js/main-min.js
+
+If you're just wanting to create and use an unminified version of :file:`main.js` for local testing, you can
+try the following.
+
+::
+
+   user@host:~/git/ap-nimbus-client/client/static> sed -i "s/noSource: true/noSource: true, ignoreFiles: ['main.js']/g" gulpfile.js
+   user@host:~/git/ap-nimbus-client/client/static> sed -i "s/main-min/main/g" ../templates/includes/head.html
+   user@host:~/git/ap-nimbus-client/client/static> ./node_modules/gulp/bin/gulp.js	# <-- reads gulpfile.js
+   user@host:~/git/ap-nimbus-client/client/static> find ./ -mmin -1 -type f
+   ./css/style-min.css
+   ./build/js/main.js
+
 Developing in container
 ^^^^^^^^^^^^^^^^^^^^^^^
 
