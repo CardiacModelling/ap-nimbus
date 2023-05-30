@@ -23,6 +23,11 @@ This section refers to :
              |ApPredict| loads files >1Gb into RAM. So better not to use all
              available processors for this step.
 
+.. note:: Within the :file:`Dockerfile`\s we have not enforced version-controlling of images or
+          dependencies (e.g. by specifying the base image tag with hash, or by using specific
+          versions of software, e.g. libhdf5-dev version *X*), as the built container represents
+          a unique snapshot in time. See `No version-controlling in appredict-chaste-libs Dockerfile <https://github.com/CardiacModelling/appredict-docker/issues/4>`_.
+
 .. note:: These instructions cover the case for building and testing |ApPredict| containers
           locally, rather than for uploading to DockerHub.
 
