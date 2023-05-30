@@ -51,7 +51,10 @@ Steps
 .. warning:: :underline:`For brevity only` the cloning, updating and pushing to *master* branch 
              is illustrated - new branches and Pull Requests are recommended. |br| |br|
              It would be better to **not** run the "build" instructions on servers hosting |ap-nimbus| -
-             to avoid inadvertently overwriting existing containers, or possibly ingesting cached layers.
+             to avoid inadvertently overwriting existing containers. |br| |br|
+             If you are concerned about ingesting cached layers, then use the option ``--no-cache`` 
+             during docker building. (Alternative techniques are discussed in 
+             `Stack Overflow - How to force Docker for a clean build of an image <https://stackoverflow.com/questions/35594987/how-to-force-docker-for-a-clean-build-of-an-image>`_)
 
 - Make changes to the underlying |ApPredict| and assign an annotated tag to the |ApPredict|
   default branch, e.g.
@@ -89,9 +92,10 @@ Steps
   - |ap-nimbus-app-manager| tag value (*"<new_ap-nimbus-app-manager_tag>"*) |br|
     See https://hub.docker.com/r/cardiacmodelling/ap-nimbus-app-manager/tags
 
-- Build and upload to Docker Hub a new |appredict-no-emulators| and |appredict-with-emulators| (see also 
-  :ref:`installation-build-local` for building/testing locally if you don't want to be uploading
-  new versions to Docker Hub just yet).
+- Build and upload to Docker Hub a new |appredict-no-emulators| and |appredict-with-emulators| |br| |br|
+  **Note** : If you don't want to be uploading new versions to Docker Hub immediately as per the following
+  instructions, see :ref:`installation-build-local` and :ref:`running-appredict` for building/testing
+  locally.
 
   ::
 
