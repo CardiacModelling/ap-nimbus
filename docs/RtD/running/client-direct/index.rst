@@ -21,6 +21,7 @@ Where:
   #. ``ap_nimbus_file_upload`` is a docker volume.
   #. :file:`env` A file, e.g. `docker/env <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/env>`_, containing
      `Environment Variables`_ (which could also be passed as command line switches).
+	 See the dven file for more details.
   #. ``<version>`` is a valid dockerhub tag (as available at https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct).
 
 .. note:: If you want to run |ap-nimbus-client-direct| in "developer" mode (e.g. using `client/config/develop_settings.py <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/client/config/develop_settings.py>`_)
@@ -61,7 +62,7 @@ The environment variables used by the docker components for |AP-Nimbus| are list
 
 .. pull-quote::
 
-  Please pick a secure password for the superuser.
+  Please pick a secure password for the superuser. Please note: If the user set in DJANGO_SUPERUSER_EMAIL already exists, the account will not be reset.
 
 ::
 
