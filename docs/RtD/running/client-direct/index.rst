@@ -21,7 +21,6 @@ Where:
   #. ``ap_nimbus_file_upload`` is a docker volume.
   #. :file:`env` A file, e.g. `docker/env <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/env>`_, containing
      `Environment Variables`_ (which could also be passed as command line switches).
-	 See the dven file for more details.
   #. ``<version>`` is a valid dockerhub tag (as available at https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct).
 
 .. note:: If you want to run |ap-nimbus-client-direct| in "developer" mode (e.g. using `client/config/develop_settings.py <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/client/config/develop_settings.py>`_)
@@ -51,26 +50,23 @@ The environment variables used by the docker components for |AP-Nimbus| are list
 ::
 
   DJANGO_SUPERUSER_EMAIL=
-
-.. pull-quote::
-
-  Please assign the email of your first superuser, which will be able to long into Django in an "admin" capacity.
-
-::
-
+  DJANGO_SUPERUSER_FULLNAME=
   DJANGO_SUPERUSER_PASSWORD=
-
-.. pull-quote::
-
-  Please pick a secure password for the superuser. Please note: If the user set in DJANGO_SUPERUSER_EMAIL already exists, the account will not be reset.
-
-::
-
   DJANGO_SUPERUSER_INSTITUTION=
 
 .. pull-quote::
 
-  Please assign the name of your institution, e.g. Nottingham
+  Please assign the email, full name, password and institution of the user who will be the Django 
+  superuser on application initialisation. |br|
+  After initialisation, if you wish to change the identity of the Django superuser, you have the
+  choice to either : |br|
+  1. Create a new user (i.e. someone whose email does not already exist in the application), by
+  specifying a completely new email, full name, password and institution in the above env vars,
+  or, |br|
+  2. Use the identity of an existing user (identified by email, case sensitive), who will have
+  their existing full name, password and institution overwritten with the values specified in the
+  above env vars. |br|
+  (In both cases, you will need to restart the application for the changes to become effective.)
 
 ::
 
