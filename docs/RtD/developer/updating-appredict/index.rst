@@ -6,7 +6,7 @@ Updating ApPredict
 This section explains what to do to get changed to ApPredict to trickle through to the (containerised) ApPortal.
 The way the containerised portal works, is that ApPredict runs inside the app-manager container. Therefore we do not need to worry about the client or database components.
 
-After a change to ApPredict has been made and pushed to the master branch the steps to use it with the portal are as follows:
+After a change to ApPredict has been made and pushed to the main branch the steps to use it with the portal are as follows:
 
 - Assign a tag to the ApPredict version as follows `gittag -a <name_of_tag> -m 'some messages for git history'` followed by `git push --tags`
 - Checkout the appredict-docker repository (https://github.com/CardiacModelling/)
