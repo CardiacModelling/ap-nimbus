@@ -66,7 +66,16 @@ The environment variables used by the docker components for |AP-Nimbus| are list
   2. Use the identity of an existing user (identified by email, case sensitive), who will have
   their existing full name, password and institution overwritten with the values specified in the
   above env vars. |br|
-  (In both cases, you will need to restart the application for the changes to become effective.)
+  (In both cases, you will need to restart |ap-nimbus-client-direct| for the changes to become effective.)
+
+.. warning:: On system restart, a Django superuser will exist as defined by whatever data is
+             specified in the ``SUPERUSER`` environment vars. See `create_admin.py <https://github.com/CardiacModelling/ap-nimbus-client/blob/master/client/accounts/management/commands/create_admin.py>`_,
+             which gets run on each restart. |br|
+             If the Django superuser (as defined by ``DJANGO_SUPERUSER_EMAIL``) needs to update
+             their email address, they must do so first via the |UI| "Account" option, and then
+             via a corresponding update to ``DJANGO_SUPERUSER_EMAIL`` (any other details to update
+             must be done through ``SUPERUSER`` environment vars **ONLY**), and then restart
+             |ap-nimbus-client-direct|.
 
 ::
 
