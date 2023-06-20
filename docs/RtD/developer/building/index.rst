@@ -55,6 +55,30 @@ This section refers to :
 
    user@host:~/tmp/appredict-docker/appredict-with-emulators> docker build --build-arg build_processors=<processors> -t appredict-with-emulators:<new version, e.g. mytest1> .
 
+|ap-nimbus-client-direct| Container
+-----------------------------------
+
+This section refers to :
+
+ #. `ap-nimbus-client-direct <https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct>`_  
+
+Perhaps the most important thing to keep in mind when building a local container is to **temporarily**
+modify the :file:`docker/Dockerfile` to copy the content of the local dir (which you've probably
+just modified a bit for this change), e.g.
+
+::
+
+   user@host:~> mkdir tmp && cd tmp
+   user@host:~/tmp> git clone https://github.com/CardiacModelling/ap-nimbus-client
+   user@host:~/tmp> cd ap-nimbus-client
+   user@host:~/tmp/ap-nimbus-client> 
+
+             Edit the docker/Dockerfile to copy the local content
+             e.g. #RUN git clone --recursive --branch master --depth 1 https://github.com/CardiacModelling/ap-nimbus-client.git
+                  COPY / /opt/django/ap-nimbus-client
+
+   user@host:~/tmp/ap-nimbus-client> docker build -f docker/Dockerfile -t ap-nimbus-client-direct:<new version, e.g. mytest1> .
+
 Why not use `Chaste/chaste-docker <https://github.com/Chaste/chaste-docker>`_?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
