@@ -115,14 +115,6 @@ The environment variables used by the docker components for |AP-Nimbus| are list
 
 ::
 
-  DJANGO_PORT=8000
-
-.. pull-quote::
-
-  Port to run Django on.
-
-::
-
   #PYTHONUNBUFFERED=1
   POSTGRES_PASSWORD=
   PGPASSWORD=
