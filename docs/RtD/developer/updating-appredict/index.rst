@@ -3,10 +3,10 @@
 Updating |ApPredict|
 ====================
 
-This section explains what to do to get changed to |ApPredict| to trickle through to the (containerised)
-|AP-Portal|. The way the containerised portal works, is that |ApPredict| runs inside the |ap-nimbus-app-manager|
-container. Therefore we do not need to worry about the client or database components (unless |ApPredict| input
-or output formats have changed!).
+This section explains what to do to get changes to the |ApPredict| *main* branch to trickle through to the
+(containerised) |AP-Portal|. The way the containerised portal works, is that |ApPredict| runs inside the
+|ap-nimbus-app-manager| container. Therefore we do not need to worry about the client or database components
+(unless |ApPredict| input or output formats have changed!).
 
 Prerequisites
 -------------
