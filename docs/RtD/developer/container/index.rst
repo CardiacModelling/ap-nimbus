@@ -92,6 +92,32 @@ try the following.
    ./css/style-min.css
    ./build/js/main.js
 
+Django migrations
+^^^^^^^^^^^^^^^^^
+
+A simplified section for developers unfamiliar with Python, Django and data migrations!
+
+Requirements :
+ - A running postgres db
+ - env vars in your environment. |br|
+   Derived from :file:`docker/env`, and containing valid values, particularly db data. |br|
+   In the commands below I've put an env file in :file:`~/git/env` (and note that if there are
+   spaces in env var values then you may need to wrap the values in double quotes, e.g. ``ENVVAR="An env var
+   val"``)
+
+::
+
+   user@host:~/git/ap-nimbus-client> python3 -m venv ../tmpenv
+   user@host:~/git/ap-nimbus-client> source ../tmpenv/bin/activate                                        # <-- Activate virtual env
+   (tmpenv) user@host:~/git/ap-nimbus-client> pip install -r requirements/requirements.txt                # <-- Load python libs into virtual env
+   (tmpenv) user@host:~/git/ap-nimbus-client> set -a; source ../env; set +a                               # <-- Load env vars (e.g. db host/user/etc) into environment
+   (tmpenv) user@host:~/git/ap-nimbus-client> python client/manage.py showmigrations                      # <-- Should show migrations on a "per app" basis
+   # We want to update db records (not alter table properties), so create a templated migration (for the "files" app)
+   (tmpenv) user@host:~/git/ap-nimbus-client> python client/manage.py makemigrations files --name fix_0005_auto --empty
+   (tmpenv) user@host:~/git/ap-nimbus-client> nano client/files/migrations/0008_fix_0005_auto.py          # <-- Edit content according to migration
+   (tmpenv) user@host:~/git/ap-nimbus-client> deactivate                                                  # <-- Leave virtual env
+   user@host:~/git/ap-nimbus-client>                                                                      # <-- As you were (except vars in your environment, ../env, and ../tmpenv!!)
+
 Developing in container
 ^^^^^^^^^^^^^^^^^^^^^^^
 
