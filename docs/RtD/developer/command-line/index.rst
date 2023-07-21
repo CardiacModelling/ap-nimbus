@@ -29,8 +29,8 @@ The example below starts a docker component and shows the various command line o
 
     sudo docker run -it \
                     --rm \
-                    --net ap_nimbus_network \
-                    -v ap_nimbus_file_upload:/opt/django/media \
+                    --net ap-nimbus-network \
+                    -v volume-client:/opt/django/media \
                     --env-file env \
                     cardiacmodelling/ap-nimbus-client-direct:<version> \
                     python manage.py start_simulation -h

@@ -17,7 +17,7 @@ If you start a container as follows:
 
 ::
 
-   docker run -it --name ap-nimbus-app-manager --net ap_nimbus_network --restart always cardiacmodelling/ap-nimbus-app-manager:<version> bash
+   docker run -it --name name-app-manager --net ap-nimbus-network --restart always cardiacmodelling/ap-nimbus-app-manager:<version> bash
 
 You will get a command bash shell inside the container. You can make changes and manually start the |app-manager| by running ``/home/appredict/apps/app-manager/kickoff.sh``. |br|
 In order to try out changes, you can stop the |app-manager| by stopping :file:`kick_off.sh` and killing :file:`convert.sh` and manually restart it after changes have been applied. |br|
@@ -121,7 +121,7 @@ Requirements :
 Developing in container
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-If you start a container using the ``docker run -d --name ap-nimbus-client ....`` you can access the running container using, for example :
+If you start a container using the ``docker run -d --name name-client ....`` you can access the running container using, for example :
 
 ::
 

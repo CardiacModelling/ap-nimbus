@@ -13,12 +13,12 @@ Running |ap-nimbus-client-direct|
 
 ::
 
-  docker run -d --name ap-nimbus-client --net ap_nimbus_network --restart always -v ap_nimbus_file_upload:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>
+  docker run -d --name name-client --net ap-nimbus-network --restart always -v volume-client:/opt/django/media -p 4240:80 --env-file env cardiacmodelling/ap-nimbus-client-direct:<version>
 
 Where:
 
-  #. ``ap_nimbus_network`` is a docker network.
-  #. ``ap_nimbus_file_upload`` is a docker volume.
+  #. ``ap-nimbus-network`` is a docker network.
+  #. ``volume-client`` is a docker volume.
   #. :file:`env` A file, e.g. `docker/env <https://raw.githubusercontent.com/CardiacModelling/ap-nimbus-client/master/docker/env>`_, containing
      `Environment Variables`_ (which could also be passed as command line switches).
   #. ``<version>`` is a valid dockerhub tag (as available at https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct).
@@ -120,18 +120,18 @@ The environment variables used by the docker components for |AP-Nimbus| are list
   PGPASSWORD=
   PGDATABASE=django_ap_nimbus_client
   PGPORT=5432
-  PGHOST=ap-nimbus-postgres
+  PGHOST=name-postgres
   PGUSER=postgres
 
 .. pull-quote::
 
   Database variables. |br|
-  Values above assume you are running a postgres container with name ``ap-nimbus-postgres`` in the docker network. |br|
+  Values above assume you are running a postgres container with name ``name-postgres`` in the docker network. |br|
   ``PGPASSWORD`` is used by Django whereas ``POSTGRES_PASSWORD`` is used by the Postgres database, so these should have the same value.
 
 ::
 
-  AP_PREDICT_ENDPOINT=http://ap-nimbus-app-manager:8080
+  AP_PREDICT_ENDPOINT=http://name-app-manager:8080
 
 .. pull-quote::
 
@@ -195,7 +195,7 @@ In order for the |ap-nimbus-client-direct| to call |app-manager| and display sim
     #. You can refer to components by their docker IP address. |br|
        To find this it needs to be started first, so you will have to start the database and |app-manager| first and find
        their IPs to use in the |client-direct| configuration.
-    #. An easier way is to create a docker network (e.g. ``docker network create ap_nimbus_network``) and add the database,
+    #. An easier way is to create a docker network (e.g. ``docker network create ap-nimbus-network``) and add the database,
        |app-manager| and |client-direct| components to it and give each component a name. |br|
 
  #. Data persistence
@@ -205,10 +205,10 @@ In order for the |ap-nimbus-client-direct| to call |app-manager| and display sim
     you restart the database all data will be gone, i.e. all accounts, simulations, cellml models etc. Data volumes can be used
     to make sure data persists.
 
-    The following commands create and "inspect" a docker data volume called ``ap_nimbus_data``:
+    The following commands create and "inspect" a docker data volume called ``volume-postgres``:
 
-    ``docker volume create ap_nimbus_data`` |br|
-    ``docker volume inspect ap_nimbus_data``
+    ``docker volume create volume-postgres`` |br|
+    ``docker volume inspect volume-postgres``
 
     ``inspect`` reveals information including the mount point (the actual location where the data is stored). This mountpoint
     can be backed up if desired.
@@ -217,24 +217,24 @@ In order for the |ap-nimbus-client-direct| to call |app-manager| and display sim
 
     The following starts a postgres 14.1 database using the official debian-bullseye postgres docker image.
 
-    ``docker run -d --name ap-nimbus-postgres --net ap_nimbus_network --restart always --user postgres -v ap_nimbus_data:/var/lib/postgresql/data --env-file env postgres:14.1-bullseye``
+    ``docker run -d --name name-postgres --net ap-nimbus-network --restart always --user postgres -v volume-postgres:/var/lib/postgresql/data --env-file env postgres:14.1-bullseye``
 
     :underline:`Parameters`
 
     ``-d detached mode`` |br|
       You could start with ``-it`` if you want to see output. However don't forget to leave the component running (detach rather than close).
 
-    ``--name ap-nimbus-postgres`` |br|
+    ``--name name-postgres`` |br|
       This is the name given to the component, it can be seen when doing ``docker ps`` and is the hostname we use in settings for |client-direct|.
 
-    ``--net ap_nimbus_network`` |br|
+    ``--net ap-nimbus-network`` |br|
       Make sure the component is part of our docker network.
 
     ``--restart always`` |br|
       Should the component stop for whatever reason we want it to try and restart.
 
-    ``-v ap_nimbus_data:/var/lib/postgresql/data`` |br|
-      Link the docker volume ``ap_nimbus_data`` to the path inside the container where the database data is stored.
+    ``-v volume-postgres:/var/lib/postgresql/data`` |br|
+      Link the docker volume ``volume-postgres`` to the path inside the container where the database data is stored.
 
     ``--env-file env`` |br|
       Use the `Environment Variables`_ in the :file:`env` file.
