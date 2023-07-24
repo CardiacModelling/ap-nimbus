@@ -125,7 +125,7 @@ If you start a container using the ``docker run -d --name name-client ....`` you
 
 ::
 
-   docker exec -it $(docker inspect --format="{{.Id}}" ap-nimbus-client) /bin/bash
+   docker exec -it $(docker inspect --format="{{.Id}}" name-client) /bin/bash
 
 Therein you can access whichever parts of the application the user ``appredict`` has been granted access to (which would likely be
 determined by whatever has been assigned in the container's :file:`/etc/sudoers`, as determined by the container
