@@ -48,19 +48,23 @@ Submodule containing re-developed Django UI
 
 See: https://hub.docker.com/r/cardiacmodelling/ap-nimbus-client-direct
 
-## Discontinued work :
+## Discontinued/Archived work :
 
 ### `ap-nimbus-azure-durable-functions` 
 
 Test application for Azure durable function invocation of `ApPredict`.
+
+https://github.com/CardiacModelling/ap-nimbus-azure-durable-functions
 
 ### `ap-nimbus-datastore` Data store.
 
 Mongo-based microservice database (for use with `app-manager` and
 `client-direct`).
 
-See: https://hub.docker.com/r/cardiacmodelling/ap-nimbus-datastore
+https://github.com/CardiacModelling/ap-nimbus-datastore
 
 ### `ap-nimbus-deploy` Container orchestration
 
 Docker `compose`, `swarm` configs and `kubernetes` testing.
+
+https://github.com/CardiacModelling/ap-nimbus-deploy
