@@ -1,0 +1,7 @@
+# Documentation build dependencies.
+#
+# Pinned so local builds match the Read the Docs build.
+#
+# Sphinx 9.x requires Python >= 3.12, which .readthedocs.yaml pins.
+sphinx==9.1.0
+sphinx_rtd_theme==3.1.0
