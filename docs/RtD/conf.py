@@ -45,14 +45,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'AP-Nimbus'
-copyright = u'2024, University of Nottingham'
+copyright = u'2026, University of Nottingham'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '2.0.0'
+version = '2.1.0'
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -99,7 +99,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -258,25 +258,11 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-# Following courtesy of http://stackoverflow.com/questions/23211695/modifying-content-width-of-the-sphinx-theme-read-the-docs
-# Required a `pip install sphinx_rtd_theme`
+# Use the Read the Docs theme for local and hosted builds alike, so the two
+# match. Sphinx locates the theme via its entry point, so no import or
+# html_theme_path is needed. Installed via docs/requirements.txt.
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'                          
-                                                                                
-if not on_rtd:  # only import and set the theme if we're building docs locally  
-    import sphinx_rtd_theme                                                      
-    html_theme = 'sphinx_rtd_theme'                                              
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]                  
-    # Override default css to get a larger width for local build                
-    def setup(app):                                                              
-        #app.add_javascript("custom.js")                                        
-        app.add_css_file('style.css')
-else:                                                                            
-    # Override default css to get a larger width for ReadTheDoc build            
-    html_context = {                                                            
-        'css_files': [                                                          
-            'https://media.readthedocs.org/css/sphinx_rtd_theme.css',            
-            'https://media.readthedocs.org/css/readthedocs-doc-embed.css',      
-            '_static/style.css',                                      
-        ],                                                                      
-    }
+
+# Override the default css to get a larger content width.
+def setup(app):
+    app.add_css_file('style.css')
